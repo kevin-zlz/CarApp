@@ -9,11 +9,10 @@ import RevertLeft from './components/RevertLeft'
 import RevertRight from './components/RevertRight'
 import RevertBottom from './components/RevertBottom'
 import RevertTop from './components/RevertTop'
-import City from './components/City'
-import Time from './components/Time'
-import Strict from './components/Strict'
-import Calenlar from './components/Calenlar'
-import Province from './components/Province'
+import Drive from './components/Drive'
+import Drive2 from './components/Drive2'
+import Drive3 from './components/Drive3'
+import Dot from './components/Dot'
 Vue.config.productionTip = false;
 
 //注册全局组件
@@ -28,6 +27,11 @@ Vue.component('City',City);
 Vue.component('Strict',Strict);
 Vue.component('Calenlar',Calenlar);
 Vue.component('Province',Province);
+Vue.component('RevertTop',RevertTop);
+Vue.component('Drive',Drive);
+Vue.component('Drive2',Drive2);
+Vue.component('Drive3',Drive3);
+Vue.component('Dot',Dot);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
