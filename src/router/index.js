@@ -1,11 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Index1 from '@/components/Index1'
+import Index from '@/components/Index'
 import Login from '@/components/Login'
 import UpDataPwd from '@/components/UpDataPwd'
 import Regist from '@/components/Regist'
 import Revert from '@/components/Revert'
+import Answer from '@/components/Answer'
+import Drive from '@/components/Drive'
+import Drive2 from '@/components/Drive2'
+import Drive3 from '@/components/Drive3'
+import Dot from '@/components/Dot'
 
 Vue.use(Router)
 
@@ -18,8 +23,8 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'Index1',
-      component: Index1
+      name: 'Index',
+      component: Index
     },
     {
       path: '/Pwd',
@@ -35,6 +40,31 @@ export default new Router({
       path: '/revert',
       name: 'Revert',
       component: Revert
+    },
+    {
+      path: '/answer',
+      name: 'Answer',
+      component: Answer,
+    },
+    {
+      path: '/drive',
+      name: 'Drive',
+      component: Drive,
+    },
+    {
+      path: '/drive/drive2',
+      name: 'Drive2',
+      component: Drive2,
+    },
+    {
+      path: '/drive/drive3',
+      name: 'Drive3',
+      component: Drive3,
+    },
+    {
+      path: '/dot',
+      name: 'Dot',
+      component: Dot,
     }
   ]
 })
