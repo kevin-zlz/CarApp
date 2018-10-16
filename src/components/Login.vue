@@ -3,24 +3,24 @@
     <div class="main">
       <div class="main_background">
         <div class="main_content">
-          <div class="login_header">
-            <div class="tpt-bar">
+          <div class="login_header"  style="position: relative;left:-20%; ">
+            <div class="tpt-bar" >
               <input type="radio" name="bar" id="tab-1" checked="">
-              <label for="tab-1">登录</label>
+              <label for="tab-1" style="width: 50%;">登录</label>
               <div class="tpt-bar-con">
-                <div class="login1">
-                  <ul>
+                <div class="login1" >
+                  <ul >
                     <li class="li-1" style="position: relative"><img class="img1" src="../assets/images/用户.svg" alt="">
                       <input class="input1" type="text" placeholder="请输入用户名" id="wq2" v-model="userInfo.telephone" v-on:blur="a">
                       <span class="fff" v-text="tiShi.tishi1"></span>
                     </li>
-                    </br>
+                    <br/>
                     <li class="li-2"><img class="img2" src="../assets/images/密码.svg" alt="">
                       <input class="input2" type="text" placeholder="请输入密码" id="wq3" v-model="userInfo.password" v-on:blur="b">
                       <span class="fff2" v-text="tiShi.tishi2"></span>
                     </li>
                     <p class="eee">用户名或密码错误</p>
-                    </br>
+                    <br/>
                     <li class="li-3">
                       <input class="input3" type="checkbox" id="cb">
                       <label class="label1" for="cb">30天内自动登录</label>
@@ -32,7 +32,7 @@
                 <div class="login3"><span class="sp">还不是会员？</span><a class="a2" href="#">立即注册</a></div>
               </div>
               <input type="radio" name="bar" id="tab-2">
-              <label for="tab-2">手机动态登录</label>
+              <label for="tab-2" style="width: 50%">手机动态登录</label>
               <div class="tpt-bar-con">
                 <div class="login1">
                   <ul>
@@ -40,13 +40,13 @@
                       <input class="input1" type="text" placeholder="请输入用户名" id="wq4"  v-model="userInfo.telephone1" v-on:blur="c">
                       <span class="fff4" v-text="tiShi.tishi3"></span>
                     </li>
-                    </br>
+                    <br/>
                     <li class="li-4"><img class="img2" src="../assets/images/信封.svg" alt="">
                       <input class="input5" type="text" placeholder="请输入验证码">
-                      <input class="message" type="button" value="点击发送验证码" v-on:click="sendCode($event.target)"/>
+                      <input class="message" type="button" value="点击发送验证码"  v-on:click="sendCode($event.target)"/>
                       <!--<p class="message"><a href="#" class="a3" onclick="sendCode(this)">获取验证码</a></p>-->
                     </li>
-                    </br>
+                    <br/>
                     <li class="li-3">
                       <input class="input3" type="checkbox" id="cbx">
                       <label class="label1" for="cbx">30天内自动登录</label>
@@ -58,9 +58,7 @@
                 <div class="login3"><span class="sp">还不是会员？</span><a class="a2" href="#">立即注册</a></div>
               </div>
             </div>
-
           </div>
-
         </div>
         <div class="main_footer">
           <ul class="ul2">
@@ -247,6 +245,7 @@
 
   .main {
     width: 100%;
+    margin: auto;
     /*height: 900px;*/
     /*background: #dbff54;*/
   }
@@ -265,9 +264,9 @@
   .main_background .main_content {
     width: 356px;
     height: 373px;
-    background: #f3f4f6;
+    /*background: #f3f4f6;*/
     position: absolute;
-    left: 1000px;
+    left: 900px;
     top: 70px;
   }
 
@@ -284,7 +283,7 @@
   }
 
   .tpt-bar label {
-    width: 38.7%;
+    width: 50%;
     display: block;
     padding: 0 20px;
     height: 38px;
@@ -295,18 +294,19 @@
   }
 
   .tpt-bar .tpt-bar-con {
-    margin-top: 0px;
+    /*margin-top: 0px;*/
     z-index: 0;
     display: none;
-    margin-top: -1px;
+    /*margin-top: 1px;*/
     padding: 10px;
     width: 100%;
-    min-height: 120px;
+    min-height: 114px;
     border-top: 1px solid #e2e2e2;
     background: #fff;
     order: 99;
     height: 315px;
     position: relative;
+    top: -6px;
   }
 
   .tpt-bar input[type=radio] {
@@ -458,7 +458,7 @@
   }
 
   .message {
-    width: 120px;
+    width: 100px;
     height: 40px;
     background: #fffaea;
     margin-left: 200px;

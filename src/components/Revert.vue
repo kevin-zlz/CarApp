@@ -47,7 +47,7 @@
   }
   .container {
     height: auto;
-    width: 100%;
+    width: 90%;
     background-color: #f2f2f2;
   }
   .main{

@@ -7,16 +7,16 @@
           <router-link to="/" class="aaa">首页</router-link>
         </li>
         <li>
-          <router-link to="/1" class="aaa">上门取送</router-link>
+          <router-link to="/dot" class="aaa">门店</router-link>
         </li>
         <li>
           <router-link to="/revert" class="aaa">长租</router-link>
         </li>
         <li>
-          <router-link to="/1" class="aaa">企业租车</router-link>
+          <router-link to="/drive" class="aaa">自驾游</router-link>
         </li>
         <li class="aaa1">
-          <router-link to="/1" class="aaa">活动</router-link>
+          <router-link to="/answer" class="aaa">论坛</router-link>
         </li>
         <li>
           <router-link to="/login" class="aaa">登陆</router-link>

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="main-right-head">
-      <ul @click = 'changeColor'>
-        <li>短租自驾</li>
-        <li>工作日套餐(4天)</li>
-        <li>周租套餐(7-27天)</li>
-        <li>月租套餐(28天+)</li>
-        <li>年租套餐(365天)</li>
-      </ul>
-    </div>
+    <!--<div class="main-right-head">-->
+      <!--<ul @click = 'changeColor'>-->
+        <!--<li>短租自驾</li>-->
+        <!--<li>工作日套餐(4天)</li>-->
+        <!--<li>周租套餐(7-27天)</li>-->
+        <!--<li>月租套餐(28天+)</li>-->
+        <!--<li>年租套餐(365天)</li>-->
+      <!--</ul>-->
+    <!--</div>-->
     <div class="all_car" v-for="(car,index) in allCar" :id="index" v-bind:key="index">
       <table>
         <tr style="position: relative;top: 25px;">

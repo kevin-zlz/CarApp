@@ -2,7 +2,7 @@
   <div>
     <div class="left1">
       <span>车型</span>
-      <img src="../../static/images/qc.png" alt="">
+      <!--<img src="../../static/images/qc.png" alt="">-->
       <div class="left1-all" >
        <div class="left1-all1" v-for="(c,index) in car" :id="c.id" @click="change" >
          <img :src="src"  alt=""  :id="c.id">
@@ -44,7 +44,7 @@
         name: "RevertLeft",
         data:function () {
           return {
-            src:'../assets/images/qc.png',
+            src:'../../static/images/qc.png',
             car:[{"id":1,"content":"不限型"},
               {"id":2,"content":"经济型"},
               {"id":3,"content":"商务型"},
@@ -61,7 +61,7 @@
         },
       methods:{
         change:function (event) {
-          event.target.src = '../assets/images/cx_new.png';
+          event.target.src = '../../static/images/cx_new.png';
           // alert(event.target.id)
         },
         changePrice:function (event) {
