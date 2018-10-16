@@ -17,6 +17,11 @@ export default new Router({
       component: Login
     },
     {
+      path: '/helloWorld',
+      name: 'HelloWorld',
+      component: HelloWorld
+    },
+    {
       path: '/',
       name: 'Index1',
       component: Index1
