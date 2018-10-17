@@ -4,16 +4,19 @@
     <div class="main">
       <div class="left-main">
         <img src="../../static/images/index.png" alt="">
+        <!--<div class="city">-->
+          <!--<div>-->
+            <!--<img src="../../static/images/city_left.png" alt="">-->
+            <!--<span>云南</span>-->
+            <!--<img src="../../static/images/city_right.png" alt="">-->
+          <!--</div>-->
+          <!--<div>-->
+            <!--<ul>-->
+            <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
         <div class="city">
-          <div>
-            <img src="../../static/images/city_left.png" alt="">
-            <span>云南</span>
-            <img src="../../static/images/city_right.png" alt="">
-          </div>
-          <div>
-            <ul>
-            </ul>
-          </div>
+          <Province></Province>
         </div>
         <div class="left-main-bottom">
           <!--<a href="" style="text-decoration: none;color: white;">下一步</a>-->
@@ -96,7 +99,7 @@
   }
   .left-main .city{
     width: 100%;
-    height: 600px;
+    height: 500px;
     background-color: white;
     position: relative;
     top: 38px;

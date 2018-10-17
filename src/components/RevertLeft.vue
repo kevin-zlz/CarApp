@@ -71,9 +71,15 @@
         changeLiColor:function (event) {
           event.target.style.color='#fabe00';
           // alert(event.target.id)
-        }
+        },
+
+
+      },
+      mounted(){
       }
     }
+
+
 </script>
 
 <style scoped>

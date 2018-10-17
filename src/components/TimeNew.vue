@@ -89,10 +89,10 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    height: 48px;
-    border: none;
-    border-left: solid 1px gray ;
-    width: 178.5px;
+    height: 34px;
+    /*border: none;*/
+    /*border-left: solid 1px gray ;*/
+    width: 162px;
     padding-left: 8px;
   }
   .minute .minute-div{

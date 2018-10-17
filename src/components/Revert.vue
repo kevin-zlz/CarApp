@@ -5,7 +5,7 @@
     </div>
     <div class="main">
       <div class="left">
-        <RevertLeft @scroll = 'handleScroll'></RevertLeft>
+        <RevertLeft id="lefter" ></RevertLeft>
       </div>
       <div class="right">
         <RevertRight></RevertRight>
@@ -24,19 +24,20 @@
   import RevertBottom from '../components/RevertBottom'
     export default {
         name: "Revert",
+        data:function(){
+
+        },
         methods:{
-          handleScroll (event) {
-            var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-            // if(scrollTop>165 && scrollTop<1060){
-            //   event.style.top=scrollTop-190+'px';
-            // }
-            console.log(event.target)
+          handleScroll () {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+            if (scrollTop>195 && scrollTop<1005){
+              $("#lefter").css({'marginTop':scrollTop-210+'px'})
+            }
           },
         },
-      mounted () {
-
+      mounted:function () {
         window.addEventListener('scroll', this.handleScroll)
-      },
+      }
     }
 </script>
 
