@@ -11,6 +11,11 @@ import Drive from '@/components/Drive'
 import Drive2 from '@/components/Drive2'
 import Drive3 from '@/components/Drive3'
 import Dot from '@/components/Dot'
+import LongLoad from '@/components/LongLoad'
+import User from '@/components/User'
+import AnswerDetails from '@/components/AnswerDetails'
+import Questions from '@/components/Questions'
+import Retrieve from '@/components/Retrieve'
 
 Vue.use(Router)
 
@@ -70,6 +75,31 @@ export default new Router({
       path: '/dot',
       name: 'Dot',
       component: Dot,
-    }
+    },
+    {
+      path: '/wen',
+      name: 'Questions',
+      component: Questions,
+    },
+    {
+      path: '/retrieve',
+      name: 'Retrieve',
+      component: Retrieve,
+    },
+    {
+      path: '/long',
+      name: 'LongLoad',
+      component: LongLoad,
+    },
+    {
+      path: '/user',
+      name: 'User',
+      component: User,
+    },
+    {
+      path: '/det',
+      name: 'AnswerDetails',
+      component: AnswerDetails,
+    },
   ]
 })

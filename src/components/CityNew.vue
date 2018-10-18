@@ -593,15 +593,10 @@ export default {
     margin-left: 0;
     display: inline;
     padding-left: 8px;
-    height: 48px;
-    width: 164px;
-    border: none;
-    border-left:solid 1px gray ;
-  }
-  .s_city2{
-    display: inline;
     height: 30px;
-    width: 250px;
+    width: 90px;
+    /*border: none;*/
+    /*border-left:solid 1px gray ;*/
   }
   .select-city{
     position: absolute;

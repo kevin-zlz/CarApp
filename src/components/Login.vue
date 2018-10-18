@@ -266,7 +266,7 @@
     height: 373px;
     /*background: #f3f4f6;*/
     position: absolute;
-    left: 900px;
+    left: 1000px;
     top: 70px;
   }
 

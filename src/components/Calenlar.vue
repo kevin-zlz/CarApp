@@ -1,7 +1,7 @@
 <template>
 <div>
-  <div class="container">
-    <input class="mydatepicker" type="text" placeholder="请选择时间">
+  <div>
+    <input class="mydatepicker" type="text" placeholder="请选择日期">
   </div>
 </div>
 
@@ -45,41 +45,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .minute{
-    position: relative;
+  .mydatepicker{
+    border: none;
+    width: 163px;
+    padding-left: 8px;
+    height: 48px;
+    border-left: solid 1px gray;
   }
-  .minute .minute-input{
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 30px;
-    width: 70px;
-  }
-  .minute .minute-div{
-    background-color: white;
-    z-index: 3;
-    padding: 10px 0;
-    position: absolute;
-    left: 0;
-    top: 35px;
-    width: 350px;
-    /*height: 200px;*/
-    display: flex;
-    border: rgb(255, 210, 8) solid 1px;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: left;
-  }
-  .minute .minute-div .minute-select{
-    display: inline-block;
-    text-align: center;
-    width: 16.6%;
-    /*background-color: yellow;*/
-  }
-  .minute .minute-div .minute-select:hover{
-    background-color: rgb(255, 210, 8);
-    cursor: pointer;
-    color: white;
-  }
-
 </style>

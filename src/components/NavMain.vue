@@ -10,10 +10,13 @@
           <router-link to="/dot" class="aaa">门店</router-link>
         </li>
         <li>
-          <router-link to="/revert" class="aaa">长租</router-link>
+          <router-link to="/revert" class="aaa">短期自驾</router-link>
         </li>
         <li>
           <router-link to="/drive" class="aaa">自驾游</router-link>
+        </li>
+        <li>
+          <router-link to="/long" class="aaa">长租</router-link>
         </li>
         <li class="aaa1">
           <router-link to="/answer" class="aaa">论坛</router-link>
@@ -22,9 +25,8 @@
           <router-link to="/login" class="aaa">登陆</router-link>
           <span>/</span>
           <router-link to="/regist" class="aaa">注册</router-link>
-
         </li>
-        <li>我的神州</li>
+        <li><router-link to="/user" class="aaa">我的神州</router-link></li>
         <li><img class="bbb" src="../assets/images/电话.svg" alt=""><span class="bbb2">48888888</span></li>
       </ul>
     </div>

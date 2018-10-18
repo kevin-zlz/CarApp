@@ -1,8 +1,8 @@
 <template>
 <div>
-  <div class="inputs">
-    <select name="province" id="param_province" v-on:change="provincechange($event.target.selectedIndex)"><option>请选择省份</option></select><br/>
-    <select name="city" id="param_city"><option>请选择城市</option></select>
+  <div class="inputs" style="display: flex;">
+    <select name="province" class="select1 select" id="param_province" v-on:change="provincechange($event.target.selectedIndex)"><option>请选择省份</option></select><br/>
+    <select name="city" id="param_city" class="select2 select"><option>请选择城市</option></select>
   </div>
 </div>
 
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'Time',
+  name: 'Province',
   data () {
     return {
       inputtext:'',
@@ -131,41 +131,19 @@ function provincechange(n){
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .minute{
-    position: relative;
-  }
-  .minute .minute-input{
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 30px;
-    width: 70px;
-  }
-  .minute .minute-div{
-    background-color: white;
-    z-index: 3;
-    padding: 10px 0;
-    position: absolute;
-    left: 0;
-    top: 35px;
-    width: 350px;
-    /*height: 200px;*/
-    display: flex;
-    border: rgb(255, 210, 8) solid 1px;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: left;
-  }
-  .minute .minute-div .minute-select{
-    display: inline-block;
-    text-align: center;
-    width: 16.6%;
-    /*background-color: yellow;*/
-  }
-  .minute .minute-div .minute-select:hover{
-    background-color: rgb(255, 210, 8);
-    cursor: pointer;
-    color: white;
-  }
+.inputs{
+  width: 100%;
+  height: 100px;
+  margin-bottom: 100px;
+  margin-left: 100px;
+  /*background-color: red;*/
+  margin-top: 50px;
+}
+.select{
+  width: 300px;
+}
+.select1{
+  margin-right: 20px;
+}
 
 </style>

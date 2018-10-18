@@ -13,6 +13,11 @@
                 <span class="fff" v-text="tiShi.tishi1"></span>
               </li>
               </br>
+              <li class="li-2"><img class="img2" src="../assets/images/邮箱.svg" alt="">
+                <input class="input2" type="text" placeholder="请输入您的邮箱" v-model="userInfo.email" v-on:blur="e">
+                <span class="fff" v-text="tiShi.tishi5"></span>
+              </li>
+              </br>
               <li class="li-2"><img class="img2" src="../assets/images/手机.svg" alt="">
                 <input class="input2" type="text" placeholder="请输入您的手机号" v-model="userInfo.telephone" v-on:blur="b">
                 <span class="fff" v-text="tiShi.tishi2"></span>
@@ -25,11 +30,13 @@
               </li>
               </br>
               <li class="li-2"><img class="img2" src="../assets/images/密码.svg" alt="">
-                <input class="input2" type="text" placeholder="请输入密码">
+                <input class="input2" type="text" placeholder="请输入密码" v-model="userInfo.password" v-on:blur="c">
+                <span class="fff" v-text="tiShi.tishi3"></span>
               </li>
               </br>
               <li class="li-2"><img class="img2" src="../assets/images/密码.svg" alt="">
-                <input class="input2" type="text" placeholder="请再次确认密码">
+                <input class="input2" type="text" placeholder="请再次确认密码" v-model="userInfo.password1" v-on:blur="d">
+                <span class="fff" v-text="tiShi.tishi4"></span>
               </li>
               </br>
               <li class="li-3">
@@ -41,7 +48,7 @@
             </ul>
           </div>
           <div class="content2">
-            <p><span class="sp">已有账号？</span><a class="a2" href="#">立即登录</a></p>
+            <p><span class="sp">已有账号？</span><router-link to="/login" class="a2">立即登陆</router-link></p>
             <div><img src="../assets/images/tipsregist.png" alt=""></div>
           </div>
         </div>
@@ -132,67 +139,113 @@
 </template>
 
 <script>
-export default {
-  name: 'Regist',
-  data () {
-    return {
-      clock: '',
-      nums: 10,
-      btn: '',
-      tiShi:{
-        tishi1:'',
-        tishi2:'',
-        tishi3:'',
-      },
-      userInfo:{
-        name:'',
-        telephone:'',
-        password:'',
-      },
-    }
-  },
-  methods:{
-    sendCode:function (thisBtn) {
-      this.btn = thisBtn;
-      console.log(this.btn)
-      this.btn.disabled = true; //将按钮置为不可点击
-      this.btn.value = this.nums + '秒后可重新获取';
-      this.clock = setInterval(this.doLoop, 1000); //一秒执行一次
+  export default {
+    name: 'Regist',
+    data () {
+      return {
+        nums: 10,
+        tiShi:{
+          tishi1:'',
+          tishi2:'',
+          tishi3:'',
+          tishi4:'',
+          tishi5:'',
+        },
+        userInfo:{
+          name:'',
+          telephone:'',
+          password:'',
+          password1:'',
+          email:'',
+        },
+      }
     },
-    doLoop:function () {
-      this.nums--;
-      if (this.nums > 0) {
+    methods:{
+      sendCode:function (thisBtn) {
+        this.btn = thisBtn;
+        console.log(this.btn)
+        this.btn.disabled = true; //将按钮置为不可点击
         this.btn.value = this.nums + '秒后可重新获取';
-      } else {
-        clearInterval(this.clock); //清除js定时器
-        this.btn.disabled = false;
-        this.btn.value = '点击发送验证码';
-        this.nums = 10; //重置时间
+        this.clock = setInterval(this.doLoop, 1000); //一秒执行一次
+      },
+      doLoop:function () {
+        this.nums--;
+        if (this.nums > 0) {
+          this.btn.value = this.nums + '秒后可重新获取';
+        } else {
+          clearInterval(this.clock); //清除js定时器
+          this.btn.disabled = false;
+          this.btn.value = '点击发送验证码';
+          this.nums = 10; //重置时间
+        }
+      },
+      // 真实姓名
+      a(){
+        this.tiShi.tishi1= '';
+        var p=/^(([a-zA-Z+\.?\·?a-zA-Z+]{2,30}$)|([\u4e00-\u9fa5+\·?\u4e00-\u9fa5+]{2,30}$))/;
+        if (!this.userInfo.name) {
+          this.tiShi.tishi1='姓名不能为空';
+        }
+        else if(!p.test(this.userInfo.name)){
+          this.tiShi.tishi1="姓名格式错误"
+        }
+      },
+      b(){
+        this.tiShi.tishi2= '';
+        var p=/^1[34578]\d{9}$/;
+        if (!this.userInfo.telephone) {
+          this.tiShi.tishi2='用户名不能为空';
+        }
+        else if(!p.test(this.userInfo.telephone)){
+          this.tiShi.tishi2="请输入11位手机号"
+        }
+      },
+      c(){
+        this.tiShi.tishi3= '';
+        var p=/[a-zA-Z]\w[z0-9]/;
+        if (!this.userInfo.password) {
+          this.tiShi.tishi3='密码不能为空';
+        }
+        else if(!p.test(this.userInfo.password)){
+          this.tiShi.tishi3="由字母开头+数字"
+        }
+      },
+      d(){
+        this.tiShi.tishi4= '';
+        var p=/[a-zA-Z]\w[z0-9]/;
+        if (!this.userInfo.password1) {
+          this.tiShi.tishi4='密码不能为空';
+        }
+        else if(!p.test(this.userInfo.password1)){
+          this.tiShi.tishi4="由字母开头+数字"
+        }
+      },
+      e:function () {
+        this.tiShi.tishi5= '';
+        var p=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+        if (!this.userInfo.email) {
+          this.tiShi.tishi5='邮箱不能为空';
+        }
+        else if(!p.test(this.userInfo.email)){
+          this.tiShi.tishi5="邮箱格式不正确"
+        }
+      },
+      f:function () {
+        var username=this.userInfo.user;
+        var email=this.userInfo.email;
+        var telephone=this.userInfo.telephone;
+        var password=this.userInfo.password;
+        var data={
+          "uname":username,
+          "email":email,
+          "telephone":telephone,
+          "password":password,
+        };
+        axios.post('http://127.0.0.1:8000/user/regist/',data)
       }
-    },
-    // 真实姓名
-    a(){
-      this.tiShi.tishi1= '';
-      var p=/^(([a-zA-Z+\.?\·?a-zA-Z+]{2,30}$)|([\u4e00-\u9fa5+\·?\u4e00-\u9fa5+]{2,30}$))/;
-      if (!this.userInfo.name) {
-        this.tiShi.tishi1='姓名不能为空';
-      }
-      else if(!p.test(this.userInfo.name)){
-        this.tiShi.tishi1="姓名格式错误"
-      }
-    },
-    b(){
-      this.tiShi.tishi2= '';
-      var p=/^1[34578]\d{9}$/;
-      if (!this.userInfo.telephone) {
-        this.tiShi.tishi2='用户名不能为空';
-      }
-      else if(!p.test(this.userInfo.telephone)){
-        this.tiShi.tishi2="请输入11位手机号"
-      }
-    },
+    }
+
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
