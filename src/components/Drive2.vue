@@ -2,8 +2,8 @@
   <div class="container">
     <div class="top"></div>
     <div class="main">
-      <div class="left-main">
-        <img src="../../static/images/index2.png" alt="">
+      <div class="left-main" v-if="false">
+        <!--<img src="../../static/images/index2.png" alt="">-->
         <div>
           <span>出行时间:</span>
           <select class="year">
@@ -29,6 +29,27 @@
         </div>
         <div id="button">
           <router-link style="text-decoration: none;color: white;" to="/drive/drive3">下一步</router-link>
+        </div>
+      </div>
+      <div class="left-main" v-if="true" >
+        <!--<img src="../../static/images/index.png" alt="">-->
+        <!--<div class="city">-->
+        <!--<div>-->
+        <!--<img src="../../static/images/city_left.png" alt="">-->
+        <!--<span>云南</span>-->
+        <!--<img src="../../static/images/city_right.png" alt="">-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<ul>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="city">
+          <Province></Province>
+        </div>
+        <div class="left-main-bottom">
+          <!--<a href="" style="text-decoration: none;color: white;">下一步</a>-->
+          <router-link style="text-decoration: none;color: white;" to="/drive/drive2">下一步</router-link>
         </div>
       </div>
       <div class="right-main">
@@ -185,4 +206,9 @@
     border: solid 1px grey;
     line-height: 30px;
   }
+
+
+
+
+
 </style>
