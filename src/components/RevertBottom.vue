@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="all">
     <div class="leg">
       <dl class="explain">
         <dt>
@@ -89,6 +89,9 @@
 </script>
 
 <style scoped>
+  .all{
+    margin-top: 10px;
+  }
   .leg{
     width: 80%;
     height: 110px;

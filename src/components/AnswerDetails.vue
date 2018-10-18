@@ -7,10 +7,13 @@
         <div class="content">
           现如今，由于限牌还有油价上涨等因素的制约，越来越多的人选择使用新能源的交通工具，其中最被人们看好的，就是电动汽车。再者，随着电动汽车技术的突飞猛进，汽车的电动化也是一个未来大趋势。很多人出于无奈对燃油车可望而不可即，或者对电动车的追捧从而纷纷选择电动汽车，但是在购买电动车，尤其是纯电动车之前，这五件事必须要考虑清楚。
         </div>
-        <div class="zan">
+        <div class="zan" >
           <img src="../../static/images/zan.png" alt="">
           <span>1 <span>赞</span></span>
-          <img src="../../static/images/touxiang.jpg" alt="" class="touxiang">
+          <img src="" alt="" class="touxiang">
+          <div>
+            <span>Rose</span>
+          </div>
         </div>
       </div>
       <div class="main" style="display: flex">
@@ -21,7 +24,7 @@
               <span class="name">Rose</span>
               <span class="time">2018-10-09 15:48:42</span>
             </div>
-            <div class="neirong">就目前来看，传统车企的新能源汽车做得是相当不错。比如说吉利汽车，吉利汽车这几年进步十分巨大，不但是在传统燃油车领域的表现令人惊叹，在新能源汽车领域的表现同样也是表现抢眼，包括纯电动的帝豪EV450以及帝豪PHEV等车型的市场口碑和销量都很不错。另外，比亚迪汽车也是很优秀，旗下产品多样，而且产品线齐全，包括唐DM、元EV、秦EV以及宋DM等车型产品，都是产品力非常出彩的</div>
+            <div class="neirong">就目前来看，传统车企的新能源汽车做得是相当不错。</div>
           </div>
           <div class="pinglun-i">
             <div class="who">
@@ -29,7 +32,7 @@
               <span class="name">Rose</span>
               <span class="time">2018-10-09 15:48:42</span>
             </div>
-            <div class="neirong">就目前来看，传统车企的新能源汽车做得是相当不错。比如说吉利汽车，吉利汽车这几年进步十分巨大，不但是在传统燃油车领域的表现令人惊叹，在新能源汽车领域的表现同样也是表现抢眼，包括纯电动的帝豪EV450以及帝豪PHEV等车型的市场口碑和销量都很不错。另外，比亚迪汽车也是很优秀，旗下产品多样，而且产品线齐全，包括唐DM、元EV、秦EV以及宋DM等车型产品，都是产品力非常出彩的</div>
+            <div class="neirong">不但是在传统燃油车领域的表现令人惊叹，在新能源汽车领域的表现同样也是表现抢眼，包括纯电动的帝豪EV450以及帝豪PHEV等车型的市场口碑和销量都很不错。另外，比亚迪汽车也是很优秀，旗下产品多样，而且产品线齐全，包括唐DM、元EV、秦EV以及宋DM等车型产品，都是产品力非常出彩的</div>
           </div>
           <div class="pinglun-i">
             <div class="who">
@@ -55,7 +58,16 @@
           </div>
         </div>
       </div>
-
+      <div class="bottom">
+        <div class="bottom-header">
+          <div class="bottom-header-left"></div>
+          <span style="color: black;font-weight: 600;line-height: 40px;text-indent: 10px">本文精彩评论</span>
+        </div>
+        <div class="bottom-middle">
+          <textarea name="pinglun" id="" cols="104" rows="6.5" style="resize: none;"></textarea>
+          <button class="btn">提交</button>
+        </div>
+      </div>
     </div>
     <RevertBottom></RevertBottom>
   </div>
@@ -116,6 +128,7 @@
     width: 100%;
     height: auto;
     /*background-color: aqua;*/
+    margin-bottom: 20px;
   }
   .pinglun{
     width: 70%;
@@ -124,7 +137,7 @@
   }
   .pinglun-i{
     width: 85%;
-    height: 270px;
+    height: auto;
     background-color: white;
     margin-top: 20px;
     margin-left: 24px;
@@ -159,6 +172,7 @@
     display: flex;
     flex-wrap: wrap;
     font-size: 16px;
+    padding-bottom: 15px;
   }
   .tiwen{
     width: 30%;
@@ -198,5 +212,40 @@
     /*background-color: black;*/
     padding-left: 20px;
     padding-top: 10px;
+  }
+  .bottom{
+    width: 90%;
+    height: 200px;
+    background-color: white;
+    margin-bottom: 20px;
+  }
+  .bottom-header{
+    width: 100%;
+    display: flex;
+    height: 40px;
+    /*background-color: rgba(34, 167, 240, 0.09);*/
+  }
+  .bottom-header-left{
+    width: 20px;
+    height: 100%;
+    background-color: #22A7F0;
+  }
+  .bottom-middle{
+    margin-top: 20px;
+    width: auto;
+    height: 127px;
+    display: flex;
+    /*background-color: red;*/
+  }
+  .btn{
+    margin-left: 20px;
+    width: 150px;
+    height: 100px;
+    border-radius: 5px;
+    background-color: rgba(128, 128, 128, 0.52);
+    border: none;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
   }
 </style>
