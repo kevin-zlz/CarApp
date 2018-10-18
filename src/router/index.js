@@ -11,6 +11,8 @@ import Drive from '@/components/Drive'
 import Drive2 from '@/components/Drive2'
 import Drive3 from '@/components/Drive3'
 import Dot from '@/components/Dot'
+import Questions from '@/components/Questions'
+import Retrieve from '@/components/Retrieve'
 
 Vue.use(Router)
 
@@ -70,6 +72,16 @@ export default new Router({
       path: '/dot',
       name: 'Dot',
       component: Dot,
+    },
+    {
+      path: '/wen',
+      name: 'Questions',
+      component: Questions,
+    },
+    {
+      path: '/retrieve',
+      name: 'Retrieve',
+      component: Retrieve,
     }
   ]
 })

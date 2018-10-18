@@ -13,6 +13,11 @@ import Drive from './components/Drive'
 import Drive2 from './components/Drive2'
 import Drive3 from './components/Drive3'
 import Dot from './components/Dot'
+import Time from './components/Time'
+import City from './components/City'
+import Strict from './components/Strict'
+import Calenlar from './components/Calenlar'
+import Province from './components/Province'
 Vue.config.productionTip = false;
 
 //注册全局组件

@@ -10,6 +10,9 @@
           <router-link to="/dot" class="aaa">门店</router-link>
         </li>
         <li>
+          <router-link to="/car" class="aaa">到店取还</router-link>
+        </li>
+        <li>
           <router-link to="/revert" class="aaa">长租</router-link>
         </li>
         <li>
