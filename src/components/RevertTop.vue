@@ -3,23 +3,43 @@
     <div class="top-left">
       <div class="top-left1">
         <div class="top-left-span">取车</div>
-        <div><input type="text" placeholder="选择城市"></div>
-        <div><input type="text" placeholder="莫邪路店"></div>
+        <!--<div>-->
+          <!--<input type="text" placeholder="选择城市" style="background-color: red">-->
+        <!--</div>-->
+        <City style="height: 60px"></City>
+        <!--<div><input type="text" placeholder="莫邪路店"></div>-->
+        <Strict></Strict>
       </div>
       <div class="top-left2">
         <div class="top-left-span">取车时间</div>
-        <div><input type="text" placeholder="2018-09-15"></div>
-        <div><input type="text" placeholder="8:00~10:00"></div>
+        <!--<div>-->
+          <!--<input type="text" placeholder="2018-09-15">-->
+        <!--</div>-->
+        <Calenlar></Calenlar>
+        <div>
+          <!--<input type="text" placeholder="8:00~10:00">-->
+          <Time></Time>
+        </div>
       </div>
       <div class="top-left3">
         <div class="top-left-span">还车</div>
-        <div><input type="text" placeholder="选择城市"></div>
-        <div><input type="text" placeholder="莫邪路店"></div>
+        <div>
+          <!--<input type="text" placeholder="选择城市">-->
+          <City style="height: 60px"></City>
+        </div>
+        <!--<div><input type="text" placeholder="莫邪路店"></div>-->
+        <Strict></Strict>
       </div>
       <div class="top-left4">
         <div class="top-left-span">还车时间</div>
-        <div><input type="text" placeholder="2018-09-15"></div>
-        <div><input type="text" placeholder="8:00~10:00"></div>
+        <div>
+          <!--<input type="text" placeholder="2018-09-15">-->
+          <Calenlar></Calenlar>
+        </div>
+        <div>
+          <!--<input type="text" placeholder="8:00~10:00">-->
+          <Time></Time>
+        </div>
       </div>
     </div>
     <div class="top-right">

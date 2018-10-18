@@ -49,7 +49,6 @@
           {"carname":"凯迪拉克", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car8.jpg"},
           {"carname":"雪铁龙", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car9.jpg"},
           {"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
-          {"carname":"上汽大通", "cartype":"7座|2.0T沪牌|乘坐7人", "carprice":"￥69元","carimg":"./images/car1.jpg"},
         ]
           }
         },

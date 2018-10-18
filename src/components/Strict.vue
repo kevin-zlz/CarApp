@@ -1,7 +1,7 @@
 <template>
 <div>
-  <<div class="store-modle">
-  <input type="text" class="store-input" v-model="inputtext" @click="change()">
+  <div class="store-modle">
+  <input type="text" class="store-input" v-model="inputtext" @click="change()" placeholder="请选择区">
   <div class="store-div" v-if="flag">
     <ul class="street" @click="strictclick($event.target)">
       <li>姑苏区</li>
@@ -86,9 +86,12 @@ export default {
   .store-modle .store-input{
     position: absolute;
     left: 0;
-    height: 35px;
-    width: 255px;
+    height: 48px;
+    width: 178px;
     color: #757575;
+    border: none;
+    border-left: solid 1px gray;
+    padding-left: 8px;
   }
   .store-modle .store-div{
     z-index: 3;
