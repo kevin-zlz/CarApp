@@ -1,5 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -18,12 +19,17 @@ import City from './components/City'
 import Strict from './components/Strict'
 import Calenlar from './components/Calenlar'
 import Province from './components/Province'
-
 import LongLoad from './components/LongLoad'
 import User from './components/User'
 import TimeNew from './components/TimeNew'
 import CityNew from './components/CityNew'
 import AnswerDetails from './components/AnswerDetails'
+import SelectCarStyle from './components/SelectCarStyle'
+import SelectDay from './components/SelectDay'
+import UpDataPwd from './components/UpDataPwd'
+import LongHire from './components/LongHire'
+import Order from './components/Order'
+import Information from './components/Information'
 
 Vue.config.productionTip = false;
 
@@ -50,6 +56,12 @@ Vue.component('User',User);
 Vue.component('TimeNew',TimeNew);
 Vue.component('CityNew',CityNew);
 Vue.component('AnswerDetails',AnswerDetails);
+Vue.component('SelectDay',SelectDay);
+Vue.component('SelectCarStyle',SelectCarStyle);
+Vue.component('UpDataPwd',UpDataPwd);
+Vue.component('LongHire',LongHire);
+Vue.component('Order',Order);
+Vue.component('Information',Information);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
