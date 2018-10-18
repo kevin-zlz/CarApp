@@ -18,6 +18,7 @@ import City from './components/City'
 import Strict from './components/Strict'
 import Calenlar from './components/Calenlar'
 import Province from './components/Province'
+
 import LongLoad from './components/LongLoad'
 import User from './components/User'
 import TimeNew from './components/TimeNew'

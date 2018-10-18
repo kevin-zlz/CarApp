@@ -292,7 +292,7 @@ export default {
   }
   .tiShi{
     position: absolute;
-    left: 429px;
+    left: 421px;
     color: red;
     font-size: 12px;
   }
@@ -305,5 +305,4 @@ export default {
   .ccc3{
     color: red!important;
   }
-
 </style>
