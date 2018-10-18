@@ -2,7 +2,7 @@
   <div class="header">
     <div class="header_content">
       <ul>
-        <li><a href="https://www.zuche.com/"><img src="../assets/images/logo.png" alt=""></a></li>
+        <li><a href="https://www.zuche.com/"><img src="../assets/images/1111111.png" alt=""></a></li>
         <li>
           <router-link to="/" class="aaa">首页</router-link>
         </li>
@@ -26,7 +26,7 @@
           <span>/</span>
           <router-link to="/regist" class="aaa">注册</router-link>
         </li>
-        <li><router-link to="/user" class="aaa">我的神州</router-link></li>
+        <li><router-link to="/user" class="aaa">我的永安</router-link></li>
         <li><img class="bbb" src="../assets/images/电话.svg" alt=""><span class="bbb2">48888888</span></li>
       </ul>
     </div>

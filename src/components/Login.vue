@@ -24,12 +24,15 @@
                     <li class="li-3">
                       <input class="input3" type="checkbox" id="cb">
                       <label class="label1" for="cb">30天内自动登录</label>
-                      <a href="#" class="a1">忘记密码?</a>
+                      <router-link to="/retrieve" class="a1">忘记密码?</router-link>
                     </li>
                   </ul>
                 </div>
                 <div class="login2"><input type="submit" class="input4" value="登录"></div>
-                <div class="login3"><span class="sp">还不是会员？</span><a class="a2" href="#">立即注册</a></div>
+                <div class="login3">
+                  <span class="sp">还不是会员？</span>
+                  <router-link to="/regist" class="a2">立即注册?</router-link>
+                </div>
               </div>
               <input type="radio" name="bar" id="tab-2">
               <label for="tab-2" style="width: 50%">手机动态登录</label>
@@ -50,12 +53,17 @@
                     <li class="li-3">
                       <input class="input3" type="checkbox" id="cbx">
                       <label class="label1" for="cbx">30天内自动登录</label>
-                      <a href="#" class="a1">忘记密码?</a>
+                      <router-link to="/retrieve" class="a1">忘记密码?</router-link>
+                      <!--<a href="#" class="a1">忘记密码?</a>-->
+
                     </li>
                   </ul>
                 </div>
                 <div class="login2"><input type="button" class="input4" value="登录"></div>
-                <div class="login3"><span class="sp">还不是会员？</span><a class="a2" href="#">立即注册</a></div>
+                <div class="login3">
+                  <span class="sp">还不是会员？</span>
+                  <router-link to="/regist" class="a2">立即注册?</router-link>
+                </div>
               </div>
             </div>
           </div>
