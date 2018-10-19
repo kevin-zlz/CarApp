@@ -133,14 +133,14 @@ function provincechange(n){
 <style scoped>
 .inputs{
   width: 100%;
-  height: 100px;
+  height: 50px;
   margin-bottom: 100px;
   margin-left: 100px;
   /*background-color: red;*/
   margin-top: 50px;
 }
 .select{
-  width: 300px;
+  width: 200px;
 }
 .select1{
   margin-right: 20px;

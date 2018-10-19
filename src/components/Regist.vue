@@ -6,45 +6,45 @@
           <div class="content1">
             <ul>
               <li> <h1>注册新用户</h1></li>
-              </br>
+              <br/>
               <li>
                 <img class="img1" src="../assets/images/用户.svg" alt="">
                 <input class="input2" type="text" placeholder="请输入您的真实姓名" v-model="userInfo.name" v-on:blur="a">
                 <span class="fff" v-text="tiShi.tishi1"></span>
               </li>
-              </br>
+              <br/>
               <li class="li-2"><img class="img2" src="../assets/images/邮箱.svg" alt="">
                 <input class="input2" type="text" placeholder="请输入您的邮箱" v-model="userInfo.email" v-on:blur="e">
                 <span class="fff" v-text="tiShi.tishi5"></span>
               </li>
-              </br>
+              <br/>
               <li class="li-2"><img class="img2" src="../assets/images/手机.svg" alt="">
                 <input class="input2" type="text" placeholder="请输入您的手机号" v-model="userInfo.telephone" v-on:blur="b">
                 <span class="fff" v-text="tiShi.tishi2"></span>
               </li>
-              </br>
+              <br/>
               <li class="li-2"><img class="img2" src="../assets/images/信封.svg" alt="">
                 <input class="input5" type="text" placeholder="请输入动态码">
                 <input class="message" type="button" value="点击发送验证码" v-on:click="sendCode($event.target)"/>
                 <!--<p class="message"><a href="#" class="a3">获取验证码</a></p>-->
               </li>
-              </br>
+              <br/>
               <li class="li-2"><img class="img2" src="../assets/images/密码.svg" alt="">
-                <input class="input2" type="text" placeholder="请输入密码" v-model="userInfo.password" v-on:blur="c">
+                <input class="input2" type="password" placeholder="请输入密码" v-model="userInfo.password" v-on:blur="c">
                 <span class="fff" v-text="tiShi.tishi3"></span>
               </li>
-              </br>
+              <br/>
               <li class="li-2"><img class="img2" src="../assets/images/密码.svg" alt="">
-                <input class="input2" type="text" placeholder="请再次确认密码" v-model="userInfo.password1" v-on:blur="d">
+                <input class="input2" type="password" placeholder="请再次确认密码" v-model="userInfo.password1" v-on:blur="d">
                 <span class="fff" v-text="tiShi.tishi4"></span>
               </li>
-              </br>
+              <br/>
               <li class="li-3">
                 <input class="input3"  type="checkbox" id="cb">
                 <label class="label1" for="cb" >我已阅读并同意</label>
                 <a href="#" class="a1">《神州租车会员服务条款》</a>
               </li>
-              <div class="login2"><input type="submit" class="input4" value="注册"></div>
+              <div class="login2"><input type="submit" class="input4" value="注册" @click="reg"></div>
             </ul>
           </div>
           <div class="content2">
@@ -139,6 +139,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     name: 'Regist',
     data () {
@@ -161,6 +162,31 @@
       }
     },
     methods:{
+      reg:function () {
+        // alert(this.userInfo.name);
+        // alert(this.userInfo.telephone);
+        // alert(this.userInfo.password);
+        // alert(this.userInfo.email);
+        var vm = this;
+        axios.post("http://127.0.0.1:8000/user/regist/",
+          {"uname":vm.userInfo.name,"telephone":vm.userInfo.telephone,
+            "password":vm.userInfo.password,"email":vm.userInfo.email
+          },{
+            // headers: {
+            //   'Content-Type': 'application/json',
+            // }
+          })
+          .then(function (res) {
+            if(res.data.code==='808'){
+              this.$router.push('Login');
+            }
+          }.bind(this))
+          .catch(function (err) {
+            if (err.response) {
+              console.log(err.response)
+            }
+          }.bind(this))
+      },
       sendCode:function (thisBtn) {
         this.btn = thisBtn;
         console.log(this.btn)
