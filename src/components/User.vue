@@ -36,6 +36,7 @@
             <div id="info_detail" class="nav-content" @click="show">我的信息</div>
             <div id="login-psw"  class="nav-content" @click="show">修改密码</div>
             <div class="nav-content">驾照认证</div>
+            <div class="nav-content">修改图像</div>
           </div>
           <div class="nav">
             <div class="nav-title">我的收藏</div>
@@ -191,7 +192,7 @@
     top: 20px;
     position: absolute;
     width: 24%;
-    height: 783px;
+    height: auto;
     border: #d4d5d8 solid 1px;
     /*left: 80px;*/
     margin-bottom: 30px;

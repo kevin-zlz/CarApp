@@ -16,6 +16,7 @@ import Questions from '@/components/Questions'
 import Retrieve from '@/components/Retrieve'
 import Dic from '@/components/Dic'
 import CarDetail from '@/components/CarDetail'
+import UpHead from '@/components/UpHead'
 
 Vue.use(Router)
 
