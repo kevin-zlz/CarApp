@@ -1,7 +1,7 @@
 <template>
 <div>
   <div>
-    <input class="mydatepicker" type="text" placeholder="请选择日期">
+    <input class="mydatepicker"  v-model="date" type="text" placeholder="请选择日期" @change="" @click="test($event)">
   </div>
 </div>
 
@@ -16,18 +16,33 @@
 
 
 export default {
+  // props:'date',
   name: 'Time',
   data () {
     return {
       inputtext:'',
       flag:false,
+      date:''
+    }
+  },
+  watch:{
+    date:function (newval) {
+      $emit('changeDate',)
     }
   },
   mounted:function(){
     $('.mydatepicker').dcalendarpicker({
-      format:'yyyy-mm-dd'
-    });
+     format:'yyyy-mm-dd'
+   });
   },
+  methods:{
+    test:function (e) {
+      console.log(e.target.value);
+      this.date=e.target.value
+
+      // $emit('changeDate',date)
+    }
+  }
   // methods:{
   //   change:function(){
   //     this.flag=!this.flag;
@@ -46,6 +61,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .mydatepicker{
+    outline: none;
     border: none;
     width: 163px;
     padding-left: 8px;
