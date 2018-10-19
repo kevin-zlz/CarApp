@@ -75,7 +75,10 @@
 
 <script>
     export default {
-        name: "AnswerDetails"
+        name: "AnswerDetails",
+        methods:{
+
+        }
     }
 </script>
 

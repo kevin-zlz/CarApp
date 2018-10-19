@@ -15,6 +15,7 @@ import AnswerDetails from '@/components/AnswerDetails'
 import Questions from '@/components/Questions'
 import Retrieve from '@/components/Retrieve'
 import Dic from '@/components/Dic'
+import CarDetail from '@/components/CarDetail'
 
 Vue.use(Router)
 
@@ -94,6 +95,11 @@ export default new Router({
       path: '/dic',
       name: 'Dic',
       component: Dic,
+    },
+    {
+      path: '/revert/car',
+      name: 'CarDetail',
+      component: CarDetail,
     },
   ]
 })

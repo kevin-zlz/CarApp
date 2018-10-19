@@ -91,6 +91,7 @@
 <style scoped>
   .all{
     margin-top: 10px;
+    height: auto;
   }
   .leg{
     width: 80%;

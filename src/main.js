@@ -29,6 +29,7 @@ import UpDataPwd from './components/UpDataPwd'
 import LongHire from './components/LongHire'
 import Order from './components/Order'
 import Information from './components/Information'
+import CarDetail from './components/CarDetail'
 
 Vue.config.productionTip = false;
 
@@ -59,6 +60,7 @@ Vue.component('UpDataPwd',UpDataPwd);
 Vue.component('LongHire',LongHire);
 Vue.component('Order',Order);
 Vue.component('Information',Information);
+Vue.component('CarDetail',CarDetail);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -586,8 +586,8 @@
         // console.log(newval,oldval);
         alert(newval);
         let vm=this;
-        axios.post("http://127.0.0.1:8000/user/test/",
-          {'city': newval
+        axios.post("http://127.0.0.1:8000/car/querycitystore/",
+          {'cityname': newval
           },{
             // headers: {
             //   'Content-Type': 'application/json',
