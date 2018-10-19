@@ -194,6 +194,7 @@
             if(res.data.code==='808'){
               console.log(res)
               sessionStorage.setItem("token",res.headers.token);
+              sessionStorage.setItem("telephone",vm.userInfo.telephone);
               this.$router.push('Revert')
             }
           }.bind(this))

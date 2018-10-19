@@ -46,6 +46,7 @@ export default {
   methods:{
     back:function () {
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('telephone');
       this.flag=true;
     }
   },
