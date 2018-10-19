@@ -4,44 +4,44 @@
       <div class="top">
         <!--<div class="title"> <b style="font-size: 20px">买新能源车要注意哪些事项呢？</b></div>-->
         <!--<div class="person">提问者: <span style="color: black">Jack</span></div>-->
-        <div class="content">
+        <div class="content" v-text="aritical.content">
           现如今，由于限牌还有油价上涨等因素的制约，越来越多的人选择使用新能源的交通工具，其中最被人们看好的，就是电动汽车。再者，随着电动汽车技术的突飞猛进，汽车的电动化也是一个未来大趋势。很多人出于无奈对燃油车可望而不可即，或者对电动车的追捧从而纷纷选择电动汽车，但是在购买电动车，尤其是纯电动车之前，这五件事必须要考虑清楚。
         </div>
         <div class="zan" >
           <img src="../../static/images/zan.png" alt="">
-          <span>1 <span>赞</span></span>
+          <span v-text="aritical.starnum"> 1 <span>赞</span></span>
           <img src="" alt="" class="touxiang">
           <div>
-            <span>Rose</span>
+            <span v-for="star in starlist" v-text="star.liker__uname">Rose</span>
           </div>
         </div>
       </div>
       <div class="main" style="display: flex">
         <div class="pinglun">
-          <div class="pinglun-i">
+          <div class="pinglun-i" v-for="commener in commenlist">
             <div class="who">
               <img src="../../static/images/touxiang.jpg" alt="">
-              <span class="name">Rose</span>
-              <span class="time">2018-10-09 15:48:42</span>
+              <span class="name" v-text="commener.commener__uname">Rose</span>
+              <span class="time" v-text="commener.pubtime">2018-10-09 15:48:42</span>
             </div>
-            <div class="neirong">就目前来看，传统车企的新能源汽车做得是相当不错。</div>
+            <div class="neirong" v-text="commener.content">就目前来看，传统车企的新能源汽车做得是相当不错。</div>
           </div>
-          <div class="pinglun-i">
-            <div class="who">
-              <img src="../../static/images/touxiang.jpg" alt="">
-              <span class="name">Rose</span>
-              <span class="time">2018-10-09 15:48:42</span>
-            </div>
-            <div class="neirong">不但是在传统燃油车领域的表现令人惊叹，在新能源汽车领域的表现同样也是表现抢眼，包括纯电动的帝豪EV450以及帝豪PHEV等车型的市场口碑和销量都很不错。另外，比亚迪汽车也是很优秀，旗下产品多样，而且产品线齐全，包括唐DM、元EV、秦EV以及宋DM等车型产品，都是产品力非常出彩的</div>
-          </div>
-          <div class="pinglun-i">
-            <div class="who">
-              <img src="../../static/images/touxiang.jpg" alt="">
-              <span class="name">Rose</span>
-              <span class="time">2018-10-09 15:48:42</span>
-            </div>
-            <div class="neirong">就目前来看，传统车企的新能源汽车做得是相当不错。比如说吉利汽车，吉利汽车这几年进步十分巨大，不但是在传统燃油车领域的表现令人惊叹，在新能源汽车领域的表现同样也是表现抢眼，包括纯电动的帝豪EV450以及帝豪PHEV等车型的市场口碑和销量都很不错。另外，比亚迪汽车也是很优秀，旗下产品多样，而且产品线齐全，包括唐DM、元EV、秦EV以及宋DM等车型产品，都是产品力非常出彩的</div>
-          </div>
+          <!--<div class="pinglun-i">-->
+            <!--<div class="who">-->
+              <!--<img src="../../static/images/touxiang.jpg" alt="">-->
+              <!--<span class="name">Rose</span>-->
+              <!--<span class="time">2018-10-09 15:48:42</span>-->
+            <!--</div>-->
+            <!--<div class="neirong">不但是在传统燃油车领域的表现令人惊叹，在新能源汽车领域的表现同样也是表现抢眼，包括纯电动的帝豪EV450以及帝豪PHEV等车型的市场口碑和销量都很不错。另外，比亚迪汽车也是很优秀，旗下产品多样，而且产品线齐全，包括唐DM、元EV、秦EV以及宋DM等车型产品，都是产品力非常出彩的</div>-->
+          <!--</div>-->
+          <!--<div class="pinglun-i">-->
+            <!--<div class="who">-->
+              <!--<img src="../../static/images/touxiang.jpg" alt="">-->
+              <!--<span class="name">Rose</span>-->
+              <!--<span class="time">2018-10-09 15:48:42</span>-->
+            <!--</div>-->
+            <!--<div class="neirong">就目前来看，传统车企的新能源汽车做得是相当不错。比如说吉利汽车，吉利汽车这几年进步十分巨大，不但是在传统燃油车领域的表现令人惊叹，在新能源汽车领域的表现同样也是表现抢眼，包括纯电动的帝豪EV450以及帝豪PHEV等车型的市场口碑和销量都很不错。另外，比亚迪汽车也是很优秀，旗下产品多样，而且产品线齐全，包括唐DM、元EV、秦EV以及宋DM等车型产品，都是产品力非常出彩的</div>-->
+          <!--</div>-->
         </div>
         <div class="tiwen">
           <!--<div class="tiwen-jianjie">提问者简介</div>-->
@@ -65,7 +65,7 @@
         </div>
         <div class="bottom-middle">
           <textarea name="pinglun" id="" cols="104" rows="6.5" style="resize: none;"></textarea>
-          <button class="btn">提交</button>
+          <button class="btn" @click="commitcommmen(aritical.id)">提交</button>
         </div>
       </div>
     </div>
@@ -74,8 +74,129 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
-        name: "AnswerDetails"
+        name: "AnswerDetails",
+        methods:{
+          commitcommmen:function (e) {
+            let vm=this
+            console.log('aaa')
+            if(sessionStorage.getItem('token')){
+              sessionStorage.setItem('frompagepath','/det')
+
+              axios.post("http://127.0.0.1:8000/boke/addComment/",
+                {
+                  'aid':vm.aritical.id,
+                  'content':'',
+                  'uid':'',
+                },{
+                  // headers: {
+                  //   'Content-Type': 'application/json',
+                  // }
+                })
+                .then(function (res) {
+                  if(res.data){
+                    console.log(res.data)
+                    vm.aritical=res.data[0]
+                    console.log(vm.aritical);
+                    // vm.articallist=res.data
+
+                  }
+                }.bind(this))
+                .catch(function (err) {
+                  if (err.response) {
+                    console.log(err.response)
+                  }
+                }.bind(this))
+
+
+            }else{
+              console.log('ccc')
+              this.$router.push({path: '/login', query: {selected: e}});
+            }
+          }
+
+        },
+        data () {
+        return {
+          aritical:{},
+          commenlist:[],
+          starlist:[]
+        }
+      },
+        mounted:function () {
+        let vm=this
+        axios.post("http://127.0.0.1:8000/boke/queryAriticalByaid/",
+          {
+            'aid':vm.$route.query.selected
+          },{
+            // headers: {
+            //   'Content-Type': 'application/json',
+            // }
+          })
+          .then(function (res) {
+            if(res.data){
+              console.log(res.data)
+              vm.aritical=res.data[0]
+              console.log(vm.aritical);
+              // vm.articallist=res.data
+
+            }
+          }.bind(this))
+          .catch(function (err) {
+            if (err.response) {
+              console.log(err.response)
+            }
+          }.bind(this))
+
+          axios.post("http://127.0.0.1:8000/boke/queryCommentbyaid/",
+            {
+              'aid':vm.$route.query.selected
+            },{
+              // headers: {
+              //   'Content-Type': 'application/json',
+              // }
+            })
+            .then(function (res) {
+              if(res.data){
+                console.log(res.data)
+                vm.commenlist=res.data
+                console.log(vm.commenlist);
+                // vm.articallist=res.data
+
+              }
+            }.bind(this))
+            .catch(function (err) {
+              if (err.response) {
+                console.log(err.response)
+              }
+            }.bind(this))
+
+          axios.post("http://127.0.0.1:8000/boke/queryLikebyaid/",
+            {
+              'aid':vm.$route.query.selected
+            },{
+              // headers: {
+              //   'Content-Type': 'application/json',
+              // }
+            })
+            .then(function (res) {
+              if(res.data){
+                console.log(res.data)
+                vm.starlist=res.data
+                console.log(vm.starlist);
+                // vm.articallist=res.data
+
+              }
+            }.bind(this))
+            .catch(function (err) {
+              if (err.response) {
+                console.log(err.response)
+              }
+            }.bind(this))
+
+      }
+
     }
 </script>
 
