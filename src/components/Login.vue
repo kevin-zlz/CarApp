@@ -157,7 +157,6 @@
 
 <script>
   export default {
-
     name: 'Login',
     data() {
       return {
@@ -179,7 +178,7 @@
     methods: {
       sendCode:function (thisBtn) {
           this.btn = thisBtn;
-          console.log(this.btn)
+          console.log(this.btn);
           this.btn.disabled = true; //将按钮置为不可点击
           this.btn.value = this.nums + '秒后可重新获取';
           this.clock = setInterval(this.doLoop, 1000); //一秒执行一次

@@ -17,6 +17,7 @@ import AnswerDetails from '@/components/AnswerDetails'
 import Questions from '@/components/Questions'
 import Retrieve from '@/components/Retrieve'
 import Dic from '@/components/Dic'
+import UpHead from '@/components/UpHead'
 
 Vue.use(Router)
 
@@ -106,6 +107,11 @@ export default new Router({
       path: '/dic',
       name: 'Dic',
       component: Dic,
+    },
+    {
+      path: '/upherd',
+      name: 'UpHead',
+      component: UpHead,
     },
   ]
 })
