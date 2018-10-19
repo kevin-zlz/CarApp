@@ -178,6 +178,7 @@
           })
           .then(function (res) {
             if(res.data.code==='808'){
+              sessionStorage.setItem('telephone',vm.userInfo.telephone)
               this.$router.push('Login');
             }
           }.bind(this))

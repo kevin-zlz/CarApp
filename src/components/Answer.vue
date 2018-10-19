@@ -4,8 +4,8 @@
       <div style="display: flex">
 
         <img src="../../static/images/ans.png" alt="">
-        <div class="reply">
-          我要提问
+        <div class="reply" @click="replay()">
+          我要发表
         </div>
       </div>
 
@@ -49,7 +49,16 @@
     methods:{
         seemore:function (e) {
           this.$router.push({path: '/det', query: {selected: e}});
+        },
+      replay:function (e) {
+        let vm=this
+        if(sessionStorage.getItem('token')){
+          // sessionStorage.setItem('frompagepath','/det')
+          this.$router.push({path: '/wen', query: {selected: e}});
+        }else{
+          this.$router.push({path: '/login', query: {selected: e}});
         }
+      }
       },
     data () {
       return {

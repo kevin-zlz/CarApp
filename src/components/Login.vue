@@ -194,6 +194,7 @@
             if(res.data.code==='808'){
               console.log(res)
               sessionStorage.setItem("token",res.headers.token);
+              sessionStorage.setItem('telephone',vm.userInfo.telephone)
               this.$router.push('Revert')
             }
           }.bind(this))
@@ -300,7 +301,7 @@
     height: 373px;
     /*background: #f3f4f6;*/
     position: absolute;
-    left: 1000px;
+    left: 900px;
     top: 70px;
   }
 
