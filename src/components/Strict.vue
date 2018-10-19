@@ -4,32 +4,34 @@
   <input type="text" class="store-input" v-model="inputtext" @click="change()" placeholder="请选择区">
   <div class="store-div" v-if="flag">
     <ul class="street" @click="strictclick($event.target)">
-      <li>姑苏区</li>
-      <li>苏州工业园区</li>
-      <li>姑苏区</li>
-      <li>苏州工业园区</li>
+      <li v-for="(a,index) in area" v-text="a.strictname" v-bind:key="index" :id="index" @click="get"></li>
     </ul>
     <ul class="store-name" @click="storeclick($event.target)">
-      <li><span class="store-strict">姑苏区</span></li>
-      <li><span class="store-strict">苏州工业园区</span></li>
-      <li><span class="store-strict">姑苏区</span></li>
-      <li><span class="store-strict">苏州工业园区</span></li>
-      <li><span class="store-strict">姑苏区</span></li>
-      <li><span class="store-strict">苏州工业园区</span></li>
-      <li><span class="store-strict">姑苏区</span></li>
-      <li><span class="store-strict">苏州工业园区</span></li>
-      <li><span class="store-strict">姑苏区</span></li>
-      <li><span class="store-strict">苏州工业园区</span></li>
-      <li><span class="store-strict">姑苏区</span></li>
-      <li><span class="store-strict">苏州工业园区</span></li>
-      <li><span class="store-strict">姑苏区</span></li>
-      <li><span clsss="store-strict">苏州工业园区</span></li>
+      <!--<li><span class="store-strict">姑苏区</span></li>-->
+      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
+      <!--<li><span class="store-strict">姑苏区</span></li>-->
+      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
+      <!--<li><span class="store-strict">姑苏区</span></li>-->
+      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
+      <!--<li><span class="store-strict">姑苏区</span></li>-->
+      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
+      <!--<li><span class="store-strict">姑苏区</span></li>-->
+      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
+      <!--<li><span class="store-strict">姑苏区</span></li>-->
+      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
+      <!--<li><span class="store-strict">姑苏区</span></li>-->
+      <!--<li><span clsss="store-strict">苏州工业园区</span></li>-->
+      <li v-for="(s,index) in strict" :id="index" :key="index">
+        <span clsss="store-strict" v-text="s.storename"></span>
+      </li>
     </ul>
+
     <div class="store-base">
       <p>地址：<span>工业园区星湖街328号</span></p>
       <p>营业时间：<span>9:00-18:00</span></p>
       <p>门店电话：<span>18112556043</span></p>
     </div>
+
   </div>
 </div>
 </div>
@@ -38,14 +40,35 @@
 
 <script>
 export default {
+  props:['area'],
   name: 'Strict',
   data () {
     return {
       inputtext:'',
       flag:false,
+      strict:[],
     }
   },
+  watch:{
+    area:function () {
+      console.log("子组件",this.area);
+      for(var a  of this.area){
+        console.log("循环",a.stores);
+        // console.log("循环",a.strictname);
+      }
+    },
+  },
   methods:{
+    get:function(event){
+      for(var a  of this.area){
+        if(a.strictname == event.target.innerText){
+            this.strict = a.stores;
+            console.log(this.strict)
+            break;
+        }
+      }
+      // this.strict = event.target.innerText
+    },
     change:function(){
       this.flag=!this.flag;
     },

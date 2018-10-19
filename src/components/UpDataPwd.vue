@@ -133,7 +133,7 @@ export default {
   }
   .info{
     width: 924px;
-    height:940px;
+    height:auto;
     border: #e9ebee solid 1px;
     padding: 0px 20px ;
     background-color: white;

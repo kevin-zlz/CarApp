@@ -6,9 +6,9 @@
         <!--<div>-->
           <!--<input type="text" placeholder="选择城市" style="background-color: red">-->
         <!--</div>-->
-        <City style="height: 60px"></City>
+        <City style="height: 60px" v-on:spot="spot"></City>
         <!--<div><input type="text" placeholder="莫邪路店"></div>-->
-        <Strict></Strict>
+        <Strict :area = 'res'></Strict>
       </div>
       <div class="top-left2">
         <div class="top-left-span">取车时间</div>
@@ -52,7 +52,18 @@
 <script>
     export default {
         name: "RevertTop",
-
+        data () {
+          return {
+            res:[],
+          }
+        },
+        methods:{
+          spot:function(res){
+            this.res = res;
+            console.log(res);
+            // console.log("父组件",this.res);
+          }
+        }
     }
 </script>
 

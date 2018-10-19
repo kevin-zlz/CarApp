@@ -20,7 +20,8 @@
           <div class="lease" id="lease">
             <!--<input type="text" class="s_lease" placeholder="请选择">-->
             <div class="select_days" style="top:0px">
-              <input type="text" id="lend_days" placeholder="请选择" readonly="">
+              <!--<input type="text" id="lend_days" placeholder="请选择" readonly="">-->
+              <SelectDay></SelectDay>
             </div>
           </div>
           <label for="time" id="label_time">取车时间</label>
@@ -33,19 +34,8 @@
           <div class="carModel" id="carModel">
 
             <div class="select_carStyle" style="top:0px;left: 0px">
-              <input type="text" id="select_style" placeholder="请选择" readonly>
-              <!--<div id="car_style">-->
-                <!--<a class="setComboNameStyle" code="2014雪铁龙新爱丽舍/三厢/1.6自动" deptid="3">2014雪铁龙新爱丽舍/三厢/1.6自动</a>-->
-                <!--<a class="setComboNameStyle" code="2014雪铁龙新爱丽舍/三厢/1.6自动" deptid="3">2014雪铁龙新爱丽舍/三厢/1.6自动</a>-->
-                <!--<a class="setComboNameStyle" code="2014雪铁龙新爱丽舍/三厢/1.6自动" deptid="3">2014雪铁龙新爱丽舍/三厢/1.6自动</a>-->
-                <!--<a class="setComboNameStyle" code="2014雪铁龙新爱丽舍/三厢/1.6自动" deptid="3">2014雪铁龙新爱丽舍/三厢/1.6自动</a>-->
-                <!--<a class="setComboNameStyle" code="2014雪铁龙新爱丽舍/三厢/1.6自动" deptid="3">2014雪铁龙新爱丽舍/三厢/1.6自动</a>-->
-                <!--<a class="setComboNameStyle" code="2016别克昂科拉/SUV/1.4T自动" deptid="3">2016别克昂科拉/SUV/1.4T自动</a>-->
-                <!--<a class="setComboNameStyle" code="2016别克昂科拉/SUV/1.4T自动" deptid="3">2016别克昂科拉/SUV/1.4T自动</a>-->
-                <!--<a class="setComboNameStyle" code="2016别克昂科拉/SUV/1.4T自动" deptid="3">2016别克昂科拉/SUV/1.4T自动</a>-->
-                <!--<a class="setComboNameStyle" code="2016别克昂科拉/SUV/1.4T自动" deptid="3">2016别克昂科拉/SUV/1.4T自动</a>-->
-                <!--<a class="setComboNameStyle" code="2016别克昂科拉/SUV/1.4T自动" deptid="3">2016别克昂科拉/SUV/1.4T自动</a>-->
-              <!--</div>-->
+              <!--<input type="text" id="select_style" placeholder="请选择" readonly>-->
+              <SelectCarStyle></SelectCarStyle>
             </div>
           </div>
         </div>

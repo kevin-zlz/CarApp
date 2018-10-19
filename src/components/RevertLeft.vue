@@ -42,9 +42,9 @@
 <script>
     export default {
         name: "RevertLeft",
-        data:function () {
+          data:function() {
           return {
-            src:'../../static/images/qc.png',
+            src:'../../static/images/suv.png',
             car:[{"id":1,"content":"不限型"},
               {"id":2,"content":"经济型"},
               {"id":3,"content":"商务型"},

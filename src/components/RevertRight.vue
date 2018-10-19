@@ -93,6 +93,7 @@
     height: 160px;
     border-bottom:solid 2px #e4e6e9;
     box-sizing: border-box;
+    padding-left: 80px;
   }
 
   .all_car:hover{

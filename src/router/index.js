@@ -16,6 +16,7 @@ import User from '@/components/User'
 import AnswerDetails from '@/components/AnswerDetails'
 import Questions from '@/components/Questions'
 import Retrieve from '@/components/Retrieve'
+import Dic from '@/components/Dic'
 
 Vue.use(Router)
 
@@ -100,6 +101,11 @@ export default new Router({
       path: '/det',
       name: 'AnswerDetails',
       component: AnswerDetails,
+    },
+    {
+      path: '/dic',
+      name: 'Dic',
+      component: Dic,
     },
   ]
 })

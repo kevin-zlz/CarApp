@@ -59,7 +59,14 @@
         </div>
       </div>
       <div class="bottom">
-
+        <div class="bottom-header">
+          <div class="bottom-header-left"></div>
+          <span style="color: black;font-weight: 600;line-height: 40px;text-indent: 10px">本文精彩评论</span>
+        </div>
+        <div class="bottom-middle">
+          <textarea name="pinglun" id="" cols="104" rows="6.5" style="resize: none;"></textarea>
+          <button class="btn">提交</button>
+        </div>
       </div>
     </div>
     <RevertBottom></RevertBottom>
@@ -296,5 +303,34 @@
     height: 200px;
     background-color: white;
     margin-bottom: 20px;
+  }
+  .bottom-header{
+    width: 100%;
+    display: flex;
+    height: 40px;
+    /*background-color: rgba(34, 167, 240, 0.09);*/
+  }
+  .bottom-header-left{
+    width: 20px;
+    height: 100%;
+    background-color: #22A7F0;
+  }
+  .bottom-middle{
+    margin-top: 20px;
+    width: auto;
+    height: 127px;
+    display: flex;
+    /*background-color: red;*/
+  }
+  .btn{
+    margin-left: 20px;
+    width: 150px;
+    height: 100px;
+    border-radius: 5px;
+    background-color: rgba(128, 128, 128, 0.52);
+    border: none;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
   }
 </style>
