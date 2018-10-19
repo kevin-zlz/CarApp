@@ -20,26 +20,29 @@
       <div class="left-main left2" v-if="btnclick==1">
         <div class="mydate">
           <span>出行时间:</span>
-          <select @change="getYear($event.target)" class="year">
-            <option selected>2018</option>
-            <option>2019</option>
-          </select> &nbsp;&nbsp;年
-          <select @change="getMonth($event.target)" class="month">
-            <option>9</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-          </select> &nbsp;&nbsp;月
+          <Calenlar @changeDate="displayDate" style="border: solid 1px gray;display: inline-block;width: 200px;"></Calenlar>
+          <!--<Time></Time>-->
+          <!--<select @change="getYear($event.target)" class="year">-->
+            <!--<option selected>2018</option>-->
+            <!--<option>2019</option>-->
+          <!--</select> &nbsp;&nbsp;年-->
+          <!--<select @change="getMonth($event.target)" class="month">-->
+            <!--<option>9</option>-->
+            <!--<option>10</option>-->
+            <!--<option>11</option>-->
+            <!--<option>12</option>-->
+          <!--</select> &nbsp;&nbsp;月-->
         </div>
         <div @change="getDays($event.target)" class="myday">
-          <span>游玩天数:</span>
-          <select id="play_time">
-            <option>1~3天</option>
-            <option>4~7天</option>
-            <option>8~15天</option>
-            <option>16~20天</option>
-            <option selected>20天以上</option>
-          </select>
+          <span>结束时间:</span>
+          <Calenlar style="border: solid 1px gray;display: inline-block;width: 200px;"></Calenlar>
+          <!--<select id="play_time">-->
+            <!--<option>1~3天</option>-->
+            <!--<option>4~7天</option>-->
+            <!--<option>8~15天</option>-->
+            <!--<option>16~20天</option>-->
+            <!--<option selected>20天以上</option>-->
+          <!--</select>-->
         </div>
         <div class="left-main-bottom">
           <div class="btn-next" @click="clickbtn()">下一步</div>
@@ -88,8 +91,8 @@
                   <span class="city" v-for="i in place" v-text="i">武汉</span>
 
                 </li>
-                <li v-if="btnclick==1||btnclick==2"><span >出行时间:</span><span >{{myyear}}年{{mymonth}}月</span></li>
-                <li v-if="btnclick==1||btnclick==2"><span >天数:</span><span >{{mydays}}</span></li>
+                <li v-if="btnclick==1||btnclick==2"><span >出行时间:</span><span >{{myyear}}</span></li>
+                <li v-if="btnclick==1||btnclick==2"><span >结束时间:</span><span >{{mydays}}</span></li>
             </ul>
           </div>
           <p>-----------咨询电话----------</p>
@@ -176,6 +179,9 @@
       }
       },
       methods:{
+        displayDate:function(e){
+          console.log(e);
+        },
         before:function(){
           if(this.num>1){
             this.num=this.num-1;

@@ -10,26 +10,27 @@
       </div>
 
       <div class="big-answer">
-        <div class="comment" v-for="(i,index) in [1,2,3,4,5,6]">
+        <div class="comment" :id="i.id" v-for="i,index in articallist">
           <div class="comment-i">
-            <div class="title">买新能源车要注意哪些事项呢？</div>
+            <div class="title" v-text="i.type__typename"></div>
             <div class="sign" style="display: flex;position: relative">
               <img src="../../static/images/touxiang.jpg" alt="">
-              <span class="span1">二师兄官网号</span>
-              <span class="span2">2018-10-06 18:41:58</span>
+              <span class="span1" v-text="i.yonghu__uname"></span>
+              <span class="span2" v-text="i.pubtime"></span>
             </div>
-            <div class="content" style="display: flex;position: relative">
+            <div class="content" style="display: flex;position: relative" >
               <img src="../../static/images/car1.jpg" alt="">
               <div>
-                <div>现如今，由于限牌还有油价上涨等因素的制约，越来越多的人选择使用新能源的交通工具，其中最被人们看好的，就是电动汽车。再者，随着电动汽车技术的突飞猛进，汽车的电动化也是一个未来大趋势。很多人出于无奈对燃油车可望而不可即，或者对电动车的追捧从而纷纷选择电动汽车，但是在购买电动车，尤其是纯电动车之前，这五件事必须要考虑清楚。
+                <div v-text="i.content">现如今，由于限牌还有油价上涨等因素的制约，越来越多的人选择使用新能源的交通工具，其中最被人们看好的，就是电动汽车。再者，随着电动汽车技术的突飞猛进，汽车的电动化也是一个未来大趋势。很多人出于无奈对燃油车可望而不可即，或者对电动车的追捧从而纷纷选择电动汽车，但是在购买电动车，尤其是纯电动车之前，这五件事必须要考虑清楚。
                 </div>
-                <router-link to="/det">查看原文</router-link>
+                <!--<router-link to="{ path:'/det', query:{artical_id:i.id}}" >查看原文</router-link>-->
+                <div style="display: inline-block;position: absolute;left: 250px;" @click="seemore(i.id)">查看原文</div>
               </div>
               <div style="display: flex;color: #999999;">
-                <!--<img data-id="index" alt="" class="zan">-->
-                <!--<span class="zan-count"></span>-->
-                <!--<img data-id="" alt="" class="diszan">-->
-                <span class="diszan-count"></span>
+                <img data-id="index" alt="" class="zan">
+                <span class="zan-count" v-text="i.commennum"></span>
+                <img data-id="" alt="" class="diszan">
+                <span class="diszan-count"  v-text="i.starnum"></span>
                 <img src="" alt="">
                 <span></span>
               </div>
@@ -42,8 +43,42 @@
 </template>
 
 <script>
-    export default {
-        name: "Answer"
+  import axios from 'axios'
+  export default {
+    name: "Answer",
+    methods:{
+        seemore:function (e) {
+          this.$router.push({path: '/det', query: {selected: e}});
+        }
+      },
+    data () {
+      return {
+        articallist:[],
+      }
+    },
+    mounted:function () {
+          let vm=this
+        axios.post("http://127.0.0.1:8000/boke/queryAllAritical/",
+          {
+          },{
+            // headers: {
+            //   'Content-Type': 'application/json',
+            // }
+          })
+          .then(function (res) {
+            if(res.data){
+              console.log(res)
+              vm.articallist=res.data
+              // console.log(vm.articallist);
+            }
+          }.bind(this))
+          .catch(function (err) {
+            if (err.response) {
+              console.log(err.response)
+            }
+          }.bind(this))
+
+      }
     }
 
 </script>
