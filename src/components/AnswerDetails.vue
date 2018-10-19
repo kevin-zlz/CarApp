@@ -65,7 +65,7 @@
         </div>
         <div class="bottom-middle">
           <textarea name="pinglun" id="" cols="104" rows="6.5" style="resize: none;"></textarea>
-          <button class="btn">提交</button>
+          <button class="btn" @click="commitcommmen(aritical.id)">提交</button>
         </div>
       </div>
     </div>
@@ -78,10 +78,45 @@
     export default {
         name: "AnswerDetails",
         methods:{
-        seemore:function (e) {
-          this.$router.push({path: '/det', query: {selected: e}});
-        }
-      },
+          commitcommmen:function (e) {
+            let vm=this
+            console.log('aaa')
+            if(sessionStorage.getItem('token')){
+              sessionStorage.setItem('frompagepath','/det')
+
+              axios.post("http://127.0.0.1:8000/boke/addComment/",
+                {
+                  'aid':vm.aritical.id,
+                  'content':'',
+                  'uid':'',
+                },{
+                  // headers: {
+                  //   'Content-Type': 'application/json',
+                  // }
+                })
+                .then(function (res) {
+                  if(res.data){
+                    console.log(res.data)
+                    vm.aritical=res.data[0]
+                    console.log(vm.aritical);
+                    // vm.articallist=res.data
+
+                  }
+                }.bind(this))
+                .catch(function (err) {
+                  if (err.response) {
+                    console.log(err.response)
+                  }
+                }.bind(this))
+
+
+            }else{
+              console.log('ccc')
+              this.$router.push({path: '/login', query: {selected: e}});
+            }
+          }
+
+        },
         data () {
         return {
           aritical:{},
@@ -161,6 +196,7 @@
             }.bind(this))
 
       }
+
     }
 </script>
 
