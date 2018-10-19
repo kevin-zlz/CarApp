@@ -39,7 +39,10 @@
           },
         },
       mounted:function () {
-        window.addEventListener('scroll', this.handleScroll)
+        window.addEventListener('scroll', this.handleScroll);
+
+        sessionStorage.setItem("urlRevert",'Revert');
+
       }
     }
 </script>

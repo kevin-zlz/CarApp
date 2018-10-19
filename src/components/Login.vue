@@ -11,12 +11,12 @@
                 <div class="login1" >
                   <ul >
                     <li class="li-1" style="position: relative"><img class="img1" src="../assets/images/用户.svg" alt="">
-                      <input class="input1" type="text" placeholder="请输入用户名" id="wq2" v-model="userInfo.telephone" v-on:blur="a">
+                      <input class="input1" type="text" placeholder="请输入手机号码" id="wq2" v-model="userInfo.telephone" v-on:blur="a">
                       <span class="fff" v-text="tiShi.tishi1"></span>
                     </li>
                     <br/>
                     <li class="li-2"><img class="img2" src="../assets/images/密码.svg" alt="">
-                      <input class="input2" type="text" placeholder="请输入密码" id="wq3" v-model="userInfo.password" v-on:blur="b">
+                      <input class="input2" type="password" placeholder="请输入密码" id="wq3" v-model="userInfo.password" v-on:blur="b">
                       <span class="fff2" v-text="tiShi.tishi2"></span>
                     </li>
                     <p class="eee">用户名或密码错误</p>
@@ -28,7 +28,7 @@
                     </li>
                   </ul>
                 </div>
-                <div class="login2"><input type="submit" class="input4" value="登录"></div>
+                <div class="login2"><input type="submit" class="input4" value="登录" @click="login1"></div>
                 <div class="login3">
                   <span class="sp">还不是会员？</span>
                   <router-link to="/regist" class="a2">立即注册?</router-link>
@@ -156,6 +156,8 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
 
     name: 'Login',
@@ -174,12 +176,36 @@
           password:'',
           telephone1:'',
         },
+        token:''
       }
     },
     methods: {
+
+      login1:function(){
+        var vm = this;
+        axios.post("http://127.0.0.1:8000/user/login/",
+          {"telphone":vm.userInfo.telephone,"password":vm.userInfo.password
+          },{
+            // headers: {
+            //   'Content-Type': 'application/json',
+            // }
+          })
+          .then(function (res) {
+            if(res.data.code==='808'){
+              console.log(res)
+              sessionStorage.setItem("token",res.headers.token);
+              this.$router.push('Revert')
+            }
+          }.bind(this))
+          .catch(function (err) {
+            if (err.response) {
+              console.log(err.response)
+            }
+          }.bind(this))
+      },
       sendCode:function (thisBtn) {
           this.btn = thisBtn;
-          console.log(this.btn)
+          console.log(this.btn);
           this.btn.disabled = true; //将按钮置为不可点击
           this.btn.value = this.nums + '秒后可重新获取';
           this.clock = setInterval(this.doLoop, 1000); //一秒执行一次
@@ -195,7 +221,7 @@
             this.nums = 10; //重置时间
           }
       },
-      // 用户名
+        // 用户名
       a(){
         this.tiShi.tishi1= '';
         var p=/^1[34578]\d{9}$/;

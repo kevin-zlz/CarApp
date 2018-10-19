@@ -25,7 +25,7 @@
             <p style="position: relative;top: -10px;left: 23px;color: #93939e">总价:￥138</p>
           </td>
           <td>
-            <button style="cursor:pointer;width: 80px;height: 40px;background-color: #fabe00;border: none;border-radius: 5px;position: relative;left: 80px"><span style="color: white;font-size: 20px">租车</span></button>
+            <button style="cursor:pointer;width: 80px;height: 40px;background-color: #fabe00;border: none;border-radius: 5px;position: relative;left: 80px"><span style="color: white;font-size: 20px" @click="zuche">租车</span></button>
           </td>
         </tr>
       </table>
@@ -49,14 +49,24 @@
           {"carname":"凯迪拉克", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car8.jpg"},
           {"carname":"雪铁龙", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car9.jpg"},
           {"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
-        ]
+          ],
+            path:"/"
           }
         },
         methods:{
           changeColor:function (event) {
             event.target.style.backgroundColor='white';
+          },
+          zuche:function () {
+
+            if(sessionStorage.getItem('token')){
+              alert("已经有token")
+            }else{
+              this.$router.push('Login')
+            }
           }
-        }
+        },
+
     }
 </script>
 

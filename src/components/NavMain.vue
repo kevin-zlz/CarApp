@@ -21,11 +21,13 @@
         <li class="aaa1">
           <router-link to="/answer" class="aaa">论坛</router-link>
         </li>
-        <li>
+        <li v-if="flag">
           <router-link to="/login" class="aaa">登陆</router-link>
           <span>/</span>
           <router-link to="/regist" class="aaa">注册</router-link>
         </li>
+        <li v-else @click ='back' style="cursor: pointer">退出</li>
+
         <li><router-link to="/user" class="aaa">我的永安</router-link></li>
         <li><img class="bbb" src="../assets/images/电话.svg" alt=""><span class="bbb2">48888888</span></li>
       </ul>
@@ -38,7 +40,21 @@ export default {
   name: 'NavMain',
   data () {
     return {
-
+      flag:true,
+    }
+  },
+  methods:{
+    back:function () {
+      sessionStorage.removeItem('token');
+      this.flag=true;
+    }
+  },
+  mounted:function () {
+    // window.location.reload();
+    if(sessionStorage.getItem('token')){
+      this.flag = false
+    }else{
+      this.flag = true;
     }
   }
 }

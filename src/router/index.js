@@ -8,8 +8,6 @@ import Regist from '@/components/Regist'
 import Revert from '@/components/Revert'
 import Answer from '@/components/Answer'
 import Drive from '@/components/Drive'
-import Drive2 from '@/components/Drive2'
-import Drive3 from '@/components/Drive3'
 import Dot from '@/components/Dot'
 import LongLoad from '@/components/LongLoad'
 import User from '@/components/User'
@@ -61,16 +59,6 @@ export default new Router({
       path: '/drive',
       name: 'Drive',
       component: Drive,
-    },
-    {
-      path: '/drive/drive2',
-      name: 'Drive2',
-      component: Drive2,
-    },
-    {
-      path: '/drive/drive3',
-      name: 'Drive3',
-      component: Drive3,
     },
     {
       path: '/dot',
