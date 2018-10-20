@@ -197,6 +197,10 @@
 
       }
 
+        name: "AnswerDetails",
+        methods:{
+
+        }
     }
 </script>
 

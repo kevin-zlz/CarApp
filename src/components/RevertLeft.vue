@@ -4,9 +4,9 @@
       <span>车型</span>
       <!--<img src="../../static/images/qc.png" alt="">-->
       <div class="left1-all" >
-       <div class="left1-all1" v-for="(c,index) in car" :id="c.id" @click="change" >
-         <img :src="src"  alt=""  :id="c.id">
-         <span v-text="c.content" style='color: rgba(145,145,145,0.81);' :id="c.id"></span>
+       <div class="left1-all1" v-for="(c,index) in car" :data-id="c.id" @click="change" >
+         <img :src="src"  alt=""  :data-id="c.id" @click="cxtype" >
+         <span v-text="c.content" style='color: rgba(145,145,145,0.81);' :data-id="c.id" ref="c.id" ></span>
        </div>
       </div>
     </div>
@@ -15,7 +15,7 @@
       <!--<img src="../assets/images/cx_new.png" alt="">-->
       <div class="left2-price">
         <ul class="ul1">
-          <li @click="changePrice" v-for="i in [0,1,2,3,4]" :id="i"></li>
+          <li @click="changePrice" v-for="i in [0,1,2,3,4]" :id="i" ></li>
         </ul>
 
         <ul class="ul2">
@@ -73,7 +73,11 @@
           // alert(event.target.id)
         },
 
-
+        cxtype:function (e) {
+          console.log(e);
+          var img=e.target.parentNode.querySelector('span');
+          alert(img.innerHTML);
+        }
       },
       mounted(){
       }

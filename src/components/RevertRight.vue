@@ -9,7 +9,7 @@
         <!--<li>年租套餐(365天)</li>-->
       <!--</ul>-->
     <!--</div>-->
-    <div class="all_car" v-for="(car,index) in allCar" :id="index" v-bind:key="index">
+    <div class="all_car" v-for="(car,index) in allCar" :data-id="index" v-bind:key="index">
       <table>
         <tr style="position: relative;top: 25px;">
           <td><img src="../assets/images/car1.jpg" alt="" style="width:175px;height: 130px;padding-top:30px;padding-left: 20px "></td>
@@ -25,7 +25,7 @@
             <p style="position: relative;top: -10px;left: 23px;color: #93939e">总价:￥138</p>
           </td>
           <td>
-            <button style="cursor:pointer;width: 80px;height: 40px;background-color: #fabe00;border: none;border-radius: 5px;position: relative;left: 80px"><span style="color: white;font-size: 20px" @click="zuche">租车</span></button>
+            <button style="cursor:pointer;width: 80px;height: 40px;background-color: #fabe00;border: none;border-radius: 5px;position: relative;left: 80px" @click="zuche"><span style="color: white;font-size: 20px"><router-link :to="{path:'/revert/car',query: {name: car.carid}}" class="revert">租车</router-link></span></button>
           </td>
         </tr>
       </table>
@@ -39,31 +39,33 @@
         data:function () {
           return {
            allCar:[
-              {"carname":"雪佛兰科鲁", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥69元","carimg":"./images/car2.jpg"},
-          {"carname":"别克昂科拉", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car3.jpg"},
-          {"carname":"大众朗逸", "cartype":"两厢|1.3自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car1.jpg"},
-          {"carname":"宝马", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car4.jpg"},
-          {"carname":"上海大众", "cartype":"三厢|1.5自动|乘坐6人", "carprice":"￥69元","carimg":"./images/car5.jpg"},
-          {"carname":"奔驰", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car6.jpg"},
-          {"carname":"江铃", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥89元","carimg":"./images/car7.jpg"},
-          {"carname":"凯迪拉克", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car8.jpg"},
-          {"carname":"雪铁龙", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car9.jpg"},
-          {"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
+              {"carid":1,"carname":"雪佛兰科鲁", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥69元","carimg":"./images/car2.jpg"},
+          {"carid":2,"carname":"别克昂科拉", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car3.jpg"},
+          {"carid":3,"carname":"大众朗逸", "cartype":"两厢|1.3自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car1.jpg"},
+          {"carid":4,"carname":"宝马", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car4.jpg"},
+          {"carid":5,"carname":"上海大众", "cartype":"三厢|1.5自动|乘坐6人", "carprice":"￥69元","carimg":"./images/car5.jpg"},
+          {"carid":6,"carname":"奔驰", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car6.jpg"},
+          {"carid":7,"carname":"江铃", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥89元","carimg":"./images/car7.jpg"},
+          {"carid":8,"carname":"凯迪拉克", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car8.jpg"},
+          {"carid":9,"carname":"雪铁龙", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car9.jpg"},
+          {"carid":10,"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
           ],
-            path:"/"
+            path:"/",
+            carid:1,
           }
         },
         methods:{
           changeColor:function (event) {
             event.target.style.backgroundColor='white';
           },
-          zuche:function () {
+          zuche:function (e) {
 
             if(sessionStorage.getItem('token')){
               alert("已经有token")
             }else{
               this.$router.push('Login')
             }
+
           }
         },
 
@@ -74,6 +76,12 @@
   .main-right-head{
     width:100%;
     height: 70px;
+  }
+  .revert{
+    font-size: 19px;
+    color: white;
+    text-decoration:none;
+    font-weight: 500
   }
   .main-right-head ul{
     list-style-type: none;
