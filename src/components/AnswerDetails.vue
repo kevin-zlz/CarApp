@@ -195,7 +195,7 @@
               }
             }.bind(this))
 
-      }
+      },
 
         name: "AnswerDetails",
         methods:{

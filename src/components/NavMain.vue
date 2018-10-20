@@ -13,10 +13,10 @@
           <router-link to="/revert" class="aaa">短期自驾</router-link>
         </li>
         <li>
-          <router-link to="/drive" class="aaa">自驾游</router-link>
+          <router-link to="/long" class="aaa">长租</router-link>
         </li>
         <li>
-          <router-link to="/long" class="aaa">长租</router-link>
+          <router-link to="/drive" class="aaa">发起自驾游</router-link>
         </li>
         <li class="aaa1">
           <router-link to="/answer" class="aaa">论坛</router-link>
