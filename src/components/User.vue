@@ -52,9 +52,9 @@
         </div>
         <div class="body-right">
           <UpDataPwd v-show="'修改密码'===flag"></UpDataPwd>
-          <!--<LongHire v-show="'长期租车'===flag"></LongHire>-->
-          <!--<Order v-show="'短期自驾'===flag"></Order>-->
-          <!--<Information v-show="'我的信息'===flag"></Information>-->
+          <LongHire v-show="'长期租车'===flag"></LongHire>
+          <Order v-show="'短期自驾'===flag"></Order>
+          <Information v-show="'我的信息'===flag"></Information>
         </div>
       </div>
       <RevertBottom></RevertBottom>

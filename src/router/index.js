@@ -17,6 +17,8 @@ import Retrieve from '@/components/Retrieve'
 import Dic from '@/components/Dic'
 import CarDetail from '@/components/CarDetail'
 import UpHead from '@/components/UpHead'
+import Article from '@/components/Article'
+import Order from '@/components/Order'
 
 Vue.use(Router)
 
@@ -101,6 +103,21 @@ export default new Router({
       path: '/revert/car',
       name: 'CarDetail',
       component: CarDetail,
+    },
+    {
+      path: '/uphead',
+      name: 'UpHead',
+      component: UpHead,
+    },
+    {
+      path: '/article',
+      name: 'Article',
+      component: Article,
+    },
+    {
+      path: '/order',
+      name: 'Order',
+      component: Order,
     },
   ]
 })

@@ -46,33 +46,61 @@ export default {
       form1:'',
       form2:'',
       formData:[],
+      Positive:"",
+      otherSide:""
+
     }
   },
 
   methods:{
     update1(){
       console.log("this.formData");
-      let config = {
-        headers: {'Content-Type': 'multipart/form-data'}
+      var config = {
+        headers: {'Content-Type': 'multipart/form-data'},
+
       };
       // 添加请求头
       let vm=this;
-      axios.post('http://127.0.0.1:8000/user/DicLoad/', this.formData[0], config)
+      // let otherSideFlag=false;
+      // let PositiveFlag=false;
+      axios.post('http://127.0.0.1:8000/user/DicLoad/', this.formData[0], {
+        headers: {
+          'Content-Type': 'application/json',
+          token:sessionStorage.getItem("token")
+        }
+      })
         .then(response => {
           if (response.data.code === 0) {
             vm.ImgUrl = response.data.data;
             console.log(vm.ImgUrl);
           }
-          console.log(response.data)
+          console.log(response.data);
+          this.Positive=response.data.name;
+          // PositiveFlag=true;
+          axios.post('http://127.0.0.1:8000/user/DicLoad/', this.formData[1], config)
+            .then(response => {
+              if (response.data.code === 0) {
+                vm.ImgUrl = response.data.data;
+                console.log(vm.ImgUrl);
+              }
+              console.log(response.data);
+              this.otherSide=response.data.name;
+              console.log("11111111111111111111111111",this.otherSide);
+              // otherSideFlag=true;
+            axios.post('http://127.0.0.1:8000/user/fliename/', {"Positive":this.Positive,"otherSide":this.otherSide}, {
+              headers: {
+                'Content-Type': 'application/json',
+                token:sessionStorage.getItem("token")
+              }
+            })
+                .then(response => {
+                  console.log(response.data)
+                })
+            });
         });
-      axios.post('http://127.0.0.1:8000/user/DicLoad/', this.formData[1], config)
-        .then(response => {
-          if (response.data.code === 0) {
-            vm.ImgUrl = response.data.data;
-            console.log(vm.ImgUrl);
-          }
-          console.log(response.data)
-        })
+
+
+
     },
     update2 (e) {  // 上传照片
       var self = this;

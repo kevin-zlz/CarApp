@@ -74,9 +74,10 @@
 </template>
 
 <script>
-    import axios from 'axios'
-    export default {
+import axios from 'axios'
+export default {
         name: "AnswerDetails",
+
         methods:{
           commitcommmen:function (e) {
             let vm=this
@@ -195,7 +196,7 @@
               }
             }.bind(this))
 
-      }
+      },
 
         name: "AnswerDetails",
         methods:{
