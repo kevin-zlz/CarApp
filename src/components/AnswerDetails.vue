@@ -351,10 +351,6 @@
 
       }
 
-        name: "AnswerDetails",
-        methods:{
-
-        }
     }
 </script>
 

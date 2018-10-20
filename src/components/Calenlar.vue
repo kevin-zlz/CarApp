@@ -1,19 +1,15 @@
 <template>
 <div>
-  <div>
-    <input class="mydatepicker"  v-model="date" type="text" placeholder="请选择日期" @change="" @click="test($event)">
+  <div class="mydiv" @click="test2">
+    <input class="mydatepicker"  type="text" placeholder="请选择日期" id="abc">
   </div>
 </div>
 
 </template>
 
 <script>
-  // import $ from 'jquery'
-  // import '../../static/jquery/jquery-1.8.3.min.js'
+  import $ from 'jquery'
   import '../../static/bootstrap/js/dcalendar.picker'
-  // import '../../static/js/bootstrap-datetimepicker.js'
-  // import '../../static/js/locales/bootstrap-datetimepicker.fr.js'
-
 
 export default {
   // props:'date',
@@ -25,35 +21,23 @@ export default {
       date:''
     }
   },
-  watch:{
-    date:function (newval) {
-      $emit('changeDate',)
-    }
-  },
   mounted:function(){
     $('.mydatepicker').dcalendarpicker({
      format:'yyyy-mm-dd'
    });
+
   },
   methods:{
-    test:function (e) {
-      console.log(e.target.value);
-      this.date=e.target.value
-
-      // $emit('changeDate',date)
+    test2:function (e) {
+      console.log(e.target)
+    if (e.target.nodeName=="SPAN"){
+      console.log(document.querySelector('#abc').value);
+      this.date=document.querySelector('#abc').value
+      this.$emit('getdate',this.date)
+      // $emit('enlarge-text', 0.1)
+    }
     }
   }
-  // methods:{
-  //   change:function(){
-  //     this.flag=!this.flag;
-  //   },
-  //   timeclick:function(event){
-  //     if(event.className=='minute-select'){
-  //       this.inputtext=event.innerText;
-  //       this.flag=false;
-  //     }
-  //   }
-  // }
 }
 
 </script>
@@ -65,7 +49,7 @@ export default {
     border: none;
     width: 163px;
     padding-left: 8px;
-    height: 48px;
-    border-left: solid 1px gray;
+    height: 38px;
+    /*border-left: solid 1px gray;*/
   }
 </style>
