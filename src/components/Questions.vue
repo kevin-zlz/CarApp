@@ -135,9 +135,8 @@ export default {
         })
         .then(function (res) {
           if(res.data){
-            vm.types=res.data
-            console.log(vm.types)
-            this.$router.push({path: '/answer', query: {selected: e}});
+
+            vm.$router.push({path: '/answer'});
           }
         }.bind(this))
         .catch(function (err) {
