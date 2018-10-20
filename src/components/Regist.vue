@@ -163,6 +163,7 @@
     },
     methods:{
       reg:function () {
+        sessionStorage.setItem("url","regist");
         // alert(this.userInfo.name);
         // alert(this.userInfo.telephone);
         // alert(this.userInfo.password);

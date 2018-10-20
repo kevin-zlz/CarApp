@@ -5,103 +5,131 @@
         <h3 class="aa">驾照认证</h3>
         <span class="aa3">您的驾照认证未完成，在线认证驾照，可自助取、还车！</span>
       </li>
+
       <li class="items">
         <span class="aa1">驾照正页图片</span>
-        <from>
-          <input type="button" value="选择文件" class="aa2">
-        </from>
+        <form id="form1">
+          <input type="file" class="aa2" name="usericon" id="upload_file1" @change="update2">
+          <div class="img-add">选择文件</div>
+          <!--<input type="file" name="usericon" @change="update">-->
+        </form>
+        <div id="preview"></div>
+          <!--<input type="submit" value="提交">-->
         <span class="aa4">请上传小于2M的JPG格式图片</span>
       </li>
       <li class="items">
         <span class="aa1">驾照副页图片</span>
-        <from>
-          <input type="button" value="选择文件" class="aa2">
-        </from>
+        <form id="form2">
+          <input type="file" class="aa2" name="usericon" id="upload_file2" @change="update3">
+          <div class="img-add">选择文件</div>
+        </form>
+        <div id="preview2"></div>
         <span class="aa4">请上传小于2M的JPG格式图片</span>
       </li>
-      <li class="items">
-
-      </li>
-
+      <div class="bb2">
+        <input class="bb1" type="button" value="提交" @click="update1">
+      </div>
     </ul>
   </div>
 </template>
 
 <script>
+import $ from 'jquery'
+import axios from 'axios'
 export default {
+
   name: 'Dic',
   data () {
     return {
       btn:false,
       flag:0,
-      tiShi:{
-        tishi1:'',
-        tishi2:'',
-        tishi3:'',
-      },
-      userInfo:{
-        password1:'',
-        password2:'',
-        password3:'',
-      },
+      form1:'',
+      form2:'',
+      formData:[],
     }
   },
 
   methods:{
-    //密码
-    a(){
-      this.tiShi.tishi1= '';
-      var p=/[a-zA-Z]\w[z0-9]/;
-      if (!this.userInfo.password1) {
-        this.tiShi.tishi1='密码不能为空';
-      }
-      else if(!p.test(this.userInfo.password1)){
-        this.tiShi.tishi1="字母开头+数字组成"
+    update1(){
+      console.log("this.formData");
+      let config = {
+        headers: {'Content-Type': 'multipart/form-data'}
+      };
+      // 添加请求头
+      let vm=this;
+      axios.post('http://127.0.0.1:8000/user/DicLoad/', this.formData[0], config)
+        .then(response => {
+          if (response.data.code === 0) {
+            vm.ImgUrl = response.data.data;
+            console.log(vm.ImgUrl);
+          }
+          console.log(response.data)
+        });
+      axios.post('http://127.0.0.1:8000/user/DicLoad/', this.formData[1], config)
+        .then(response => {
+          if (response.data.code === 0) {
+            vm.ImgUrl = response.data.data;
+            console.log(vm.ImgUrl);
+          }
+          console.log(response.data)
+        })
+    },
+    update2 (e) {  // 上传照片
+      var self = this;
+      let file = e.target.files[0];
+      // console.log(file)
+      this.preview1(file);
+      // 弹出图片名字
+      // alert(file.name);
+      /* eslint-disable no-undef */
+      let param = new FormData() ;// 创建form对象
+      //usericon通常就是file的name属性值
+      param.append('usericon', file, file.name) ;// 通过append向form对象添加数据
+      param.append('chunk', '0'); // 添加form表单中其他数据
+      this.formData.push(param);
+      console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
+    },
+    update3 (e) {  // 上传照片
+      var self = this;
+      let file = e.target.files[0];
+      // console.log(file)
+      this.preview11(file);
+      // 弹出图片名字
+      // alert(file.name);
+      /* eslint-disable no-undef */
+      let param = new FormData() ;// 创建form对象
+      //usericon通常就是file的name属性值
+      param.append('usericon', file, file.name) ;// 通过append向form对象添加数据
+      param.append('chunk', '0'); // 添加form表单中其他数据
+      this.formData.push(param);
+      console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
+    },
+    preview1(file){
+      var img = new Image();
+      img.src = URL.createObjectURL(file);
+      var url = img.src;
+      var $img = $(img);
+      $img.css({'width':'150px','height':'69px'});
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        $('#preview').empty().append($img);
       }
     },
-    b(){
-      this.tiShi.tishi2= '';
-      var p=/[a-zA-Z]\w[z0-9]/;
-      this.flag=0;
-      // console.log(this.userInfo.password1)
-      // console.log(this.userInfo.password2)
-      if (this.userInfo.password1 == this.userInfo.password2){
-        this.tiShi.tishi2='与原密码一致';
-      }
-      else if(!this.userInfo.password2) {
-        this.tiShi.tishi2='密码不能为空';
-      }
-      else if(!p.test(this.userInfo.password2)){
-        this.tiShi.tishi2="字母开头+数字组成"
-      }
-      if (this.userInfo.password2.length>0&&this.userInfo.password2.length<6){
-        this.flag=1;
-      }
-      else if (this.userInfo.password2.length>=6&&this.userInfo.password2.length<10){
-        this.flag=2;
-      }
-      //注意比较大小写法
-      else if (this.userInfo.password2.length>=10&&this.userInfo.password2.length<15){
-        this.flag=3;
-      }
-    },
-    c(){
-      this.tiShi.tishi3= '';
-      var p=/[a-zA-Z]\w[z0-9]/;
-      // console.log(this.userInfo.password1)
-      // console.log(this.userInfo.password2)
-      if (this.userInfo.password2 !== this.userInfo.password3){
-        this.tiShi.tishi3='两次密码不一致';
-      }
-      else if(!this.userInfo.password3) {
-        this.tiShi.tishi3='密码不能为空';
-      }
-      else if(!p.test(this.userInfo.password3)){
-        this.tiShi.tishi3="字母开头+数字组成"
+    // 图片预览方法
+    preview11(file){
+      var img = new Image();
+      img.src = URL.createObjectURL(file);
+      var url = img.src;
+      var $img = $(img);
+      $img.css({'width':'150px','height':'69px'});
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        $('#preview2').empty().append($img);
       }
     },
 
-  }
+    }
+
 }
 </script>
 
@@ -112,7 +140,7 @@ export default {
     padding: 0;
   }
   input{
-    outline: none;
+    /*outline: none;*/
   }
   ul{
     list-style: none;
@@ -138,7 +166,7 @@ export default {
     height: 70px;
     width: 100%;
     font-size: 1em;
-    line-height: 70px;
+    /*line-height: 70px;*/
   }
  .aa{
    position: relative;
@@ -160,25 +188,67 @@ export default {
     line-height: 70px;
     /*background: #22A7F0;*/
   }
-  .aa2{
-    margin-left: 150px;
-    /*margin: auto;*/
-    box-sizing:border-box;
-    /*元素纵向剧中*/
-    vertical-align: middle;
-    width: 80px;
-    height: 40px;
-    line-height: 40px;
-    background: rgba(238, 184, 26, 0.2);
-    border: solid 1px #eeb81a;
-    color: #eeb81a;
-  }
   .aa4{
     position: relative;
     height: 70px;
     line-height: 70px;
-    left: 330px;
+    left: 215px;
     color: #c6c6ce;
     font-size: 14px;
   }
+  .items .aa2{
+    position: relative;
+    top: 20px;
+    left: 130px;
+    /*top: 250px;*/
+    /*width: 200px;*/
+    /*height: 50px;*/
+    opacity: 0;
+    z-index: 5;
+  }
+  .bb1{
+    position: relative;
+    width: 100px;
+    height: 50px;
+    background: rgba(238, 184, 26, 0.2);
+    color: #eeb819;
+    border: solid 1px #eeb819;
+    left: 150px;
+    top: 10px;
+  }
+  .bb2{
+    width: 750px;
+    height: 70px;
+    background: #f8f8fa;
+    margin: auto;
+  }
+  .img-add{
+    position: relative;
+    width: 180px;
+    height: 50px;
+    background: rgba(238, 184, 25, 0.2);
+    color: #eeb819;
+    top: -16px;
+    left: 130px;
+    line-height: 50px;
+    text-align: center;
+    border: solid 1px #eeb819;
+  }
+  #preview{
+    position: relative;
+    left: 80px;
+    width: 150px;
+    height: 70px;
+    /*border: 1px solid;*/
+    /*background: #22A7F0;*/
+  }
+  #preview2{
+    position: relative;
+    left: 80px;
+    width: 150px;
+    height: 70px;
+    /*border: 1px solid;*/
+    /*background: #22A7F0;*/
+  }
+
 </style>

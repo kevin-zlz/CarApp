@@ -351,6 +351,10 @@
 
       }
 
+        name: "AnswerDetails",
+        methods:{
+
+        }
     }
 </script>
 

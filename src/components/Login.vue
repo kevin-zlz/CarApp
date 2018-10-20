@@ -159,7 +159,6 @@
   import axios from 'axios'
 
   export default {
-
     name: 'Login',
     data() {
       return {
@@ -192,10 +191,21 @@
           })
           .then(function (res) {
             if(res.data.code==='808'){
-              console.log(res)
+              console.log(res);
               sessionStorage.setItem("token",res.headers.token);
-              sessionStorage.setItem('telephone',vm.userInfo.telephone)
-              this.$router.push('Revert')
+              sessionStorage.setItem("telephone",vm.userInfo.telephone);
+              if(sessionStorage.getItem("url")){
+                this.$router.push('/');
+                sessionStorage.removeItem("url");
+              }else{
+                window.history.go(-1);
+              }
+              $(document).ready(function () {
+                if(location.href.indexOf("#reloaded")===-1){
+                  location.href=location.href+"#reloaded";
+                  location.reload();
+                }
+              })
             }
           }.bind(this))
           .catch(function (err) {

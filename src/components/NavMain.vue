@@ -46,7 +46,16 @@ export default {
   methods:{
     back:function () {
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('telephone');
       this.flag=true;
+
+
+      if(location.href.indexOf("#reloaded")===-1){
+        location.href=location.href+"#reloaded";
+        location.reload();
+      }
+
+
     }
   },
   mounted:function () {
@@ -55,6 +64,7 @@ export default {
       this.flag = false
     }else{
       this.flag = true;
+
     }
   }
 }
