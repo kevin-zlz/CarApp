@@ -7,8 +7,6 @@
             <h3>选择标签:</h3>
              <div class="aa1" v-if="msg2.length>0" v-text="msg2"></div>
           </div>
-
-
           <div class="label-car">
             <ul style="display: flex" class="bbb">
               <li v-on:click="a">新能源</li>
@@ -212,7 +210,7 @@ export default {
     height: 580px;
     /*background: #00de00;*/
     margin: auto;
-    padding-top: 20px;
+    /*padding-top: 20px;*/
   }
 
   .main_content1{

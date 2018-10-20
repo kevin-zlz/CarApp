@@ -32,7 +32,7 @@
         methods:{
           handleScroll () {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-            console.log(scrollTop)
+            // console.log(scrollTop)
             if (scrollTop>195 && scrollTop<1005){
               $("#lefter").css({'marginTop':scrollTop-210+'px'})
             }

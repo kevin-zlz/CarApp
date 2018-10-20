@@ -30,6 +30,9 @@ import LongHire from './components/LongHire'
 import Order from './components/Order'
 import Information from './components/Information'
 import CarDetail from './components/CarDetail'
+import Dic from './components/Dic'
+import UpHead from './components/UpHead'
+import Questions from './components/Questions'
 
 Vue.config.productionTip = false;
 
@@ -61,6 +64,9 @@ Vue.component('LongHire',LongHire);
 Vue.component('Order',Order);
 Vue.component('Information',Information);
 Vue.component('CarDetail',CarDetail);
+Vue.component('Dic',Dic);
+Vue.component('UpHead',UpHead);
+Vue.component('Questions',Questions);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

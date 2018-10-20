@@ -15,16 +15,15 @@
       <!--<img src="../assets/images/cx_new.png" alt="">-->
       <div class="left2-price">
         <ul class="ul1">
-          <li @click="changePrice" v-for="i in [0,1,2,3,4]" :id="i" ></li>
+          <li @click="changePrice" v-for="i in [0,1,2,3,4]" :data-id="i"></li>
         </ul>
 
         <ul class="ul2">
-          <li>不限</li>
-          <li>0</li>
-          <li>150</li>
-          <li>300</li>
-          <li>500</li>
-          <li>500+</li>
+          <li :data-id="0">不限</li>
+          <li :data-id="1">150</li>
+          <li :data-id="2">300</li>
+          <li :data-id="3">500</li>
+          <li :data-id="4">500+</li>
         </ul>
       </div>
     </div>
@@ -32,7 +31,7 @@
       <span>品牌</span>
       <div class="left3-all">
         <ul>
-          <li v-for="(c,index) in carType" :key="index" :id="index" v-text="c" @click="changeLiColor"></li>
+          <li v-for="(c,index) in carType" :key="index" :data-id="index" v-text="c" @click="changeLiColor"></li>
         </ul>
       </div>
     </div>
@@ -57,6 +56,12 @@
             ],
             carType:['不限','奥迪','宝马','奔驰','本田','标致','别克','比亚迪','广汽', '长城','大众','丰田','福特','金杯','凯迪拉克','铃木','马自达','奇瑞','起亚', '斯柯达','现代','雪佛兰','雪铁龙','猎豹','日产','沃尔沃','依维柯','华泰','野马', '三菱','MINI','北京汽车','菲亚特','江淮','江铃','上汽大通','华颂','风行'],
             liBackgroundColor:'gray',
+            //筛选条件:汽车类型，汽车价格，汽车品牌
+            condition:{
+              carLeixing:'',
+              carJiage:'',
+              carPingpai:'',
+            }
           }
         },
       methods:{
@@ -66,18 +71,20 @@
         },
         changePrice:function (event) {
           event.target.style.backgroundColor='#fabe00';
-          // alert(event.target.id)
+          this.condition.carJiage = event.target.parentNode.parentNode.querySelector(".ul2").children[event.target.dataset.id].innerText;
         },
         changeLiColor:function (event) {
           event.target.style.color='#fabe00';
-          // alert(event.target.id)
+          this.condition.carPingpai = event.target.innerText;
+          console.log(this.condition);
         },
 
         cxtype:function (e) {
           console.log(e);
           var img=e.target.parentNode.querySelector('span');
-          alert(img.innerHTML);
-        }
+          this.condition.carLeixing = img.innerHTML;
+
+        },
       },
       mounted(){
       }
@@ -141,14 +148,14 @@
     width: 55px;
     height: 5px;
     background-color: gray;
-    margin-right: 5px;
+    margin-right: 10px;
     cursor: pointer;
   }
   .left2 .left2-price .ul2 li{
     position: relative;
     top: -10px;
     left: 5px;
-    margin-right:  15px;
+    margin-right:  25px;
     color: gray;
   }
 

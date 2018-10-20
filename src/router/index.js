@@ -12,13 +12,13 @@ import Dot from '@/components/Dot'
 import LongLoad from '@/components/LongLoad'
 import User from '@/components/User'
 import AnswerDetails from '@/components/AnswerDetails'
-import Questions from '@/components/Questions'
 import Retrieve from '@/components/Retrieve'
-import Dic from '@/components/Dic'
 import CarDetail from '@/components/CarDetail'
 import UpHead from '@/components/UpHead'
 import Article from '@/components/Article'
 import Order from '@/components/Order'
+import Questions from '@/components/Questions'
+
 
 Vue.use(Router)
 
@@ -70,11 +70,6 @@ export default new Router({
       component: Dot,
     },
     {
-      path: '/wen',
-      name: 'Questions',
-      component: Questions,
-    },
-    {
       path: '/retrieve',
       name: 'Retrieve',
       component: Retrieve,
@@ -95,14 +90,14 @@ export default new Router({
       component: AnswerDetails,
     },
     {
-      path: '/dic',
-      name: 'Dic',
-      component: Dic,
-    },
-    {
       path: '/revert/car',
       name: 'CarDetail',
       component: CarDetail,
+    },
+    {
+      path: '/answer/question',
+      name: 'Questions',
+      component: Questions,
     },
     {
       path: '/uphead',

@@ -35,19 +35,13 @@
             <div class="nav-title">我的账户</div>
             <div id="info_detail" class="nav-content" @click="show">我的信息</div>
             <div id="login-psw"  class="nav-content" @click="show">修改密码</div>
-            <div class="nav-content">驾照认证</div>
-            <div class="nav-content">修改图像</div>
-          </div>
-          <div class="nav">
-            <div class="nav-title">我的收藏</div>
-            <div  class="nav-content">我的文章</div>
-            <div class="nav-content">我的车友圈</div>
+            <div class="nav-content" @click="show">驾照认证</div>
+            <div class="nav-content" @click="show">修改图像</div>
           </div>
           <div class="nav">
             <div class="nav-title">我的相关</div>
-            <div id="score" class="nav-content">我评论的文章</div>
-            <div id="coupon" class="nav-content">我发表的文章</div>
-            <div id="user-content" class="nav-content">我点赞的文章</div>
+            <div id="score" class="nav-content">我的文章</div>
+            <div id="coupon" class="nav-content">我的活动</div>
           </div>
         </div>
         <div class="body-right">
@@ -55,9 +49,11 @@
           <LongHire v-show="'长期租车'===flag"></LongHire>
           <Order v-show="'短期自驾'===flag"></Order>
           <Information v-show="'我的信息'===flag"></Information>
+          <Dic v-show="'驾照认证'===flag"></Dic>
+          <UpHead v-show="'修改图像'===flag"></UpHead>
         </div>
       </div>
-      <RevertBottom></RevertBottom>
+      <!--<RevertBottom></RevertBottom>-->
     </div>
 </template>
 
@@ -87,6 +83,14 @@
             if(event.target.innerHTML==='我的信息'){
               // alert(event.target.innerHTML);
               this.flag = '我的信息';
+            }
+            if(event.target.innerHTML==='驾照认证'){
+              // alert(event.target.innerHTML);
+              this.flag = '驾照认证';
+            }
+            if(event.target.innerHTML==='修改图像'){
+              // alert(event.target.innerHTML);
+              this.flag = '修改图像';
             }
           }
         }
