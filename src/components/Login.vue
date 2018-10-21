@@ -191,7 +191,7 @@
           })
           .then(function (res) {
             if(res.data.code==='808'){
-              console.log(res);
+              // console.log(res.data);
               sessionStorage.setItem("token",res.headers.token);
               sessionStorage.setItem("telephone",vm.userInfo.telephone);
               if(sessionStorage.getItem("url")){

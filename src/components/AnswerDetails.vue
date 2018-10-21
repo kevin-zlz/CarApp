@@ -75,9 +75,10 @@
 </template>
 
 <script>
-    import axios from 'axios'
-    export default {
+import axios from 'axios'
+export default {
         name: "AnswerDetails",
+
         methods:{
           getdata:function () {
             let vm=this
@@ -349,7 +350,7 @@
               }
             }.bind(this))
 
-      }
+      },
 
     }
 </script>

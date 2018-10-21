@@ -323,12 +323,15 @@ export default {
     font-size: 12px;
   }
   .ccc{
-    color: green!important;
+    /*color: green!important;*/
+    background: rgba(243, 185, 0, 0.51) !important;
   }
   .ccc2{
-    color: yellow!important;
+    /*color: yellow!important;*/
+    background: rgba(243, 185, 0, 0.51) !important;
   }
   .ccc3{
-    color: red!important;
+    /*color: red!important;*/
+    background: rgba(243, 185, 0, 0.51) !important;
   }
 </style>

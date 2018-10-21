@@ -25,7 +25,7 @@
             <p style="position: relative;top: -10px;left: 23px;color: #93939e">总价:￥138</p>
           </td>
           <td>
-            <button style="cursor:pointer;width: 80px;height: 40px;background-color: #fabe00;border: none;border-radius: 5px;position: relative;left: 80px" @click="zuche"><span style="color: white;font-size: 20px"><router-link :to="{path:'/revert/car',query: {name: car.carid}}" class="revert">租车</router-link></span></button>
+            <button style="cursor:pointer;width: 80px;height: 40px;background-color: #fabe00;border: none;border-radius: 5px;position: relative;left: 80px"><span style="color: white;font-size: 20px"><router-link :to="{path:'/revert/car',query: {name: car.carid}}" class="revert">租车</router-link></span></button>
           </td>
         </tr>
       </table>
@@ -39,7 +39,7 @@
         data:function () {
           return {
            allCar:[
-              {"carid":1,"carname":"雪佛兰科鲁", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥69元","carimg":"./images/car2.jpg"},
+              // {"carid":2,"carname":"雪佛兰科鲁", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥69元","carimg":"./images/car2.jpg"},
           {"carid":2,"carname":"别克昂科拉", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car3.jpg"},
           {"carid":3,"carname":"大众朗逸", "cartype":"两厢|1.3自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car1.jpg"},
           {"carid":4,"carname":"宝马", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car4.jpg"},
@@ -49,6 +49,7 @@
           {"carid":8,"carname":"凯迪拉克", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car8.jpg"},
           {"carid":9,"carname":"雪铁龙", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car9.jpg"},
           {"carid":10,"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
+          {"carid":11,"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
           ],
             path:"/",
             carid:1,
@@ -58,15 +59,6 @@
           changeColor:function (event) {
             event.target.style.backgroundColor='white';
           },
-          zuche:function (e) {
-
-            if(sessionStorage.getItem('token')){
-              alert("已经有token")
-            }else{
-              this.$router.push('Login')
-            }
-
-          }
         },
 
     }
