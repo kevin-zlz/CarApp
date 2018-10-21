@@ -18,6 +18,8 @@ import UpHead from '@/components/UpHead'
 import Article from '@/components/Article'
 import Order from '@/components/Order'
 import Questions from '@/components/Questions'
+import Activity from '@/components/Activity'
+import MyActivity from '@/components/MyActivity'
 
 
 Vue.use(Router)
@@ -113,6 +115,16 @@ export default new Router({
       path: '/order',
       name: 'Order',
       component: Order,
+    },
+    {
+      path: '/activity',
+      name: 'Activity',
+      component: Activity,
+    },
+    {
+      path: '/myactivity',
+      name: 'MyActivity',
+      component: MyActivity,
     },
   ]
 })

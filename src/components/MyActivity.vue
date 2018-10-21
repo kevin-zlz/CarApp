@@ -1,7 +1,7 @@
 <template>
   <div class="container" >
     <div class="order-head">
-      <div>我的文章</div>
+      <div>111111111我的活动</div>
       <div class="date">
         <!--<input class='mydate' type='text'/>-->
         <Calenlar></Calenlar>
@@ -74,34 +74,34 @@
 
         </div>
         <!--<div id="short-content" class="table-content">-->
-          <!--<div class="table-data">-->
-            <!--<div class="info-car">-->
-              <!--<img src="../assets/images/87.jpg" alt="">-->
-            <!--<div class="car-info">-->
-              <!--<p>雪佛兰科瑞兹</p>-->
-              <!--<div>-->
-              <!--<p>三厢/1.5L/乘坐5人</p>-->
-              <!--<p>订单号：<span>1340521000</span></p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="split"></div>-->
-            <!--<div class="info-place"></div>-->
-            <!--<div class="info-all">-->
-            <!--<p><span class="little">取</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>-->
-            <!--<p>2018-08-01 10:00</p>-->
-            <!--<p><span class="little">还</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>-->
-            <!--<p>2018-08-03 10:00</p>-->
-            <!--</div>-->
-            <!--<div class="split" style="left:620px;"></div>-->
-            <!--<div class="info-place" >-->
-            <!--<span>￥278.0</span>-->
-            <!--</div>-->
-            <!--<div class="split" style="left:740px;"></div>-->
-            <!--<div class="info-state">-->
-            <!--<p>预定成功</p>-->
-            <!--<p><a href="#">查看订单</a></p>-->
-            <!--</div>-->
+        <!--<div class="table-data">-->
+        <!--<div class="info-car">-->
+        <!--<img src="../assets/images/87.jpg" alt="">-->
+        <!--<div class="car-info">-->
+        <!--<p>雪佛兰科瑞兹</p>-->
+        <!--<div>-->
+        <!--<p>三厢/1.5L/乘坐5人</p>-->
+        <!--<p>订单号：<span>1340521000</span></p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="split"></div>-->
+        <!--<div class="info-place"></div>-->
+        <!--<div class="info-all">-->
+        <!--<p><span class="little">取</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>-->
+        <!--<p>2018-08-01 10:00</p>-->
+        <!--<p><span class="little">还</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>-->
+        <!--<p>2018-08-03 10:00</p>-->
+        <!--</div>-->
+        <!--<div class="split" style="left:620px;"></div>-->
+        <!--<div class="info-place" >-->
+        <!--<span>￥278.0</span>-->
+        <!--</div>-->
+        <!--<div class="split" style="left:740px;"></div>-->
+        <!--<div class="info-state">-->
+        <!--<p>预定成功</p>-->
+        <!--<p><a href="#">查看订单</a></p>-->
+        <!--</div>-->
         <!--</div>-->
         <!--</div>-->
 
@@ -131,28 +131,28 @@
   </div>
 </template>
 <script>
-export default {
-  name: 'Order',
+  export default {
+    name: 'Order',
 
-  data () {
-    return {
-      msg: '全部文章',
+    data () {
+      return {
+        msg: '全部文章',
 
-      flag:"全部文章",
-    }
-  },
-  methods:{
-    show:function (e) {
-      alert(e.target.innerText)
-      this.flag = e.target.innerText;
+        flag:"全部文章",
+      }
     },
-    getday:function (e) {
+    methods:{
+      show:function (e) {
+        alert(e.target.innerText)
+        this.flag = e.target.innerText;
+      },
+      getday:function (e) {
 
       }
 
     }
 
-}
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -90,10 +90,12 @@ export default {
     left: 0;
     top: 0;
     height: 48px;
-    border: none;
+    /*border: none;*/
     border-left: solid 1px gray ;
     width: 178.5px;
     padding-left: 8px;
+    border-left: solid 1px #ababab;
+    font-size: 16px;
   }
   .minute .minute-div{
     background-color: white;

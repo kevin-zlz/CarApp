@@ -62,10 +62,11 @@ export default {
 <style scoped>
   .mydatepicker{
     outline: none;
-    border: none;
+    /*border: none;*/
     width: 163px;
     padding-left: 8px;
     height: 48px;
-    border-left: solid 1px gray;
+    border-left: solid 1px #ababab;
+    font-size: 16px;
   }
 </style>
