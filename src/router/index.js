@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Index from '@/components/Index'
+import Calenlar from '@/components/Calenlar'
 import Login from '@/components/Login'
 import UpDataPwd from '@/components/UpDataPwd'
 import Regist from '@/components/Regist'
@@ -30,6 +31,10 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },{
+      path: '/calenlar',
+      name: Calenlar,
+      component: Calenlar
     },
     {
       path: '/helloWorld',

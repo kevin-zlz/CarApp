@@ -9,46 +9,17 @@
           </div>
           <div class="label-car">
             <ul style="display: flex" class="bbb">
-              <li v-on:click="a">新能源</li>
-              <li v-on:click="a">新政策</li>
-              <li v-on:click="a">用车</li>
-              <li>新能源用车</li>
-              <li>上牌</li>
-              <li>法律法规</li>
-              <li>配置/性能</li>
-              <li>订购/价格</li>
-              <li>娱乐</li>
-              <li>新闻</li>
-              <li>车展</li>
-              <li>买车</li>
-              <li>旅游</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li>车模</li>
-              <li >车模</li>
-
+              <li v-for="type in types" v-on:click="a" v-text="type.typename">新能源</li>
 
             </ul>
           </div>
           <div class="main_content2">
             <h3>发表说说</h3>
             <!--绑定watch 监听-->
-            <textarea name="" id="" cols="30" rows="10" class="aaa" contenteditable="true" v-model="msg"  style="resize:none" ></textarea>
+            <textarea name="" id="" cols="30" rows="10" class="aaa" contenteditable="true" v-model="msg"  style="resize:none;outline: none" ></textarea>
           </div>
-          <p class="qqq2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{aa}}/5000字</p>
-          <button class="button">发布</button>
+          <p class="qqq2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{aa}}/500字</p>
+          <button class="button" @click="sendAritcal()">发布</button>
         </div>
 
       </div>
@@ -118,6 +89,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
 export default {
   name: 'Questions',
   data () {
@@ -126,6 +98,7 @@ export default {
       aa:0,
       msg2:'',
       msg3:'',
+      types:[]
     }
   },
   watch:{
@@ -147,7 +120,48 @@ export default {
       }
       // console.log(this.msg2)
     },
+    sendAritcal:function () {
+      let vm=this
+      axios.post("http://127.0.0.1:8000/boke/addAritical/",
+        {
+          "content":vm.msg,
+          "ariticaltype":vm.msg2,
+        },{
+          headers: {
+            'token': sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if(res.data){
+
+            vm.$router.push({path: '/answer'});
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
     }
+    },
+  mounted:function () {
+    let vm=this
+    axios.post("http://127.0.0.1:8000/boke/queryArticlaType/",
+      {
+      },{
+      })
+      .then(function (res) {
+        if(res.data){
+          vm.types=res.data
+          console.log(vm.types)
+        }
+      }.bind(this))
+      .catch(function (err) {
+        if (err.response) {
+          console.log(err.response)
+        }
+      }.bind(this))
+  }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -160,6 +174,9 @@ export default {
   .container{
     width: 100%;
     /*background: grey;*/
+  }
+  .button{
+    outline: none;
   }
   .main{
     width: 100%;
