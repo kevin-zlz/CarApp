@@ -1,8 +1,8 @@
 <template>
 <div>
   <div class="inputs" style="display: flex;">
-    <select name="province" class="select1 select" id="param_province" v-on:change="provincechange($event.target.selectedIndex)"><option>请选择省份</option></select><br/>
-    <select name="city" id="param_city" class="select2 select"><option>请选择城市</option></select>
+    <select name="province" class="select1 select" id="param_province" v-model="province" v-on:change="provincechange($event.target.selectedIndex)"><option>请选择省份</option></select><br/>
+    <select name="city" id="param_city" class="select2 select" v-model="city" @change="$emit('getLocation',province,city)"><option>请选择城市</option></select>
   </div>
 </div>
 
@@ -15,7 +15,8 @@ export default {
     return {
       inputtext:'',
       flag:false,
-
+      province:'湖北',
+      city:'武汉',
     }
   },
   mounted:function(){

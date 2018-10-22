@@ -1,19 +1,15 @@
 <template>
 <div>
-  <div>
-    <input class="mydatepicker"  v-model="date" type="text" placeholder="请选择日期" @change="" @click="test($event)">
+  <div class="mydiv" @click="test2($event)">
+    <input class="mydatepicker"  type="text" placeholder="请选择日期" >
   </div>
 </div>
 
 </template>
 
 <script>
-  // import $ from 'jquery'
-  // import '../../static/jquery/jquery-1.8.3.min.js'
+  import $ from 'jquery'
   import '../../static/bootstrap/js/dcalendar.picker'
-  // import '../../static/js/bootstrap-datetimepicker.js'
-  // import '../../static/js/locales/bootstrap-datetimepicker.fr.js'
-
 
 export default {
   // props:'date',
@@ -25,32 +21,24 @@ export default {
       date:''
     }
   },
-  watch:{
-    date:function (newval) {
-      $emit('changeDate',)
-    }
-  },
   mounted:function(){
     $('.mydatepicker').dcalendarpicker({
      format:'yyyy-mm-dd'
    });
+
   },
-
-
-      // $emit('changeDate',date)
-
-
-  // methods:{
-  //   change:function(){
-  //     this.flag=!this.flag;
-  //   },
-  //   timeclick:function(event){
-  //     if(event.className=='minute-select'){
-  //       this.inputtext=event.innerText;
-  //       this.flag=false;
-  //     }
-  //   }
-  // }
+  methods:{
+    test2:function (e) {
+      // console.log(e.target)
+    if (e.target.nodeName=="SPAN"){
+      // console.log(document.querySelector('.mydatepicker').value);e.target.parentElement.querySelector('.mydiv .mydatepicker').value
+      this.date=e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value
+      console.log(e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value)
+      this.$emit('getdate',this.date)
+      // $emit('enlarge-text', 0.1)
+    }
+    }
+  }
 }
 
 </script>
@@ -63,6 +51,8 @@ export default {
     width: 163px;
     padding-left: 8px;
     height: 48px;
-    border-left: solid 1px gray;
+    border-left: solid 1px #ababab;
+    font-size: 16px;
+    /*border-left: solid 1px gray;*/
   }
 </style>

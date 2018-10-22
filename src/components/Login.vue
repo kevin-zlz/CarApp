@@ -16,7 +16,9 @@
                     </li>
                     <br/>
                     <li class="li-2"><img class="img2" src="../assets/images/密码.svg" alt="">
+                      <form >
                       <input class="input2" type="password" placeholder="请输入密码" id="wq3" v-model="userInfo.password" v-on:blur="b">
+                      </form>
                       <span class="fff2" v-text="tiShi.tishi2"></span>
                     </li>
                     <p class="eee">用户名或密码错误</p>
@@ -191,7 +193,7 @@
           })
           .then(function (res) {
             if(res.data.code==='808'){
-              console.log(res);
+              // console.log(res.data);
               sessionStorage.setItem("token",res.headers.token);
               sessionStorage.setItem("telephone",vm.userInfo.telephone);
               if(sessionStorage.getItem("url")){
@@ -311,7 +313,7 @@
     height: 373px;
     /*background: #f3f4f6;*/
     position: absolute;
-    left: 1000px;
+    left: 1100px;
     top: 70px;
   }
 

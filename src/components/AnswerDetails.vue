@@ -8,7 +8,7 @@
           现如今，由于限牌还有油价上涨等因素的制约，越来越多的人选择使用新能源的交通工具，其中最被人们看好的，就是电动汽车。再者，随着电动汽车技术的突飞猛进，汽车的电动化也是一个未来大趋势。很多人出于无奈对燃油车可望而不可即，或者对电动车的追捧从而纷纷选择电动汽车，但是在购买电动车，尤其是纯电动车之前，这五件事必须要考虑清楚。
         </div>
         <div class="zan" >
-          <img src="../../static/images/zan.png" alt="">
+          <img src="../../static/images/zan.png" alt="" style="cursor: pointer;" @click="loving(aritical.id)">
           <span v-text="aritical.starnum"> 1 <span>赞</span></span>
           <img src="" alt="" class="touxiang">
           <div>
@@ -25,6 +25,7 @@
               <span class="time" v-text="commener.pubtime">2018-10-09 15:48:42</span>
             </div>
             <div class="neirong" v-text="commener.content">就目前来看，传统车企的新能源汽车做得是相当不错。</div>
+            <div class="deletecontainer" v-if="commener.commener__telephone==telephone"><span @click="deleteCommen(commener.id)">删除</span></div>
           </div>
           <!--<div class="pinglun-i">-->
             <!--<div class="who">-->
@@ -64,7 +65,7 @@
           <span style="color: black;font-weight: 600;line-height: 40px;text-indent: 10px">本文精彩评论</span>
         </div>
         <div class="bottom-middle">
-          <textarea name="pinglun" id="" cols="104" rows="6.5" style="resize: none;"></textarea>
+          <textarea name="pinglun" id="" cols="104" rows="6.5" style="resize: none;" v-model="comment" placeholder="字数在150字以内..." maxlength="150"></textarea>
           <button class="btn" @click="commitcommmen(aritical.id)">提交</button>
         </div>
       </div>
@@ -74,33 +75,153 @@
 </template>
 
 <script>
-    import axios from 'axios'
-    export default {
+import axios from 'axios'
+export default {
         name: "AnswerDetails",
+
         methods:{
+          getdata:function () {
+            let vm=this
+            axios.post("http://127.0.0.1:8000/boke/queryAriticalByaid/",
+              {
+                'aid':vm.$route.query.selected
+              },{
+                // headers: {
+                //   'Content-Type': 'application/json',
+                // }
+              })
+              .then(function (res) {
+                if(res.data){
+                  console.log(res.data)
+                  vm.aritical=res.data[0]
+                  console.log(vm.aritical);
+                  // vm.articallist=res.data
+
+                }
+              }.bind(this))
+              .catch(function (err) {
+                if (err.response) {
+                  console.log(err.response)
+                }
+              }.bind(this))
+
+            axios.post("http://127.0.0.1:8000/boke/queryCommentbyaid/",
+              {
+                'aid':vm.$route.query.selected
+              },{
+                // headers: {
+                //   'Content-Type': 'application/json',
+                // }
+              })
+              .then(function (res) {
+                if(res.data){
+                  console.log(res.data)
+                  vm.commenlist=res.data
+                  console.log(vm.commenlist);
+                  // vm.articallist=res.data
+
+                }
+              }.bind(this))
+              .catch(function (err) {
+                if (err.response) {
+                  console.log(err.response)
+                }
+              }.bind(this))
+
+            axios.post("http://127.0.0.1:8000/boke/queryLikebyaid/",
+              {
+                'aid':vm.$route.query.selected
+              },{
+                // headers: {
+                //   'Content-Type': 'application/json',
+                // }
+              })
+              .then(function (res) {
+                if(res.data){
+                  console.log(res.data)
+                  vm.starlist=res.data
+                  console.log(vm.starlist);
+                  // vm.articallist=res.data
+
+                }
+              }.bind(this))
+              .catch(function (err) {
+                if (err.response) {
+                  console.log(err.response)
+                }
+              }.bind(this))
+
+          },
           commitcommmen:function (e) {
             let vm=this
-            console.log('aaa')
             if(sessionStorage.getItem('token')){
               sessionStorage.setItem('frompagepath','/det')
-
+              vm.telephone=sessionStorage.getItem('telephone')
+              console.log('tel'+vm.telephone)
               axios.post("http://127.0.0.1:8000/boke/addComment/",
                 {
                   'aid':vm.aritical.id,
-                  'content':'',
-                  'uid':'',
+                  'content':vm.comment,
                 },{
-                  // headers: {
-                  //   'Content-Type': 'application/json',
-                  // }
+                  headers: {
+                    'token': sessionStorage.getItem('token'),
+                  }
                 })
                 .then(function (res) {
                   if(res.data){
                     console.log(res.data)
-                    vm.aritical=res.data[0]
-                    console.log(vm.aritical);
-                    // vm.articallist=res.data
+                    window.location.reload()
+                  }
+                }.bind(this))
+                .catch(function (err) {
+                  if (err.response) {
+                    console.log(err.response)
+                  }
+                }.bind(this))
 
+            }else{
+              this.$router.push({path: '/login', query: {selected: e}});
+            }
+          },
+          deleteCommen:function (e) {
+            console.log(e)
+            axios.post("http://127.0.0.1:8000/boke/deteleCommentByCid/",
+              {
+                'cid':e,
+              },{
+                headers: {
+                  'token': sessionStorage.getItem('token'),
+                }
+              })
+              .then(function (res) {
+                if(res.data.code=='208'){
+                  window.location.reload()
+                }
+              }.bind(this))
+              .catch(function (err) {
+                if (err.response) {
+                  console.log(err.response)
+                }
+              }.bind(this))
+          },
+          loving:function (e) {
+            let vm=this
+            alert(vm.isloved)
+            if(vm.isloved){
+              console.log(e)
+              axios.post("http://127.0.0.1:8000/boke/deletelike/",
+                {
+                  'aid':e,
+                },{
+                  headers: {
+                    'token': sessionStorage.getItem('token'),
+                  }
+                })
+                .then(function (res) {
+                  if(res.data){
+                    console.log(res.data);
+                    window.location.reload()
+                    vm.isloved=false;
                   }
                 }.bind(this))
                 .catch(function (err) {
@@ -111,17 +232,41 @@
 
 
             }else{
-              console.log('ccc')
-              this.$router.push({path: '/login', query: {selected: e}});
+              console.log(e)
+              axios.post("http://127.0.0.1:8000/boke/addLike/",
+                {
+                  'aid':e,
+                },{
+                  headers: {
+                    'token': sessionStorage.getItem('token'),
+                  }
+                })
+                .then(function (res) {
+                  if(res.data){
+                    window.location.reload()
+                    vm.isloved=true;
+                  }
+                }.bind(this))
+                .catch(function (err) {
+                  if (err.response) {
+                    console.log(err.response)
+                  }
+                }.bind(this))
+
             }
           }
+
+
 
         },
         data () {
         return {
           aritical:{},
           commenlist:[],
-          starlist:[]
+          starlist:[],
+          comment:'',
+          telephone:'',
+          isloved:false
         }
       },
         mounted:function () {
@@ -140,7 +285,9 @@
               vm.aritical=res.data[0]
               console.log(vm.aritical);
               // vm.articallist=res.data
-
+              if(sessionStorage.getItem('token')) {
+                vm.telephone = sessionStorage.getItem('telephone')
+              }
             }
           }.bind(this))
           .catch(function (err) {
@@ -182,10 +329,18 @@
             })
             .then(function (res) {
               if(res.data){
-                console.log(res.data)
                 vm.starlist=res.data
-                console.log(vm.starlist);
-                // vm.articallist=res.data
+
+                if(sessionStorage.getItem('telephone')){
+                  console.log(sessionStorage.getItem('telephone'))
+                  console.log(res.data)
+                  for(let i=0;i<vm.starlist.length;i++){
+                    console.log(vm.starlist[i])
+                    if(vm.starlist[i].liker__telephone==sessionStorage.getItem('telephone')){
+                      vm.isloved=true;
+                    }
+                  }
+                }
 
               }
             }.bind(this))
@@ -197,10 +352,6 @@
 
       },
 
-        name: "AnswerDetails",
-        methods:{
-
-        }
     }
 </script>
 
@@ -226,7 +377,17 @@
     margin-top: 5px;
     color: gray;
   }
-
+  .deletecontainer{
+    height: 30px;
+    position: relative;
+  }
+  .deletecontainer span{
+    position: absolute;
+    left: 510px;
+  }
+  .deletecontainer span:hover{
+    cursor: pointer;
+  }
   .content{
     height: 110px;
     width: 90%;

@@ -10,23 +10,22 @@
       <!--</ul>-->
     <!--</div>-->
     <div class="all_car" v-for="(car,index) in allCar" :data-id="index" v-bind:key="index">
-      <table class="aa">
-        <tr>
-          <td class="aa1"><img src="../assets/images/car1.jpg" alt="" ></td>
-          <td class="aa2">
-            <p v-text="car.carname" class="bb1"></p>
-            <p v-text="car.cartype" class="bb2"></p>
+      <table>
+        <tr style="position: relative;top: 25px;">
+          <td><img src="../assets/images/car1.jpg" alt="" style="width:175px;height: 130px;padding-top:30px;padding-left: 20px "></td>
+          <td style="padding-left: 70px">
+            <span style="font-size: 18px;display: block;color: #60606c" v-text="car.carname"></span>
+            <span style="color: #93939e;font-size: 10px;display: block;padding-top: 8px" v-text="car.cartype"></span>
           </td>
-          <td class="aa3">
-            <div>门店支付</div>
+          <td>
+            <div style="width: 15px;height: 62px;margin-left: 100px;background-color: #f2f3f5;color:grey;font-size: 6px">门店支付</div>
           </td>
-          <td class="aa4">
-            <p v-text="car.carprice" style="font-size:30px;color:#fabe00;font-style: normal;"></p>
-            <p class="bb3">总价:￥138</p>
-            <span>/日均</span>
+          <td>
+            <p style="position: relative;top: 5px;"><span style="color: #fabe00;font-size: 24px;padding-top: -10px" v-text="car.carprice"></span><span style="color: #93939e;font-size: 15px">/日均</span></p>
+            <p style="position: relative;top: -10px;left: 23px;color: #93939e">总价:￥138</p>
           </td>
-          <td class="aa5">
-            <button><span style="color: white;font-size: 20px"><router-link :to="{path:'/revert/car',query: {name: car.carid}}" class="revert">租车</router-link></span></button>
+          <td>
+            <button style="cursor:pointer;width: 80px;height: 40px;background-color: #fabe00;border: none;border-radius: 5px;position: relative;left: 80px"><span style="color: white;font-size: 20px"><router-link :to="{path:'/revert/car',query: {name: car.carid}}" class="revert">租车</router-link></span></button>
           </td>
         </tr>
       </table>
@@ -36,7 +35,7 @@
 
 <script>
     export default {
-        name: "RevertRight",
+        name: "beifen",
         data:function () {
           return {
            allCar:[
@@ -101,10 +100,10 @@
 
   .all_car{
     width: 100%;
-    height: 200px;
+    height: 160px;
     border-bottom:solid 2px #e4e6e9;
     box-sizing: border-box;
-    padding-left: 30px;
+    padding-left: 80px;
   }
 
   .all_car:hover{
@@ -112,65 +111,5 @@
   }
   button:hover {
     background-color: #ff8732;
-  }
-  .aa{
-    /*background: green;*/
-    position: absolute;
-  }
-  .aa1 {
-    width: 350px;
-    height: 200px;
-  }
-  .aa1 img{
-    width: 100%;
-    height: 180px;
-  }
-  .aa2{
-    width: 280px;
-    height: 200px;
-    position: relative;
-    left: 10px;
-  }
-  .bb1{
-    font-size: 18px;
-    color: #60606c;
-  }
-  .bb2{
-    font-size: 12px;
-    color: #93939e;
-  }
-  .aa3{
-    position: relative;
-    left: 20px;
-  }
-  .aa3 div{
-    width: 15px;
-    height: 77px;
-    background: #dcdcdc;
-    color: gray;
-  }
-  .aa4{
-    position: relative;
-    left: 35px;
-  }
-  .aa4 span{
-    position: relative;
-    left: 100px;
-    top: -65px;
-    color: #93939e;
-  }
-  .bb3{
-    color:#93939e;
-  }
-  .aa5{
-    position: relative;
-    left: 100px;
-  }
-  .aa5 button{
-    width: 80px;
-    height: 40px;
-    background: #eeb81a;
-    color: white;
-    border: 1px solid #eeb81a;
   }
 </style>

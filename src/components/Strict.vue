@@ -63,7 +63,7 @@ export default {
       for(var a  of this.area){
         if(a.strictname == event.target.innerText){
             this.strict = a.stores;
-            console.log(this.strict)
+
             break;
         }
       }
@@ -71,6 +71,7 @@ export default {
     },
     change:function(){
       this.flag=!this.flag;
+
     },
     strictclick:function(event){
       if(event.tagName=='LI'){
@@ -86,6 +87,7 @@ export default {
       if(event.tagName=='LI'){
         this.inputtext=event.children[0].innerText;
         this.flag=false;
+        this.$emit('getplace',this.inputtext)
       }
     }
   }

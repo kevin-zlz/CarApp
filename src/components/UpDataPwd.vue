@@ -31,7 +31,7 @@
       </li>
       <li class="items item-save">
         <div class="label-info"></div>
-        <div class="inputs"><div class="save">保存</div></div>
+        <div class="inputs"><div class="save" @click="savepsw()">保存</div></div>
       </li>
 
     </ul>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
 export default {
   name: 'HelloWorld',
   data () {
@@ -111,6 +112,31 @@ export default {
         this.tiShi.tishi3="字母开头+数字组成"
       }
     },
+    savepsw:function () {
+      let vm=this
+      axios.post("http://127.0.0.1:8000/user/updatepswbyid/",
+        {
+          "bef_password":vm.userInfo.password1,
+          "aft_password":vm.userInfo.password3,
+        },{
+          headers: {
+            'token': sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if(res.data.code=='808'){
+            console.log(res)
+            alert('yes')
+            // console.log(vm.articallist);
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
+
+    }
 
   }
 }
@@ -297,12 +323,15 @@ export default {
     font-size: 12px;
   }
   .ccc{
-    color: green!important;
+    /*color: green!important;*/
+    background: rgba(243, 185, 0, 0.51) !important;
   }
   .ccc2{
-    color: yellow!important;
+    /*color: yellow!important;*/
+    background: rgba(243, 185, 0, 0.51) !important;
   }
   .ccc3{
-    color: red!important;
+    /*color: red!important;*/
+    background: rgba(243, 185, 0, 0.51) !important;
   }
 </style>

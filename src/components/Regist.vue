@@ -179,6 +179,7 @@
           })
           .then(function (res) {
             if(res.data.code==='808'){
+              sessionStorage.setItem('telephone',vm.userInfo.telephone)
               this.$router.push('Login');
             }
           }.bind(this))
@@ -238,13 +239,8 @@
         }
       },
       d(){
-        this.tiShi.tishi4= '';
-        var p=/[a-zA-Z]\w[z0-9]/;
-        if (!this.userInfo.password1) {
-          this.tiShi.tishi4='密码不能为空';
-        }
-        else if(!p.test(this.userInfo.password1)){
-          this.tiShi.tishi4="由字母开头+数字"
+        if (this.userInfo.password !== this.userInfo.password1){
+          this.tiShi.tishi4='两次密码不一致';
         }
       },
       e:function () {

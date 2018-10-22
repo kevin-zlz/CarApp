@@ -74,6 +74,7 @@ export default {
       if(event.className=='minute-select'){
         this.inputtext=event.innerText;
         this.flag=false;
+        this.$emit('getTime',this.inputtext)
       }
     }
   }
@@ -94,6 +95,8 @@ export default {
     border-left: solid 1px gray ;
     width: 178.5px;
     padding-left: 8px;
+    border-left: solid 1px #ababab;
+    font-size: 16px;
   }
   .minute .minute-div{
     background-color: white;

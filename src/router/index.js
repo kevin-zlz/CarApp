@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Index from '@/components/Index'
+import Calenlar from '@/components/Calenlar'
 import Login from '@/components/Login'
 import UpDataPwd from '@/components/UpDataPwd'
 import Regist from '@/components/Regist'
@@ -12,11 +13,15 @@ import Dot from '@/components/Dot'
 import LongLoad from '@/components/LongLoad'
 import User from '@/components/User'
 import AnswerDetails from '@/components/AnswerDetails'
-import Questions from '@/components/Questions'
 import Retrieve from '@/components/Retrieve'
-import Dic from '@/components/Dic'
 import CarDetail from '@/components/CarDetail'
 import UpHead from '@/components/UpHead'
+import Article from '@/components/Article'
+import Order from '@/components/Order'
+import Questions from '@/components/Questions'
+import Activity from '@/components/Activity'
+import MyActivity from '@/components/MyActivity'
+
 
 Vue.use(Router)
 
@@ -26,6 +31,10 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },{
+      path: '/calenlar',
+      name: Calenlar,
+      component: Calenlar
     },
     {
       path: '/helloWorld',
@@ -68,11 +77,6 @@ export default new Router({
       component: Dot,
     },
     {
-      path: '/wen',
-      name: 'Questions',
-      component: Questions,
-    },
-    {
       path: '/retrieve',
       name: 'Retrieve',
       component: Retrieve,
@@ -93,14 +97,39 @@ export default new Router({
       component: AnswerDetails,
     },
     {
-      path: '/dic',
-      name: 'Dic',
-      component: Dic,
-    },
-    {
       path: '/revert/car',
       name: 'CarDetail',
       component: CarDetail,
+    },
+    {
+      path: '/answer/question',
+      name: 'Questions',
+      component: Questions,
+    },
+    {
+      path: '/uphead',
+      name: 'UpHead',
+      component: UpHead,
+    },
+    {
+      path: '/article',
+      name: 'Article',
+      component: Article,
+    },
+    {
+      path: '/order',
+      name: 'Order',
+      component: Order,
+    },
+    {
+      path: '/activity',
+      name: 'Activity',
+      component: Activity,
+    },
+    {
+      path: '/myactivity',
+      name: 'MyActivity',
+      component: MyActivity,
     },
   ]
 })
