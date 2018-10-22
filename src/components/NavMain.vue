@@ -7,6 +7,9 @@
           <router-link to="/" class="aaa">首页</router-link>
         </li>
         <li>
+          <router-link to="/activity" class="aaa">活动</router-link>
+        </li>
+        <li>
           <router-link to="/dot" class="aaa">门店</router-link>
         </li>
         <li>

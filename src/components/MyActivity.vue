@@ -1,7 +1,7 @@
 <template>
   <div class="container" >
     <div class="order-head">
-      <div>我的文章</div>
+      <div>我的活动</div>
       <div class="date">
         <!--<input class='mydate' type='text'/>-->
         <Calenlar></Calenlar>
@@ -19,10 +19,10 @@
         <div class="state" v-text="this.msg" v-show="">
 
         </div>
-        <div class="state" @click="show">全部文章</div>
-        <div class="state" @click="show">我评论的文章</div>
-        <div class="state" @click="show">我发表的文章</div>
-        <div class="state" @click="show">我点赞的文章</div>
+        <div class="state" @click="show">全部活动</div>
+        <div class="state" @click="show">我发起的活动</div>
+        <div class="state" @click="show">我参与的活动</div>
+        <div class="state" @click="show">已结束的活动</div>
       </div>
       <div class="order-container">
         <div class="table-head">
@@ -31,79 +31,105 @@
           <!--<div class="order-all">总计</div>-->
           <!--<div class="order-states">订单状态</div>-->
         </div>
-        <div v-show="'全部文章'===flag">
-          <div id="short-content" class="table-content">
-            <div class="table-data">
-              <div class="info-car">
-                <img src="../assets/images/87.jpg" alt="">
-                <div class="car-info">
-                  <p>雪佛兰科瑞兹</p>
-                  <div>
-                    <p>三厢/1.5L/乘坐5人</p>
-                    <p>订单号：<span>1340521000</span></p>
-                  </div>
+        <div v-show="'全部活动'===flag">
+          <div class="main-content">
+            <ul>
+              <li class="cc">
+                <div class="aa"><img src="../assets/images/寒山寺.jpg" alt=""></div>
+                <div class="aa2">
+                  <ul>
+                    <li><h4>寒山寺一日游</h4></li>
+                    <li>
+                      <p>目标人数：10人</p>
+                      <p>已参人数：5人</p>
+                      <p>日期：2018-11-11</p>
+                      <p>联系人：王文成</p>
+                      <p style="color: red">联系电话：15776540858</p>
+                    </li>
+                    <div class="qq" v-show="'我参与的活动'===flag"><button>取消</button></div>
+                    <!--<li class="bb1"><button>查看详情</button></li>-->
+                  </ul>
                 </div>
-              </div>
-              <div class="split"></div>
-              <div class="info-place"></div>
-              <div class="info-all">
-                <p><span class="little">取</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>
-                <p>2018-08-01 10:00</p>
-                <p><span class="little">还</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>
-                <p>2018-08-03 10:00</p>
-              </div>
-              <div class="split" style="left:620px;"></div>
-              <div class="info-place" >
-                <span>￥278.0</span>
-              </div>
-              <div class="split" style="left:740px;"></div>
-              <div class="info-state">
-                <p>预定成功</p>
-                <p><a href="#">查看订单</a></p>
-              </div>
-            </div>
+              </li>
+              <li class="cc">11</li>
+            </ul>
           </div>
         </div>
-        <div style="height: 100px;background-color: red" v-show="'我评论的文章'===flag">
+        <div class="main1" v-show="'我发起的活动'===flag">
+          <div class="main-content">
+            <ul>
+              <li class="cc">
+                <div class="aa"><img src="../assets/images/寒山寺.jpg" alt=""></div>
+                <div class="aa2">
+                  <ul>
+                    <li><h4>寒山寺一日游</h4></li>
+                    <li>
+                      <p>目标人数：10人</p>
+                      <p>已参人数：5人</p>
+                      <p>日期：2018-11-11</p>
+                      <p>联系人：王文成</p>
+                      <p style="color: red">联系电话：15776540858</p>
+                    </li>
+                    <div class="qq" v-show="'我参与的活动'===flag"><button>取消</button></div>
+                    <div class="qq" v-show="'我发起的活动'===flag"><button>取消</button></div>
+                    <!--<li class="bb1"><button>查看详情</button></li>-->
+                  </ul>
+                </div>
+              </li>
+              <li class="cc">11</li>
+            </ul>
+          </div>
 
         </div>
-        <div style="height: 100px;background-color: black" v-show="'我发表的文章'===flag">
-
+        <div v-show="'我参与的活动'===flag">
+          <div class="main-content">
+            <ul>
+              <li class="cc">
+                <div class="aa"><img src="../assets/images/寒山寺.jpg" alt=""></div>
+                <div class="aa2">
+                  <ul>
+                    <li><h4>寒山寺一日游</h4></li>
+                    <li>
+                      <p>目标人数：10人</p>
+                      <p>已参人数：5人</p>
+                      <p>日期：2018-11-11</p>
+                      <p>联系人：王文成</p>
+                      <p style="color: red">联系电话：15776540858</p>
+                    </li>
+                    <div class="qq" v-show="'我参与的活动'===flag"><button>取消</button></div>
+                    <!--<li class="bb1"><button>查看详情</button></li>-->
+                  </ul>
+                </div>
+              </li>
+              <li class="cc">11</li>
+            </ul>
+          </div>
         </div>
-        <div style="height: 100px;background-color: yellow" v-show="'我点赞的文章'===flag">
-
+        <div v-show="'已结束的活动'===flag">
+          <div class="main-content">
+            <ul>
+              <li class="cc">
+                <div class="aa"><img src="../assets/images/寒山寺.jpg" alt=""></div>
+                <div class="aa2">
+                  <ul>
+                    <li><h4>寒山寺一日游</h4></li>
+                    <li>
+                      <p>目标人数：10人</p>
+                      <p>已参人数：5人</p>
+                      <p>日期：2018-11-11</p>
+                      <p>联系人：王文成</p>
+                      <p style="color: red">联系电话：15776540858</p>
+                    </li>
+                    <div class="qq" v-show="'我参与的活动'===flag"><button>取消</button></div>
+                    <!--<li class="bb1"><button>查看详情</button></li>-->
+                  </ul>
+                </div>
+              </li>
+              <li class="cc">11</li>
+            </ul>
+          </div>
         </div>
-        <!--<div id="short-content" class="table-content">-->
-          <!--<div class="table-data">-->
-            <!--<div class="info-car">-->
-              <!--<img src="../assets/images/87.jpg" alt="">-->
-            <!--<div class="car-info">-->
-              <!--<p>雪佛兰科瑞兹</p>-->
-              <!--<div>-->
-              <!--<p>三厢/1.5L/乘坐5人</p>-->
-              <!--<p>订单号：<span>1340521000</span></p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="split"></div>-->
-            <!--<div class="info-place"></div>-->
-            <!--<div class="info-all">-->
-            <!--<p><span class="little">取</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>-->
-            <!--<p>2018-08-01 10:00</p>-->
-            <!--<p><span class="little">还</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>-->
-            <!--<p>2018-08-03 10:00</p>-->
-            <!--</div>-->
-            <!--<div class="split" style="left:620px;"></div>-->
-            <!--<div class="info-place" >-->
-            <!--<span>￥278.0</span>-->
-            <!--</div>-->
-            <!--<div class="split" style="left:740px;"></div>-->
-            <!--<div class="info-state">-->
-            <!--<p>预定成功</p>-->
-            <!--<p><a href="#">查看订单</a></p>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
+
 
         <div class="page">
           <nav aria-label="Page navigation">
@@ -131,28 +157,28 @@
   </div>
 </template>
 <script>
-export default {
-  name: 'Order',
+  export default {
+    name: 'Order',
 
-  data () {
-    return {
-      msg: '全部文章',
+    data () {
+      return {
+        msg: '全部活动',
 
-      flag:"全部文章",
-    }
-  },
-  methods:{
-    show:function (e) {
-      alert(e.target.innerText)
-      this.flag = e.target.innerText;
+        flag:"全部活动",
+      }
     },
-    getday:function (e) {
+    methods:{
+      show:function (e) {
+        alert(e.target.innerText)
+        this.flag = e.target.innerText;
+      },
+      getday:function (e) {
 
       }
 
     }
 
-}
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -170,14 +196,6 @@ export default {
   }
   input{
     outline: none;
-  }
-  .head{
-    display: flex;
-    width: 100%;
-    height: 55px;
-    line-height: 55px;
-    box-sizing: border-box;
-    background-color: #1E1E1E;
   }
   body{
     background-color: #f2f3f5;
@@ -227,42 +245,13 @@ export default {
     color: #fabe00;
   }
   /*----------------------head-info--------------------*/
-  .head-item{
-    width: 100%;
-    height: 100px;
-    background-color: white ;
-  }
-  .head-info{
-    margin: auto;
-    width: 1244px;
-    height: 100px;
-    display: flex;
-    /*border: red solid 1px;*/
-    align-items: center;
-    box-sizing: border-box;
-  }
   .head-info div{
     width: 200px;
     height: 100px;
     /*border-left: red solid 1px;*/
   }
-  .head-info .head-logo{
-    /*margin-left: 80px;*/
-    width:183px;
-    height: 50px;
-    text-align: center;
-    font-size: 2.2em;
-    font-weight: bold;
-    color: #ff8845;
-    line-height: 50px;
-    border-right: #d6d8db solid 1px;
-    box-sizing: border-box;
-  }
-  .head-info .head-icon{
-    width: 400px;
-    display: flex;
-    border-right: #d6d8db solid 1px;
-  }
+
+
   .head-icon div:nth-child(1){
     width: 100px;
     text-align: center;
@@ -282,12 +271,6 @@ export default {
   .head-icon div:nth-child(2) p:nth-child(2){
     font-size: 14px;
   }
-  .head-score{
-    width: 200px;
-    left: 564px;
-    text-align: center;
-    border-right: #d6d8db solid 1px;
-  }
   .head-score p{
     height: 10px;
     line-height: 10px;
@@ -303,58 +286,7 @@ export default {
     color: #ffbb00;
   }
   /*----------------------------------body-main-----------*/
-  .main-contain{
-    position: relative;
-    width: 1222px;
-    margin: 0 80px;
-  }
 
-  .main-contain .body-left{
-    background-color: white;
-    top: 20px;
-    position: absolute;
-    width: 270px;
-    height: 933px;
-    border: #d4d5d8 solid 1px;
-    /*left: 80px;*/
-  }
-  .body-left .nav{
-    box-sizing: border-box;
-    width: 100%;
-    margin-bottom: 50px;
-  }
-  .body-left .nav .nav-title{
-    padding-left: 15px;
-    line-height: 45px;
-    border-bottom: #d4d5d8 solid 1px;
-    border-top: #d4d5d8 solid 1px;
-    box-sizing: border-box;
-    height: 45px;
-    color: #60606c;
-  }
-  .body-left .nav .nav-content{
-    padding-left: 15px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 14px;
-    color: #a9a9b9;
-  }
-  .body-left .nav .nav-content:hover{
-    cursor: pointer;
-    background-color: #fff8e8;
-    color: #fabe00;
-  }
-  .main-contain .body-right-top{
-    top: 20px;
-    position: absolute;
-    width: 930px;
-    height: 626px;
-    /*border: #d4d5d8 solid 1px;*/
-    left: 272px;
-    margin-left: 10px;
-    box-sizing: border-box;
-    /*padding-left: 5px ;*/
-  }
   .order-head{
     display: flex;
     border: #d4d5d8 solid 1px;
@@ -466,24 +398,6 @@ export default {
     color: #888888;
     border-bottom: #d4d5d8 solid 1px;
   }
-  .order-statement .state-7{
-    width: 100%;
-    height:230px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: left;
-    /*align-items: center;*/
-    padding-top: 10px;
-    padding-bottom: 0;
-  }
-  .order-statement .state-7 .every-state{
-    width: 200px;
-    height: 80px;
-    background-color: #f8f8fa;
-    margin-left: 10px;
-    margin-right: 10px;
-    box-sizing: border-box;
-  }
   .order-statement .every-state p:nth-child(1){
     margin-top: 0px;
     display: inline-block;
@@ -521,15 +435,7 @@ export default {
     font-size: 14px;
     color: #a7a7a7;
   }
-  .order-attention{
-    background-color: white;
-    padding: 20px;
-    width: 924px;
-    height: 175px;
-    border: #d4d5d8 solid 1px;
-    box-sizing: border-box;
-    margin-top: 10px;
-  }
+
   .order-attention div:first-child{
     width: 100%;
     height: 30px;
@@ -560,48 +466,15 @@ export default {
     width: 80px;
     left: 10px;
   }
-  .order-container .table-head .order-car{
-    position: absolute;
-    width: 80px;
-    left: 380px;
-  }
-  .order-container .table-head .order-all{
-    position: absolute;
-    width: 80px;
-    left: 665px;
-  }
-  .order-container .table-head .order-states{
-    position: absolute;
-    width: 80px;
-    left: 780px;
-  }
-  .order-container .table-data{
-    border-bottom: #d6d6d6 solid 1px;
-    border-top: #d6d6d6 solid 1px;
-    height: 160px;
-    width: 100%;
-    position: relative;
-  }
 
-  .table-data .info-car{
-    position: relative;
-    width: 360px;
-    height: 140px;
-  }
+
   .table-data .info-car img{
     position: absolute;
     top: 30px;
     width: 170px;
     height: 100px;
   }
-  .table-data .info-car .car-info{
-    position: absolute;
-    display: inline-block;
-    top: 30px;
-    left: 180px;
-    height: 160px;
-    width: 190px;
-  }
+
   .info-car .car-info>p{
     font-size: 16px;
     font-weight: bold;
@@ -611,30 +484,9 @@ export default {
     color: #d3d3d3;
     font-size: 14px;
   }
-  .table-data .split{
-    height: 140px;
-    width: 0px;
-    position: absolute;
-    left: 365px;
-    border: #d8d8d8 solid 0.5px;
-    top: 10px;
-  }
-  .table-data .info-all{
-    position: absolute;
-    display: inline-block;
-    top: 30px;
-    left: 400px;
-    height: 160px;
-    width: 190px;
-  }
-  .info-all .little{
-    width: 20px;
-    height: 20px;
-    background-color: #ffa337;
-    border-radius: 3px;
-    color: white;
-    font-size: 14px;
-  }
+
+
+
   .info-all p{
     padding-bottom: 5px;
     margin:0px;
@@ -642,25 +494,8 @@ export default {
     color: #b4b4b4;
 
   }
-  .info-place{
-    position: absolute;
-    display: inline-block;
-    top: 60px;
-    left: 640px;
-    height: 160px;
-    width: 190px;
-    color: #5b5b5b;
-    font-size: 20px;
-  }
-  .info-state{
-    position: absolute;
-    display: inline-block;
-    top: 50px;
-    left: 775px;
-    height: 160px;
-    width: 190px;
 
-  }
+
   .info-state p:first-child{
     font-size: 15px;
     color: rgba(0, 255, 0, 0.48);
@@ -677,22 +512,7 @@ export default {
     /*left: 300px;*/
     text-align: center;
   }
-  .footer{
-    margin-top: 1150px;
-  }
-  .calendar {
-    position: relative;
-    font-family: 'Century Gothic','Segoe UI', Calibri, Arial;
-    font-size: 12px;
-    border-collapse: collapse;
-    margin: 0; padding: 0;
-    z-index: 4;
-    border:1px solid rgba(0,0,0,0.08);
-    width: 250px;
-    color: #000;
-    text-align: center;
-    background-color: #FFF;
-  }
+
   .calendar th,
   .calendar td {
     text-align: center;
@@ -708,9 +528,7 @@ export default {
     padding: 6px 4px;
     display: block;
   }
-  .calendar .month {
-    padding: 15px;
-  }
+
 
   .calendar .pMDate, .calendar .nMDate { color: #AAA; }
   .calendar .date, .calendar .pMDate, .calendar .nMDate, .calendar .month { cursor: pointer; }
@@ -748,5 +566,42 @@ export default {
     background:transparent right no-repeat;
     background-size: contain;
   }
+  .main-content ul .cc{
+    width: 100%;
+    height: 200px;
+    /*background: green;*/
+    margin-top: 20px;
+    list-style: none;
+    display: flex;
+    background: #ebebeb;
+  }
+ .main-content ul li .aa{
+    width: 470px;
+    height: 100%;
+  }
+ .main-content ul li .aa img{
+    height: 100%;
+    width: 100%;
+  }
+ .main-content ul li .aa2{
+    width: 412px;
+    height: 100%;
+    /*background: yellow;*/
+  }
+  .aa2 ul li{
+    margin-left: 100px;
+    margin-top: 20px;
+  }
+  .qq button{
+    width: 100px;
+    height: 50px;
+    background: rgb(238, 184, 25);
+    border: solid 1px #eeb819;
+    color: white;
+    position: relative;
+    left: 250px;
+    top: -130px;
+  }
+
 
 </style>

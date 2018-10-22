@@ -38,6 +38,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -64,7 +65,7 @@
       }
     },
     mounted:function () {
-          let vm=this
+          let vm=this;
         axios.post("http://127.0.0.1:8000/boke/queryAllAritical/",
           {
           },{
@@ -74,7 +75,7 @@
           })
           .then(function (res) {
             if(res.data){
-              console.log(res)
+              console.log(res);
               vm.articallist=res.data
               // console.log(vm.articallist);
             }
