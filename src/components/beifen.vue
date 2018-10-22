@@ -10,12 +10,12 @@
       <!--</ul>-->
     <!--</div>-->
     <div class="all_car" v-for="(car,index) in allCar" :data-id="index" v-bind:key="index">
-      <table class="aa">
-        <tr>
-          <td><img src="../assets/images/car1.jpg" alt="" ></td>
+      <table>
+        <tr style="position: relative;top: 25px;">
+          <td><img src="../assets/images/car1.jpg" alt="" style="width:175px;height: 130px;padding-top:30px;padding-left: 20px "></td>
           <td style="padding-left: 70px">
-            <span></span>
-            <span></span>
+            <span style="font-size: 18px;display: block;color: #60606c" v-text="car.carname"></span>
+            <span style="color: #93939e;font-size: 10px;display: block;padding-top: 8px" v-text="car.cartype"></span>
           </td>
           <td>
             <div style="width: 15px;height: 62px;margin-left: 100px;background-color: #f2f3f5;color:grey;font-size: 6px">门店支付</div>
@@ -35,7 +35,7 @@
 
 <script>
     export default {
-        name: "RevertRight",
+        name: "beifen",
         data:function () {
           return {
            allCar:[

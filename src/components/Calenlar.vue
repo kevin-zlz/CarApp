@@ -46,7 +46,7 @@ export default {
 <style scoped>
   .mydatepicker{
     outline: none;
-    /*border: none;*/
+    border: none;
     width: 163px;
     padding-left: 8px;
     height: 48px;

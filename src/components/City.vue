@@ -628,7 +628,7 @@
     padding-left: 8px;
     height: 48px;
     width: 164px;
-    /*border: none;*/
+    border: none;
     border-left: solid 1px #ababab;
     font-size: 16px;
     color: #777;

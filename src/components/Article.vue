@@ -434,7 +434,7 @@ export default {
   }
   .order-state .order-btn .state{
     height: 40px;
-    width: 90px;
+    width: 100%;
     border: #d4d4d6 solid 1px;
     border-right: none;
     margin-left: 0;
