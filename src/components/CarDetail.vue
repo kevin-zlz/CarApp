@@ -327,7 +327,7 @@
         mounted:function () {
           var vm = this;
           axios.post("http://127.0.0.1:8000/car/querycarinfobyid/",
-            {"id":vm.$route.query.name,
+            {"id":vm.$route.query.carid,
             },{
               // headers: {
               //   'Content-Type': 'application/json',

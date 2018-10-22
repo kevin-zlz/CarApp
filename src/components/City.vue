@@ -504,7 +504,7 @@
     methods:{
       change:function () {
           this.iscityclick=!this.iscityclick;
-          // alert(this.clock)
+
       },
       changtitle:function (event) {
           // console.log(event.target.className)
@@ -584,7 +584,7 @@
     watch:{
       clock:function (newval,oldval) {
         // console.log(newval,oldval);
-        alert(newval);
+        // alert(newval);
         let vm=this;
         axios.post("http://127.0.0.1:8000/car/querycitystore/",
           {'cityname': newval
@@ -594,7 +594,7 @@
             // }
           })
           .then(function (res) {
-            vm.$emit("spot",res.data)
+            vm.$emit("spot",res.data,vm.clock)
             // console.log(typeof res.data)
             // console.log(res.data[0].stores);
             // console.log(res.data[0].strictname);

@@ -101,13 +101,10 @@
 
   .all_car{
     width: 100%;
-    height: 200px;
+    height: 160px;
     border-bottom:solid 2px #e4e6e9;
     box-sizing: border-box;
-    padding-left: 30px;
-    /*background: green;*/
-    margin-bottom: 20px;
-    /*margin-top: 30px;*/
+    padding-left: 80px;
   }
 
   .all_car:hover{
@@ -115,64 +112,5 @@
   }
   button:hover {
     background-color: #ff8732;
-  }
-  .aa{
-    /*background: red;*/
-    position: absolute;
-
-  }
-  .aa1{
-    width: 350px;
-    height: 200px;
-  }
-  .aa tr .aa1 img{
-    width: 100%;
-    height: 180px;
-  }
-  .aa .aa2{
-    position: relative;
-    left: 20px;
-    width: 250px;
-    height: 50px;
-    /*background: red;*/
-  }
-  .aa2 .bb1{
-    position: relative;
-    font-size: 18px;
-    color: #93939e;
-    /*width: 200px;*/
-  }
-  .aa2 .bb2{
-    font: 12px/1.5 Arial,"Microsoft yahei",Helvetica,Verdana,SimHei,sans-serif;
-    color: #93939e;
-  }
-  .aa3{
-    position: relative;
-    left: 80px;
-  }
-  .aa3 div{
-    width: 15px;
-    height: 77px;
-    background-color: #cfcfda;
-    color: gray;
-  }
-  .aa4{
-    position: relative;
-    left: 90px;
-  }
-  .aa4 span{
-    position: relative;
-    left: 100px;
-    top: -66px;
-  }
-  .aa5{
-    position: relative;
-    left: 160px;
-  }
-  .aa5 button{
-    width: 80px;
-    height: 40px;
-    background: rgb(238, 184, 26);
-    border: solid 1px #eeb81a;
   }
 </style>

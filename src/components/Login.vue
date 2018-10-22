@@ -16,7 +16,9 @@
                     </li>
                     <br/>
                     <li class="li-2"><img class="img2" src="../assets/images/密码.svg" alt="">
+                      <form >
                       <input class="input2" type="password" placeholder="请输入密码" id="wq3" v-model="userInfo.password" v-on:blur="b">
+                      </form>
                       <span class="fff2" v-text="tiShi.tishi2"></span>
                     </li>
                     <p class="eee">用户名或密码错误</p>
