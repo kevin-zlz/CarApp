@@ -51,6 +51,8 @@
             event.target.style.backgroundColor='white';
           },
           clickDetail:function (e) {
+
+            // console.log(0)
             this.$router.push({path: '/revert/car', query: {carid: e}});
           }
         },
