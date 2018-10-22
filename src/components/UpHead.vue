@@ -26,7 +26,7 @@
         </div>
       </li>
       <div class="bb2">
-        <input class="bb1" type="button" value="保存" @click="update1">
+        <input class="bb1" id="input1" type="button" value="保存" @click="update1">
       </div>
     </ul>
   </div>

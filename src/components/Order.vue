@@ -7,7 +7,7 @@
       </div>
       <div class="lines"></div>
       <div class="date">
-        <Calenlar></Calenlar>
+        <Calenlar @getdate="getendday"></Calenlar>
       </div>
       <div class="btns" id="query" @click="queryByCondition()">查询</div>
       <div class="btns">清除</div>
@@ -142,6 +142,9 @@
         msg: '我是谁我在哪？？？？',
         orderlist: [],
         flag: false,
+        starttime:'',
+        endtime:'',
+        state:'',
       }
     },
     methods: {
@@ -149,15 +152,20 @@
 
       },
       getday: function (e) {
-        alert(e)
+        this.starttime=e
+      },
+      getendday: function (e) {
+        this.endtime=e
       },
       queryByCondition:function () {
         let vm = this
         axios.post("http://127.0.0.1:8000/user/queryOrder/",
           {
-            "fromtime":'',
-            "endtime":"",
-            "statename":"",
+            "fromtime":vm.starttime,
+            "endtime":vm.endtime,
+            "statename":vm.state,
+            "pagecount":1,
+            "orderByAsc":true,
           }, {
             headers: {
               'token': sessionStorage.getItem('token'),
@@ -166,6 +174,7 @@
           .then(function (res) {
             if (res.data) {
               vm.orderlist = res.data
+
               // console.log(vm.articallist);
             }
           }.bind(this))
@@ -188,7 +197,7 @@
         .then(function (res) {
           if (res.data) {
             vm.orderlist = res.data
-            // console.log(vm.articallist);
+            vm.state=res.data[0].ordertype__id
           }
         }.bind(this))
         .catch(function (err) {

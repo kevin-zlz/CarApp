@@ -2,15 +2,11 @@
   <div class="container">
     <div class="main">
       <div style="display: flex">
-
         <img src="../../static/images/ans.png" alt="">
         <div class="reply" @click="replay()">
-          我要发表
-        <div class="reply">
-          <router-link to="/answer/question" style="font-size: 16px;color: white;text-decoration:none;">我要提问</router-link>
+          <router-link to="/answer/question" style="font-size: 16px;color: white;text-decoration:none;">我要发表</router-link>
         </div>
-      </div>
-
+    </div>
       <div class="big-answer">
         <div class="comment" :id="i.id" v-for="i,index in articallist">
           <div class="comment-i">

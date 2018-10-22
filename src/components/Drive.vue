@@ -20,7 +20,7 @@
       <div class="left-main left2" v-if="btnclick==1">
         <div class="mydate">
           <span>出行时间:</span>
-          <Calenlar @changeDate="displayDate" style="border: solid 1px gray;display: inline-block;width: 200px;"></Calenlar>
+          <Calenlar @getdate="getstartday" style="border: solid 1px gray;display: inline-block;width: 200px;"></Calenlar>
           <!--<Time></Time>-->
           <!--<select @change="getYear($event.target)" class="year">-->
             <!--<option selected>2018</option>-->
@@ -35,7 +35,7 @@
         </div>
         <div @change="getDays($event.target)" class="myday">
           <span>结束时间:</span>
-          <Calenlar style="border: solid 1px gray;display: inline-block;width: 200px;"></Calenlar>
+          <Calenlar @getdate="getendday" style="border: solid 1px gray;display: inline-block;width: 200px;"></Calenlar>
           <!--<select id="play_time">-->
             <!--<option>1~3天</option>-->
             <!--<option>4~7天</option>-->
@@ -68,7 +68,7 @@
             <input type="text" required v-model="linkname">
           </div>
           <div>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机 :
-            <input type="text" required v-model="telephone">
+            <input type="text" required v-model="linktel">
           </div>
           <div>
             <span style="position: relative;top: -185px;">其他需求:</span>
@@ -139,6 +139,8 @@
           place:[],
           num:0,
           flag:false,
+          linkname:'',
+          linktel:'',
           btnclick:0,
           provinces:['北京市','上海市','天津市','重庆市','河北省','山西省','内蒙古省','辽宁省','吉林省','黑龙江省','江苏省','浙江省','安徽省','福建省','江西省','山东省','河南省','湖北省','湖南省','广东省','广西省','海南省','四川省','贵州省','云南省','西藏省','陕西省','甘肃省','宁夏省','青海省','新疆省','香港','澳门','台湾'],
           citys: [
@@ -179,7 +181,12 @@
       }
       },
       methods:{
-        displayDate:function(e){
+        getstartday:function(e){
+          console.log(e);
+          this.myyear=e
+        },
+        getendday:function(e){
+          this.mydays=e
           console.log(e);
         },
         before:function(){
@@ -229,27 +236,25 @@
         },
         btnsubmit:function(){
           var vm=this;
-          axios.post("http://127.0.0.1:8000/user/test/",
+          axios.post("http://127.0.0.1:8000/traval/addTraval/",
             {
-              'city':vm.place ,
-              'time':vm.myyear+vm.mymonth,
-              'days':vm.mydays,
-              'people':vm.people,
-              'describe':vm.describe
+              'travelstartplace':vm.place ,
+              'travelstrattime':vm.myyear,
+              'travelendtime':vm.mydays,
+              'menbers':vm.people,
+              'linkname':vm.linkname,
+              'linknumber':vm.linktel,
+              'destribe':vm.describe,
             },{
-              // headers: {
-              //   'Content-Type': 'application/json',
-              // }
+              headers: {
+                'token': sessionStorage.getItem('token'),
+              }
             })
             .then(function (res) {
-              vm.$emit("spot",res.data)
-              // console.log(typeof res.data)
-              // console.log(res.data[0].stores);
-              // console.log(res.data[0].strictname);
-              // vm.$emit("spot",JSON.stringify(res));
-              // console.log(res)
-              // console.log(JSON.stringify(res.data));
-              // console.log(JSON.stringify(res.data));
+              if(res.data){
+                // vm.$router.push({path: '/answer'});
+              }
+
             }.bind(this))
             .catch(function (err) {
               if (err.response) {

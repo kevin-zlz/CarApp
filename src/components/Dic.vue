@@ -8,8 +8,8 @@
 
       <li class="items">
         <span class="aa1">驾照正页图片</span>
-        <form id="form1">
-          <input type="file" class="aa2" name="usericon" id="upload_file1" @change="update2">
+        <form id="form3">
+          <input type="file" class="aa2" name="usericon" id="upload_file2" @change="update2">
           <div class="img-add">选择文件</div>
           <!--<input type="file" name="usericon" @change="update">-->
         </form>
@@ -20,7 +20,7 @@
       <li class="items">
         <span class="aa1">驾照副页图片</span>
         <form id="form2">
-          <input type="file" class="aa2" name="usericon" id="upload_file2" @change="update3">
+          <input type="file" class="aa2" name="usericon" id="upload_file3" @change="update3">
           <div class="img-add">选择文件</div>
         </form>
         <div id="preview2"></div>

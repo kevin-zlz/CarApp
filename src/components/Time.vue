@@ -74,6 +74,7 @@ export default {
       if(event.className=='minute-select'){
         this.inputtext=event.innerText;
         this.flag=false;
+        this.$emit('getTime',this.inputtext)
       }
     }
   }

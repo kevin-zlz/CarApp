@@ -5,17 +5,17 @@
         <li class="items">我的信息</li>
         <li class="items">
           <div class="label-info">姓名</div>
-          <div class="inputs"><input type="text" v-model="name" ></div>
+          <div class="inputs"><input type="text" v-model="name" value="赵四"></div>
           <div class="tip" ref="real_name">真实姓名，方便租车时核对身份</div>
         </li>
         <li class="items">
           <div class="label-info">身份证号</div>
-          <div class="inputs"><input type="text" id="user_id" placeholder="请输入身份证号码" v-model="ID"></div>
+          <div class="inputs"><input type="text" id="user_id"  placeholder="请输入身份证号码" value="421125199704157613" v-model="ID"></div>
           <div class="tip" id="id_tip" ref="realID">有效证件，方便租车时核对身份</div>
         </li>
         <li class="item">
           <div class="label-info" v-model="term">有效期</div>
-          <div class="inputs"><input id='mydatepicker3' type='text'/></div>
+          <div class="inputs" style="border: gray solid 1px;height:40px;"><Calenlar @getdate="getendday"></Calenlar></div>
           <div class="tip" id="error-tip">证件已过期！</div>
         </li>
         <li class="items">
@@ -26,31 +26,33 @@
         </li>
         <li class="items">
           <div class="label-info">电子邮箱</div>
-          <div class="inputs"><input id="email-input" type="text" placeholder="请输入常用邮箱"  v-model="email"  :readonly="readonly_e" ></div>
+          <div class="inputs"><input id="email-input" type="text" placeholder="请输入常用邮箱" value="1908456518@qq.com" v-model="email"  :readonly="readonly_e" ></div>
           <!--<div id="email-tip" class="tel-tip">邮箱格式不正确</div>-->
           <div class="tip"><a ref="email_a"  @click="changeE">修改</a></div>
         </li>
         <li class="items city">
           <div class="label-info">通信地址</div>
-          <div class="inputs">
-            <select name="province" id="param_province" onchange="provincechange(this.selectedIndex)"><option>请选择省份</option></select><br/>
-            <select name="city" id="param_city"><option>请选择城市</option></select>
+          <div class="inputs" >
+            <!--<select name="province" id="param_province" onchange="provincechange(this.selectedIndex)"><option>请选择省份</option></select><br/>-->
+            <!--<select name="city" id="param_city"><option>请选择城市</option></select>-->
+            <Province @getLocation="getAddress" style="left: 108px;top: -35px;display: inline-block;position: absolute;"></Province>
+
           </div>
           <div class="tip"></div>
         </li>
         <li class="items">
           <div class="label-info"></div>
-          <div class="inputs"><input type="text" placeholder="无须重复填写省/市" ></div>
+          <div class="inputs"><input type="text" placeholder="无须重复填写省/市" value="工业园区" v-model="detailaddress"></div>
           <div id="user-address" class="tel-tip">联系电话为必填项</div>
         </li>
         <li class="long-item">
           <div class="label-info">紧急联系人</div>
-          <div class="inputs"><input type="text" placeholder="请输入紧急联系人姓名" ref="urgent_name"></div>
+          <div class="inputs"><input type="text" placeholder="请输入紧急联系人姓名" ref="urgent_name" v-model="urgentname" value="詹姆斯"></div>
           <div id="other-name" class="tel-tip" ref="urgent_n">紧急联系人为必填项</div>
         </li>
         <li class="long-item">
           <div class="label-info">联系电话</div>
-          <div class="inputs"><input id="other-tel" type="text" placeholder="请输入紧急联系人电话" ref="urgent_phone" ></div>
+          <div class="inputs"><input id="other-tel" type="text" placeholder="请输入紧急联系人电话" value="15776554612" ref="urgent_phone" v-model="urgenttel"></div>
           <div id="other-tip" class="tel-tip" ref="urgent_p">联系电话为必填项</div>
         </li>
         <li class="items item-save">
@@ -78,8 +80,12 @@ export default {
       term:"",
       readonly_p:true,
       readonly_e:false,
-      phone:"15776554658",
-      email:''
+      phone:"",
+      email:'',
+      address:'',
+      detailaddress:'',
+      urgenttel:'',
+      urgentname:'',
     }
 
   },
@@ -152,7 +158,13 @@ export default {
   },
 
   methods:{
-
+    getendday:function(e){
+      alert(e)
+      this.term=e;
+    },
+    getAddress:function(province,city){
+      this.address=province+' '+city;
+    },
     changeP:function (event) {
 
       this.readonly_p = !this.readonly_p;
@@ -203,9 +215,74 @@ export default {
         this.$refs.urgent_p.style.display='block';
         this.$refs.urgent_n.style.display='block'
       }
+      let vm = this
+      axios.post("http://127.0.0.1:8000/user/adduserdetailbyid/",
+        {
+          "realname":vm.name,
+          "idcard":vm.ID,
+          "idcardtime":vm.term,
+          "telephone":vm.phone,
+          "address":vm.address+" "+vm.detailaddress,
+          "urgentname":vm.urgentname,
+          "urgenttel":vm.urgenttel,
+          "email":vm.email,
+        }, {
+          headers: {
+            'token': sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if (res.data) {
+            console.log(res.data)
+            // console.log(vm.articallist);
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
+
     }
+  },
+  mounted:function () {
+    let vm = this
+    axios.post("http://127.0.0.1:8000/user/queryuserdetail/",
+      {
+        // "realname":vm.name,
+        // "idcard":vm.ID,
+        // "idcardtime":vm.term,
+        // "telephone":vm.phone,
+        // "address":vm.address+vm.detailaddress,
+        // "urgentname":vm.urgentname,
+        // "urgenttel":vm.urgenttel,
+        // "email":vm.email,
+      }, {
+        headers: {
+          'token': sessionStorage.getItem('token'),
+        }
+      })
+      .then(function (res) {
+        if (res.data) {
+          console.log(res.data);
+          vm.name=res.data[0].realname;
+          vm.ID=res.data[0].idcard;
+          vm.term=res.data[0].idcardtime;
+          vm.phone=res.data[0].yonghu__telephone;
+          vm.detailaddress=res.data[0].address.split(' ')[2];
+          vm.urgenttel=res.data[0].urgenttel;
+          vm.email=res.data[0].yonghu__email;
+          vm.urgentname=res.data[0].urgentname;
+        }
+      }.bind(this))
+      .catch(function (err) {
+        if (err.response) {
+          console.log(err.response)
+        }
+      }.bind(this))
 
   }
+
 
 }
 

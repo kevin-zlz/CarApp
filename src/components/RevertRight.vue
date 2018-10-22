@@ -9,9 +9,9 @@
         <!--<li>年租套餐(365天)</li>-->
       <!--</ul>-->
     <!--</div>-->
-    <div class="all_car" v-for="(car,index) in allCar" :data-id="index" v-bind:key="index">
+    <div class="all_car" v-for="(car,index) in carlist" id="storeid__id" v-bind:key="index">
       <table>
-        <tr style="position: relative;top: 25px;">
+        <tr style="position: relative;top: 25px;" >
           <td><img src="../assets/images/car1.jpg" alt="" style="width:175px;height: 130px;padding-top:30px;padding-left: 20px "></td>
           <td style="padding-left: 70px">
             <span style="font-size: 18px;display: block;color: #60606c" v-text="car.carname"></span>
@@ -21,11 +21,11 @@
             <div style="width: 15px;height: 62px;margin-left: 100px;background-color: #f2f3f5;color:grey;font-size: 6px">门店支付</div>
           </td>
           <td>
-            <p style="position: relative;top: 5px;"><span style="color: #fabe00;font-size: 24px;padding-top: -10px" v-text="car.carprice"></span><span style="color: #93939e;font-size: 15px">/日均</span></p>
+            <p style="position: relative;top: 5px;"><span style="color: #fabe00;font-size: 24px;padding-top: -10px" v-text="car.price"></span><span style="color: #93939e;font-size: 15px">/日均</span></p>
             <p style="position: relative;top: -10px;left: 23px;color: #93939e">总价:￥138</p>
           </td>
           <td>
-            <button style="cursor:pointer;width: 80px;height: 40px;background-color: #fabe00;border: none;border-radius: 5px;position: relative;left: 80px"><span style="color: white;font-size: 20px"><router-link :to="{path:'/revert/car',query: {name: car.carid}}" class="revert">租车</router-link></span></button>
+            <button style="cursor:pointer;width: 80px;height: 40px;background-color: #fabe00;border: none;border-radius: 5px;position: relative;left: 80px"><span style="color: white;font-size: 20px" @click="clickDetail(car.id)">租车</span></button>
           </td>
         </tr>
       </table>
@@ -35,21 +35,12 @@
 
 <script>
     export default {
+        props:['carlist'],
         name: "RevertRight",
         data:function () {
           return {
            allCar:[
               // {"carid":2,"carname":"雪佛兰科鲁", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥69元","carimg":"./images/car2.jpg"},
-          {"carid":2,"carname":"别克昂科拉", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car3.jpg"},
-          {"carid":3,"carname":"大众朗逸", "cartype":"两厢|1.3自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car1.jpg"},
-          {"carid":4,"carname":"宝马", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car4.jpg"},
-          {"carid":5,"carname":"上海大众", "cartype":"三厢|1.5自动|乘坐6人", "carprice":"￥69元","carimg":"./images/car5.jpg"},
-          {"carid":6,"carname":"奔驰", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car6.jpg"},
-          {"carid":7,"carname":"江铃", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥89元","carimg":"./images/car7.jpg"},
-          {"carid":8,"carname":"凯迪拉克", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car8.jpg"},
-          {"carid":9,"carname":"雪铁龙", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car9.jpg"},
-          {"carid":10,"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
-          {"carid":11,"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
           ],
             path:"/",
             carid:1,
@@ -59,6 +50,9 @@
           changeColor:function (event) {
             event.target.style.backgroundColor='white';
           },
+          clickDetail:function (e) {
+            this.$router.push({path: '/revert/car', query: {carid: e}});
+          }
         },
 
     }
