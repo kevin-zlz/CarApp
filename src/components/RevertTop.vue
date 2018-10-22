@@ -8,62 +8,132 @@
         <!--</div>-->
         <City style="height: 60px" v-on:spot="spot"></City>
         <!--<div><input type="text" placeholder="莫邪路店"></div>-->
-        <Strict :area = 'res'></Strict>
+        <Strict :area = 'res' @getplace="gettakestrict"></Strict>
       </div>
       <div class="top-left2">
         <div class="top-left-span">取车时间</div>
         <!--<div>-->
           <!--<input type="text" placeholder="2018-09-15">-->
         <!--</div>-->
-        <Calenlar></Calenlar>
+        <Calenlar @getdate="getstarttime"></Calenlar>
         <div>
-          <!--<input type="text" placeholder="8:00~10:00">-->
-          <Time></Time>
+
+          <Time @getTime="gettaketime"></Time>
         </div>
       </div>
       <div class="top-left3">
         <div class="top-left-span">还车</div>
         <div>
           <!--<input type="text" placeholder="选择城市">-->
-          <City style="height: 60px"></City>
+          <City style="height: 60px" @spot="getendplace"></City>
         </div>
         <!--<div><input type="text" placeholder="莫邪路店"></div>-->
-        <Strict></Strict>
+        <Strict :area = 'returnres' @getplace="getbackplace"></Strict>
       </div>
       <div class="top-left4">
         <div class="top-left-span">还车时间</div>
         <div>
           <!--<input type="text" placeholder="2018-09-15">-->
-          <Calenlar></Calenlar>
+          <Calenlar @getdate="getendtime"></Calenlar>
         </div>
         <div>
           <!--<input type="text" placeholder="8:00~10:00">-->
-          <Time></Time>
+          <Time @getTime="getbacktime"></Time>
         </div>
       </div>
     </div>
     <div class="top-right">
       <div class="top-right1">租期: <span style="color: #ff8d65;">2天</span>,不限里程</div>
-      <div class="top-right2"><button>立即选车</button></div>
+      <div class="top-right2"><button @click="queryCar">立即选车</button></div>
     </div>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
     export default {
+
         name: "RevertTop",
         data () {
           return {
             res:[],
+            returnres:[],
+            takecity:'',
+            takestrict:'',
+            takeday:'',
+            taketime:'',
+            backcity:'',
+            backstrict:'',
+            backday:'',
+            backtime:'',
+            carlist:[],
           }
         },
         methods:{
-          spot:function(res){
-            this.res = res;
-            console.log(res);
-            // console.log("父组件",this.res);
+          gettaketime:function(e){
+            this.taketime=e;
+          },
+          getbacktime:function(e){
+            this.backtime=e;
+          },
+          getstarttime:function(e){
+            this.takeday=e;
+            alert(this.takeday)
+          },
+          getendtime:function(e){
+            this.backday=e;
+            alert(this.backday)
+          },
+          getendplace:function(e,city){
+            this.returnres = e;
+            this.backcity=city;
+          },
+          getbackplace:function(e){
+            this.backstrict=e;
           }
-        }
+          ,
+          gettakestrict:function(e){
+            this.takestrict=e;
+
+          },
+          spot:function(res,city){
+            this.res = res;
+            this.takecity=city;
+            // alert(this.takecity=city)
+          },
+          queryCar:function () {
+            let vm = this
+            axios.post("http://127.0.0.1:8000/car/querycarbystore/",
+              {
+                "takecityname":vm.takecity,
+                "takestore":vm.takestrict,
+                "taketime":vm.takeday+' '+vm.taketime+':00',
+                "backcityname":vm.backcity,
+                "backstore":vm.backstrict,
+                'backtime':vm.backday+' '+vm.backtime+':00',
+              }, {
+                // headers: {
+                //   'token': sessionStorage.getItem('token'),
+                // }
+              })
+              .then(function (res) {
+                if (res.data) {
+                  // vm.orderlist = res.data
+                  console.log(res.data)
+                  vm.carlist=res.data
+                  vm.$emit('getCarlist',vm.carlist)
+                }
+              }.bind(this))
+              .catch(function (err) {
+                if (err.response) {
+                  console.log(err.response)
+                }
+              }.bind(this))
+          }
+        },
+      mounted:function () {
+
+      }
     }
 </script>
 

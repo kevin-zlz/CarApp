@@ -22,7 +22,7 @@
           </td>
           <td class="aa4">
             <p v-text="car.carprice" style="font-size:30px;color:#fabe00;font-style: normal;"></p>
-            <p>总价:￥138</p>
+            <p class="bb3">总价:￥138</p>
             <span>/日均</span>
           </td>
           <td class="aa5">
@@ -105,9 +105,6 @@
     border-bottom:solid 2px #e4e6e9;
     box-sizing: border-box;
     padding-left: 30px;
-    /*background: green;*/
-    margin-bottom: 20px;
-    /*margin-top: 30px;*/
   }
 
   .all_car:hover{
@@ -117,62 +114,63 @@
     background-color: #ff8732;
   }
   .aa{
-    /*background: red;*/
+    /*background: green;*/
     position: absolute;
-
   }
-  .aa1{
+  .aa1 {
     width: 350px;
     height: 200px;
   }
-  .aa tr .aa1 img{
+  .aa1 img{
     width: 100%;
     height: 180px;
   }
-  .aa .aa2{
+  .aa2{
+    width: 280px;
+    height: 200px;
     position: relative;
-    left: 20px;
-    width: 250px;
-    height: 50px;
-    /*background: red;*/
+    left: 10px;
   }
-  .aa2 .bb1{
-    position: relative;
+  .bb1{
     font-size: 18px;
-    color: #93939e;
-    /*width: 200px;*/
+    color: #60606c;
   }
-  .aa2 .bb2{
-    font: 12px/1.5 Arial,"Microsoft yahei",Helvetica,Verdana,SimHei,sans-serif;
+  .bb2{
+    font-size: 12px;
     color: #93939e;
   }
   .aa3{
     position: relative;
-    left: 80px;
+    left: 20px;
   }
   .aa3 div{
     width: 15px;
     height: 77px;
-    background-color: #cfcfda;
+    background: #dcdcdc;
     color: gray;
   }
   .aa4{
     position: relative;
-    left: 90px;
+    left: 35px;
   }
   .aa4 span{
     position: relative;
     left: 100px;
-    top: -66px;
+    top: -65px;
+    color: #93939e;
+  }
+  .bb3{
+    color:#93939e;
   }
   .aa5{
     position: relative;
-    left: 160px;
+    left: 100px;
   }
   .aa5 button{
     width: 80px;
     height: 40px;
-    background: rgb(238, 184, 26);
-    border: solid 1px #eeb81a;
+    background: #eeb81a;
+    color: white;
+    border: 1px solid #eeb81a;
   }
 </style>

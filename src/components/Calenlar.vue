@@ -1,7 +1,7 @@
 <template>
 <div>
-  <div class="mydiv" @click="test2">
-    <input class="mydatepicker"  type="text" placeholder="请选择日期" id="abc">
+  <div class="mydiv" @click="test2($event)">
+    <input class="mydatepicker"  type="text" placeholder="请选择日期" >
   </div>
 </div>
 
@@ -29,10 +29,11 @@ export default {
   },
   methods:{
     test2:function (e) {
-      console.log(e.target)
+      // console.log(e.target)
     if (e.target.nodeName=="SPAN"){
-      console.log(document.querySelector('#abc').value);
-      this.date=document.querySelector('#abc').value
+      // console.log(document.querySelector('.mydatepicker').value);e.target.parentElement.querySelector('.mydiv .mydatepicker').value
+      this.date=e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value
+      console.log(e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value)
       this.$emit('getdate',this.date)
       // $emit('enlarge-text', 0.1)
     }

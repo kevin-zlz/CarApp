@@ -503,6 +503,7 @@ export default {
   methods:{
     change:function () {
         this.iscityclick=!this.iscityclick;
+        this.$emit('getCity',this.clock)
     },
     changtitle:function (event) {
         // console.log(event.target.className)
