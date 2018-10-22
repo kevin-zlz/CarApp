@@ -35,14 +35,11 @@ export default {
      format:'yyyy-mm-dd'
    });
   },
-  methods:{
-    test:function (e) {
-      console.log(e.target.value);
-      this.date=e.target.value
+
 
       // $emit('changeDate',date)
-    }
-  }
+
+
   // methods:{
   //   change:function(){
   //     this.flag=!this.flag;
