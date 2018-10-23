@@ -2,41 +2,39 @@
   <div>
     <div class="head">
       <div class="head-content">
-        <City class="aaa"></City>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <Calenlar class="aaa"></Calenlar>&nbsp;&nbsp;&nbsp;
+        <City class="aaa" @mycity = 'mycity'></City>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Calenlar class="aaa" @getdate="getstarttime1"></Calenlar>&nbsp;&nbsp;&nbsp;
         <div>  ➤   </div>&nbsp;&nbsp;&nbsp;
-        <Calenlar class="aaa"></Calenlar>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button>搜素</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Calenlar class="aaa" @getdate="getstarttime2"></Calenlar>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button @click="sousuo">搜素</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button>重置</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <div class="aa1"><img src="../assets/images/fav_icon_weibo.png" alt=""><span>+关注</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="aa1"><img src="../assets/images/fav_icon_weixin.png" alt=""><span>扫一扫</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="aa1"><img src="../assets/images/fav_icon_email.png" alt=""><span>邮件订阅</span></div>
+        <!--<div class="aa1" style="cursor: pointer"  @click.stop = 'guanzhu'><img src="../assets/images/fav_icon_weibo.png" alt="" ><span>+关注</span></div>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--<div class="aa1" style="cursor: pointer" @click.stop = 'saoyisao'><img src="../assets/images/fav_icon_weixin.png" alt=""><span>扫一扫</span></div>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--<div class="aa1" style="cursor: pointer" @click.stop = 'youxiang'><img src="../assets/images/fav_icon_email.png" alt=""><span>邮件订阅</span></div>-->
       </div>
     </div>
     <div class="main">
       <div class="main-content">
         <ul>
-          <li class="bb1">
-            <div class="aa2"><img src="../assets/images/寒山寺.jpg" alt=""></div>
-
+          <li class="bb1" v-for="(aci,index) in allactivity">
             <div class="bb">
               <ul>
-                <li><h3 style="color: #eeb81a">寒山寺，一日游。</h3></li>
+                <li><h3 style="color: #eeb81a" v-text="aci.travelstartplace"></h3></li>
                 <li>
-                  <span>简介：寒山寺位于苏州市姑苏区，始建于南朝萧梁代天监年间（公元502～519年），初名“妙利普明塔院”。寒山寺占地面积约1.3万平方米，建筑面积三千四百余平方米。</span>
+                  <span v-text="aci.destribe"></span>
                 </li>
                 <li>
-                  <p>目标人数：10人</p>
+                  <p>目标人数：<span v-text="aci.menbers"></span>人</p>
                   <p>已参人数：5人</p>
-                  <p>日期：2018-11-11</p>
-                  <p>联系人：王文成</p>
-                  <p style="color: red">联系电话：15776540858</p>
+                  <p>日期：<span v-text="aci.pubtime.split('T')[0]"></span></p>
+                  <p>联系人：<span v-text="aci.linkname"></span></p>
+                  <p style="color: red">联系电话：<span v-text="aci.linknumber"></span></p>
                 </li>
                 <li>
-                  <input class="input" type="button" value="立即加入">
-                  <span id="eeee">全国</span>
+                  <input class="input" type="button" value="立即加入" @click="yanzheng">
+                  <span>全国</span>
                 </li>
               </ul>
 
@@ -44,15 +42,11 @@
               <!--<span class="aa4">简介： 寺楼直与众山邻，鱼米东南此要津。独惜牙郎趋利市， </span>-->
               <!---->
             </div>
-
           </li>
-          <br>
-          <li class="bb1">111111111</li>
-          <br>
-          <li class="bb1">11111111</li>
         </ul>
       </div>
     </div>
+    <!--<div style="display: none;position: relative"><img src="" alt=""></div>-->
   </div>
 </template>
 
@@ -60,10 +54,88 @@
   import axios from 'axios'
   export default {
     name: "Activity",
-    methods: {},
-    data() {
-      return {}
+    methods: {
+      getstarttime1:function (e) {
+        this.date1 = e;
+        console.log("wq1",this.date1)
+      },
+      getstarttime2:function (e) {
+        this.date2 = e;
+        console.log("wq2",this.date2)
+      },
+      mycity:function (e) {
+        this.city = e;
+        // alert(e);
+        // alert("city"+this.city)
+      },
+      yanzheng:function(e){
+        if(sessionStorage.getItem('token')){
+          alert("已经有token")
+        }else{
+          this.$router.push('/Login')
+        }
+      },
+      sousuo:function () {
+        let vm=this;
+        axios.post("",
+          {"city":this.city,"starttime":this.date1,"endtime":this.date2
+          },{
+            // headers: {
+            //   'Content-Type': 'application/json',
+            // }
+          })
+          .then(function (res) {
+            this.allactivity = res.data;
+            console.log(this.allactivity)
+            console.log(res.data)
+          }.bind(this))
+          .catch(function (err) {
+            if (err.response) {
+              console.log(err.response)
+              //控制台打印错误返回的内容
+            }
+            //bind(this)可以不用
+          }.bind(this))
+      }
     },
+    data() {
+      return {
+        date1:'',
+        date2:'',
+        city:'',
+        allactivity:[]
+      }
+    },
+    watch:{
+      date2:function () {
+        console.log("mew_date2",this.new_date2);
+        if(this.date1>=this.date2){
+          alert("请重新输入正确的时间段!");
+        }
+      }
+    },
+    mounted:function () {
+      let vm=this;
+      axios.post("http://127.0.0.1:8000/traval/queryalltravel/",
+        {
+        },{
+          // headers: {
+          //   'Content-Type': 'application/json',
+          // }
+        })
+        .then(function (res) {
+          this.allactivity = res.data;
+          console.log(this.allactivity)
+          console.log(res.data)
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+            //控制台打印错误返回的内容
+          }
+          //bind(this)可以不用
+        }.bind(this))
+    }
   }
 
 </script>
@@ -90,8 +162,8 @@
   }
   .main{
     width: 100%;
-    height: 1200px;
-    background: #bababa;
+    height: auto;
+    background: rgba(211, 211, 211, 0.34);
   }
   .main-content{
     width: 1200px;
@@ -128,13 +200,16 @@
   }
   .main-content ul .bb1 {
     /*padding-top:30px ;*/
-    width: 100%;
+    width: 80%;
     height: 320px;
     background: white;
     list-style: none;
     display: flex;
     position: relative;
     top: 30px;
+    margin: auto;
+    margin-bottom: 20px;
+
   }
  .aa2{
     width: 680px;

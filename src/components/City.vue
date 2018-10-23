@@ -578,6 +578,7 @@
 
           this.clock=event.target.innerText;
           this.iscityclick=false;
+          this.$emit("mycity",event.target.innerHTML);
         }
       }
     },
