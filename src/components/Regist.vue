@@ -415,6 +415,9 @@
     background: #fabe00;
     color:  #fff;
     font-size: 18px;
+    border: none;
+    border-radius: 5px;
+
   }
   .login2{
     width: 100%;
