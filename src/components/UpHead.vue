@@ -56,7 +56,12 @@
         };
         // 添加请求头
         let vm = this;
-        axios.post('http://127.0.0.1:8000/user/uphead/', this.formData[0], config)
+        axios.post('http://127.0.0.1:8000/user/uphead/', this.formData[0], {
+          headers: {
+            'Content-Type': 'application/json',
+            token:sessionStorage.getItem("token")
+          }
+        })
           .then(response => {
             if (response.data.code === 0) {
               vm.ImgUrl = response.data.data;
@@ -78,6 +83,7 @@
         this.formData.push(param);
         console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
       },
+      // 图片预览
       preview1(file) {
         var img = new Image();
         img.src = URL.createObjectURL(file);
