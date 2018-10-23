@@ -23,7 +23,8 @@
                 <div v-text="i.content">现如今，由于限牌还有油价上涨等因素的制约，越来越多的人选择使用新能源的交通工具，其中最被人们看好的，就是电动汽车。再者，随着电动汽车技术的突飞猛进，汽车的电动化也是一个未来大趋势。很多人出于无奈对燃油车可望而不可即，或者对电动车的追捧从而纷纷选择电动汽车，但是在购买电动车，尤其是纯电动车之前，这五件事必须要考虑清楚。
                 </div>
                 <!--<router-link to="{ path:'/det', query:{artical_id:i.id}}" >查看原文</router-link>-->
-                <button class="bb1" @click="seemore(i.id)">查看原文</button>
+                <!--<button class="bb1" @click="seemore(i.id)">查看原文</button>-->
+                <button class="bb1" @click="ttt">查看原文</button>
               </div>
               <div style="display: flex;color: #999999;">
                 <img data-id="index" alt="" class="zan" src="../assets/images/点赞.png">
@@ -39,6 +40,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -48,6 +50,9 @@
     methods:{
         seemore:function (e) {
           this.$router.push({path: '/det', query: {selected: e}});
+        },
+        ttt:function(){
+          this.$router.push({path: '/answerdetail'});
         },
       replay:function (e) {
         let vm=this

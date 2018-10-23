@@ -21,6 +21,7 @@ import Order from '@/components/Order'
 import Questions from '@/components/Questions'
 import Activity from '@/components/Activity'
 import MyActivity from '@/components/MyActivity'
+import AnswerDetail from '@/components/AnswerDetail'
 
 
 Vue.use(Router)
@@ -130,6 +131,11 @@ export default new Router({
       path: '/myactivity',
       name: 'MyActivity',
       component: MyActivity,
+    },
+    {
+      path: '/answerdetail',
+      name: 'AnswerDetail',
+      component: AnswerDetail
     },
   ]
 })
