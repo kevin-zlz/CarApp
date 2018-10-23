@@ -85,7 +85,7 @@ export default {
               }
               console.log(response.data);
               this.otherSide=response.data.name;
-              console.log("11111111111111111111111111",this.otherSide);
+              // console.log("11111111111111111111111111",this.otherSide);
               // otherSideFlag=true;
             axios.post('http://127.0.0.1:8000/user/fliename/', {"Positive":this.Positive,"otherSide":this.otherSide}, {
               headers: {
