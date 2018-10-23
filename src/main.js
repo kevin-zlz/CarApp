@@ -33,6 +33,8 @@ import CarDetail from './components/CarDetail'
 import Dic from './components/Dic'
 import UpHead from './components/UpHead'
 import Questions from './components/Questions'
+import Article from './components/Article'
+import Pagination from './components/Pagination'
 
 Vue.config.productionTip = false;
 
@@ -67,6 +69,8 @@ Vue.component('CarDetail',CarDetail);
 Vue.component('Dic',Dic);
 Vue.component('UpHead',UpHead);
 Vue.component('Questions',Questions);
+Vue.component('Article',Article);
+Vue.component('Pagination',Pagination);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

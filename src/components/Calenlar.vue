@@ -50,8 +50,8 @@ export default {
     border: none;
     width: 163px;
     padding-left: 8px;
-    height: 48px;
-    border-left: solid 1px #ababab;
+    height: 38px;
+
     font-size: 16px;
     /*border-left: solid 1px gray;*/
   }

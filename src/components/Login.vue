@@ -313,7 +313,7 @@
     height: 373px;
     /*background: #f3f4f6;*/
     position: absolute;
-    left: 1100px;
+    left: 900px;
     top: 70px;
   }
 

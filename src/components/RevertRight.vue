@@ -30,6 +30,7 @@
         </tr>
       </table>
     </div>
+    <pagination :currentPage="currentPage" :pageCount="parseInt(pageCount)" @prePage="prePage" @nextPage="nextPage" @jumpPage="jumpPage"></pagination>
   </div>
 </template>
 
@@ -44,6 +45,9 @@
           ],
             path:"/",
             carid:1,
+            currentPage:1,
+            pageCount:10,
+
           }
         },
         methods:{
@@ -51,9 +55,27 @@
             event.target.style.backgroundColor='white';
           },
           clickDetail:function (e) {
-
             // console.log(0)
             this.$router.push({path: '/revert/car', query: {carid: e}});
+          },
+          prePage() {
+            this.currentPage--;
+            this.getAllGifts();
+          },
+          nextPage() {
+            this.currentPage++;
+            // 重新渲染数据
+            this.getAllGifts();
+          },
+          jumpPage(pageIndex) {
+            if (pageIndex > this.pageCount) {
+              pageIndex = this.pageCount
+            }
+            if (!pageIndex || pageIndex < 1) {
+              pageIndex = 1
+            }
+            this.currentPage = pageIndex;
+            this.getAllGifts();
           }
         },
 

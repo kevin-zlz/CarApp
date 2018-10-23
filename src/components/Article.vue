@@ -1,15 +1,15 @@
 <template>
   <div class="container" >
-    <div class="order-head">
+    <div class="order-head" >
       <div>我的文章</div>
       <div class="date">
         <!--<input class='mydate' type='text'/>-->
-        <Calenlar></Calenlar>
+        <Calenlar @getdate="getday"></Calenlar>
       </div>
       <div class="lines"></div>
       <div class="date">
         <!--<input class='mydate' type='text'/>-->
-        <Time></Time>
+        <Calenlar @getdate="getday"></Calenlar>
       </div>
       <div class="btns" id="query">查询</div>
       <div class="btns">清除</div>
@@ -27,84 +27,89 @@
       <div class="order-container">
         <div class="table-head">
           <div class="order-info">全部文章</div>
-          <!--<div class="order-car">取还车信息</div>-->
-          <!--<div class="order-all">总计</div>-->
-          <!--<div class="order-states">订单状态</div>-->
         </div>
         <div v-show="'全部文章'===flag">
           <div id="short-content" class="table-content">
-            <div class="table-data">
-              <div class="info-car">
-                <img src="../assets/images/87.jpg" alt="">
-                <div class="car-info">
-                  <p>雪佛兰科瑞兹</p>
-                  <div>
-                    <p>三厢/1.5L/乘坐5人</p>
-                    <p>订单号：<span>1340521000</span></p>
-                  </div>
-                </div>
-              </div>
-              <div class="split"></div>
-              <div class="info-place"></div>
-              <div class="info-all">
-                <p><span class="little">取</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>
-                <p>2018-08-01 10:00</p>
-                <p><span class="little">还</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>
-                <p>2018-08-03 10:00</p>
-              </div>
-              <div class="split" style="left:620px;"></div>
-              <div class="info-place" >
-                <span>￥278.0</span>
-              </div>
-              <div class="split" style="left:740px;"></div>
-              <div class="info-state">
-                <p>预定成功</p>
-                <p><a href="#">查看订单</a></p>
+            <div class="articalHead">
+              <div class="">内容</div>
+              <div class="">主题</div>
+              <div class="">发表时间</div>
+              <div class="">评论数</div>
+              <div class="">点赞数</div>
+              <div class="">操作</div>
+            </div>
+            <div class="articalHead items" v-for="artical in articallist">
+              <div class="">{{artical.content.substring(0,10)}}...</div>
+              <div class="" v-text="artical.type__typename">主题</div>
+              <div class="" v-text="artical.pubtime">发表时间</div>
+              <div class="" v-text="artical.commennum">评论数</div>
+              <div class="" v-text="artical.starnum">点赞数</div>
+              <div class="lastitem">
+                <div @click="deletArtical(artical.id)">删除</div>
+                <div @click="seemore(artical.id)">查看详情</div>
               </div>
             </div>
           </div>
         </div>
-        <div style="height: 100px;background-color: red" v-show="'我评论的文章'===flag">
+        <div  v-show="'我评论的文章'===flag" >
+          <div  class="table-content">
+            <div class="articalHead getwidth">
+              <div class="">帖主</div>
+              <div class="">文章内容</div>
+              <div class="">评论内容</div>
+              <div class="">评论时间</div>
+              <div class="">评论操作</div>
+            </div>
+            <div class="articalHead items getwidth" v-for="artical in commentlist">
+              <div class="">{{artical.artical__yonghu__uname}}</div>
+              <div class="" >{{artical.artical__content.substring(0,10)}}...</div>
+              <div class="" >{{artical.content.substring(0,10)}}...</div>
+              <div class="" v-text="artical.pubtime">评论数</div>
 
+              <div @click="deletComment(artical.id)" class="deleteComment">删除</div>
+
+            </div>
+          </div>
         </div>
-        <div style="height: 100px;background-color: black" v-show="'我发表的文章'===flag">
-
+        <div  v-show="'我发表的文章'===flag" >
+          <div  class="table-content">
+            <div class="articalHead">
+              <div class="">内容</div>
+              <div class="">主题</div>
+              <div class="">发表时间</div>
+              <div class="">评论数</div>
+              <div class="">点赞数</div>
+              <div class="">操作</div>
+            </div>
+            <div class="articalHead items" v-for="artical in articallist">
+              <div class="">{{artical.content.substring(0,10)}}...</div>
+              <div class="" v-text="artical.type__typename">主题</div>
+              <div class="" v-text="artical.pubtime">发表时间</div>
+              <div class="" v-text="artical.commennum">评论数</div>
+              <div class="" v-text="artical.starnum">点赞数</div>
+              <div class="lastitem">
+                <div @click="deletArtical(artical.id)">删除</div>
+                <div @click="seemore(artical.id)">查看详情</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div style="height: 100px;background-color: yellow" v-show="'我点赞的文章'===flag">
-
+        <div  v-show="'我点赞的文章'===flag">
+          <div  class="table-content">
+            <div class="articalHead getlikewidth">
+              <div class="">帖主</div>
+              <div class="">文章内容</div>
+              <div class="">点赞时间</div>
+              <div class="">点赞操作</div>
+            </div>
+            <div class="articalHead items getlikewidth" v-for="artical in likelist">
+              <div class="">{{artical.artical__yonghu__uname}}</div>
+              <div class="" >{{artical.artical__content.substring(0,20)}}...</div>
+              <div class="" >{{artical.pubtime}}</div>
+              <div @click="deletStar(artical.id)" class="deleteComment">取消</div>
+            </div>
+          </div>
         </div>
-        <!--<div id="short-content" class="table-content">-->
-          <!--<div class="table-data">-->
-            <!--<div class="info-car">-->
-              <!--<img src="../assets/images/87.jpg" alt="">-->
-            <!--<div class="car-info">-->
-              <!--<p>雪佛兰科瑞兹</p>-->
-              <!--<div>-->
-              <!--<p>三厢/1.5L/乘坐5人</p>-->
-              <!--<p>订单号：<span>1340521000</span></p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="split"></div>-->
-            <!--<div class="info-place"></div>-->
-            <!--<div class="info-all">-->
-            <!--<p><span class="little">取</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>-->
-            <!--<p>2018-08-01 10:00</p>-->
-            <!--<p><span class="little">还</span><span>&nbsp;&nbsp;苏州</span>-<span>莫邪路店</span></p>-->
-            <!--<p>2018-08-03 10:00</p>-->
-            <!--</div>-->
-            <!--<div class="split" style="left:620px;"></div>-->
-            <!--<div class="info-place" >-->
-            <!--<span>￥278.0</span>-->
-            <!--</div>-->
-            <!--<div class="split" style="left:740px;"></div>-->
-            <!--<div class="info-state">-->
-            <!--<p>预定成功</p>-->
-            <!--<p><a href="#">查看订单</a></p>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
         <div class="page">
           <nav aria-label="Page navigation">
             <ul class="pagination">
@@ -131,26 +136,165 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
 export default {
   name: 'Order',
 
   data () {
     return {
       msg: '全部文章',
-
+      articallist:[],
+      commentlist:[],
+      likelist:[],
       flag:"全部文章",
     }
   },
   methods:{
     show:function (e) {
-      alert(e.target.innerText)
+
       this.flag = e.target.innerText;
+      if(e.target.innerText=='我评论的文章'){
+        this.commentArt()
+      }
+      if(e.target.innerText=='我点赞的文章'){
+        this.likeArt()
+      }
     },
     getday:function (e) {
 
-      }
+      },
+    seemore:function (e) {
+      this.$router.push({path: '/det', query: {selected: e}});
+    },
+    deletArtical:function (e) {
+      let vm = this
+      axios.post("http://127.0.0.1:8000/boke/deleteArticalByaid/",
+        {
+          "aid":e,
+        }, {
+          headers: {
+            'token': sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if (res.data.code=='208') {
+            window.location.reload()
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
+    },
+    commentArt:function () {
+      let vm = this
+      axios.post("http://127.0.0.1:8000/boke/queryCommentbyuid/",
+        {
+        }, {
+          headers: {
+            'token': sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if (res.data) {
+            console.log(res.data)
+            vm.commentlist=res.data
+            // window.location.reload()
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
+    },
+    deletComment:function (e) {
+      let vm = this
+      axios.post("http://127.0.0.1:8000/boke/deteleCommentByCid/",
+        {
+          "cid":e,
+        }, {
+          headers: {
+            'token': sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if (res.data.code=='208') {
+            window.location.reload()
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
+    },
+    likeArt:function () {
+      let vm = this
+      axios.post("http://127.0.0.1:8000/boke/queryLikebyuid/",
+        {
+        }, {
+          headers: {
+            'token': sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if (res.data) {
+            console.log(res.data)
+            vm.likelist=res.data
+            // window.location.reload()
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
+    },
+    deletStar:function (e) {
+      let vm = this
+      axios.post("http://127.0.0.1:8000/boke/deletelikebysid/",
+        {
+          "sid":e,
+        }, {
+          headers: {
+            'token': sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if (res.data.code=='208') {
+            window.location.reload()
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
+    },
+    },
 
-    }
+  mounted:function () {
+    let vm = this
+    axios.post("http://127.0.0.1:8000/boke/queryWritebyuid/",
+      {}, {
+        headers: {
+          'token': sessionStorage.getItem('token'),
+        }
+      })
+      .then(function (res) {
+        if (res.data) {
+          vm.articallist = res.data
+          console.log(vm.articallist)
+        }
+      }.bind(this))
+      .catch(function (err) {
+        if (err.response) {
+          console.log(err.response)
+        }
+      }.bind(this))
+  }
 
 }
 </script>
@@ -171,24 +315,22 @@ export default {
   input{
     outline: none;
   }
-  .head{
-    display: flex;
-    width: 100%;
-    height: 55px;
-    line-height: 55px;
-    box-sizing: border-box;
-    background-color: #1E1E1E;
-  }
   body{
     background-color: #f2f3f5;
   }
-  .head .logo-img{
-    flex:1;
-    display: inline;
-    height: 100%;
-    background-color: #ffa337;
-    max-width:300px ;
+
+  .date {
+    margin-top: 30px;
+    display: inline-block;
+    /*position: absolute;*/
+    height: 40px;
+    width: 150px;
+    border: gray solid 1px;
+    font-size: 15px !important;
+    top: 30px;
+    z-index: 100;
   }
+
   .head ul{
     flex:3;
     display: flex;
@@ -201,10 +343,7 @@ export default {
     text-align: center;
     /*margin-right: 20px;*/
   }
-  .mydate{
-    position: relative;
-    top: 15px;
-  }
+
   .headItems li a{
     text-decoration: none;
     text-align: center;
@@ -226,6 +365,70 @@ export default {
   .headItems li.li1 a:hover{
     color: #fabe00;
   }
+  .articalHead{
+    width: 100%;
+    height: 50px;
+    border-bottom:  #d6d8db solid 1px;
+  }
+  .articalHead div{
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+    line-height: 50px;
+  }
+  .articalHead div:first-child{
+    width: 30%;
+  }
+  .articalHead div:nth-child(3){
+    width: 15%;
+  }
+  .articalHead div:last-child{
+    width: 22%;
+  }
+  .items{
+    height: 42px;
+    line-height: 42px;
+  }
+  .items .lastitem div{
+    display: inline-block;
+    width: 40%;
+  }
+  .items .lastitem div:hover{
+    cursor: pointer;
+    color: #fabe00;
+  }
+  .getwidth div:nth-child(1){
+    width: 18%;
+  }
+  .getwidth div:nth-child(2){
+    width: 25%;
+  }
+  .getwidth div:nth-child(3){
+    width: 25%;
+  }
+  .getwidth div:nth-child(4){
+    width: 15%;
+  }
+  .getwidth div:nth-child(5){
+    width: 15%;
+  }
+  .deleteComment:hover{
+    cursor: pointer;
+    color: #fabe00;
+  }
+  .getlikewidth div:nth-child(1){
+    width: 20%;
+  }
+  .getlikewidth div:nth-child(2){
+    width: 35%;
+  }
+  .getlikewidth div:nth-child(3){
+    width: 20%;
+  }
+  .getlikewidth div:nth-child(4){
+    width: 20%;
+  }
+
   /*----------------------head-info--------------------*/
   .head-item{
     width: 100%;

@@ -40,8 +40,8 @@
           </div>
           <div class="nav">
             <div class="nav-title">我的相关</div>
-            <div id="score" class="nav-content">我的文章</div>
-            <div id="coupon" class="nav-content">我的活动</div>
+            <div id="score" class="nav-content" @click="show">我的文章</div>
+            <div id="coupon" class="nav-content" @click="show">我的活动</div>
           </div>
         </div>
         <div class="body-right">
@@ -51,6 +51,7 @@
           <Information v-show="'我的信息'===flag"></Information>
           <Dic v-show="'驾照认证'===flag"></Dic>
           <UpHead v-show="'修改图像'===flag"></UpHead>
+          <Article v-show="'我的文章'===flag"></Article>
         </div>
       </div>
       <!--<RevertBottom></RevertBottom>-->
@@ -91,6 +92,10 @@
             if(event.target.innerHTML==='修改图像'){
               // alert(event.target.innerHTML);
               this.flag = '修改图像';
+            }
+            if(event.target.innerHTML==='我的文章'){
+              // alert(event.target.innerHTML);
+              this.flag = '我的文章';
             }
           }
         }
