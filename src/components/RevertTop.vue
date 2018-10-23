@@ -52,7 +52,7 @@
 <script>
   import axios from 'axios'
     export default {
-
+        props:['condition'],
         name: "RevertTop",
         data () {
           return {
@@ -67,22 +67,24 @@
             backday:'',
             backtime:'',
             carlist:[],
+            conditions:[],
           }
         },
         methods:{
           gettaketime:function(e){
             this.taketime=e;
+
           },
           getbacktime:function(e){
             this.backtime=e;
           },
           getstarttime:function(e){
             this.takeday=e;
-            alert(this.takeday)
+
           },
           getendtime:function(e){
             this.backday=e;
-            alert(this.backday)
+
           },
           getendplace:function(e,city){
             this.returnres = e;
@@ -102,33 +104,78 @@
             // alert(this.takecity=city)
           },
           queryCar:function () {
-            let vm = this
-            axios.post("http://127.0.0.1:8000/car/querycarbystore/",
-              {
-                "takecityname":vm.takecity,
-                "takestore":vm.takestrict,
-                "taketime":vm.takeday+' '+vm.taketime+':00',
-                "backcityname":vm.backcity,
-                "backstore":vm.backstrict,
-                'backtime':vm.backday+' '+vm.backtime+':00',
-              }, {
-                // headers: {
-                //   'token': sessionStorage.getItem('token'),
-                // }
-              })
-              .then(function (res) {
-                if (res.data) {
-                  // vm.orderlist = res.data
-                  console.log(res.data)
-                  vm.carlist=res.data
-                  vm.$emit('getCarlist',vm.carlist)
-                }
-              }.bind(this))
-              .catch(function (err) {
-                if (err.response) {
-                  console.log(err.response)
-                }
-              }.bind(this))
+            let vm = this;
+            console.log(this.condition)
+            if(this.condition.carJiage||this.condition.carPingpai||this.condition.carLeixing){
+              console.log(vm.condition)
+              axios.post("http://127.0.0.1:8000/car/querycarbyconditions/",
+                {
+                  "condition":{
+                    "takecityname":vm.takecity,
+                    "takestore":vm.takestrict,
+                    "taketime":vm.takeday+' '+vm.taketime+':00',
+                    "backcityname":vm.backcity,
+                    "backstore":vm.backstrict,
+                    'backtime':vm.backday+' '+vm.backtime+':00',
+                    'condition':vm.condition,
+                  },
+                }, {
+                  // headers: {
+                  //   'token': sessionStorage.getItem('token'),
+                  // }
+                })
+                .then(function (res) {
+                  if (res.data) {
+                    vm.carlist = res.data
+                    vm.$emit('getCarlist',vm.carlist,vm.conditions)
+                  }
+                }.bind(this))
+                .catch(function (err) {
+                  if (err.response) {
+                    console.log(err.response)
+                  }
+                }.bind(this))
+
+            }else{
+              axios.post("http://127.0.0.1:8000/car/querycarbystore/",
+                {
+                  "takecityname":vm.takecity,
+                  "takestore":vm.takestrict,
+                  "taketime":vm.takeday+' '+vm.taketime+':00',
+                  "backcityname":vm.backcity,
+                  "backstore":vm.backstrict,
+                  'backtime':vm.backday+' '+vm.backtime+':00',
+                }, {
+                  // headers: {
+                  //   'token': sessionStorage.getItem('token'),
+                  // }
+                })
+                .then(function (res) {
+
+                  if (res.data) {
+                    // vm.orderlist = res.data
+
+                    vm.carlist=res.data
+                    vm.conditions={
+                      "takecityname":vm.takecity,
+                      "takestore":vm.takestrict,
+                      "taketime":vm.takeday+' '+vm.taketime+':00',
+                      "backcityname":vm.backcity,
+                      "backstore":vm.backstrict,
+                      'backtime':vm.backday+' '+vm.backtime+':00',
+                    }
+
+                    vm.$emit('getCarlist',vm.carlist,vm.conditions)
+                  }
+                }.bind(this))
+                .catch(function (err) {
+                  if (err.response) {
+                    console.log(err.response)
+                  }
+                }.bind(this))
+
+            }
+
           }
         },
       mounted:function () {

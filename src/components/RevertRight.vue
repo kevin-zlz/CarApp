@@ -31,6 +31,7 @@
         </tr>
       </table>
     </div>
+    <pagination :currentPage="currentPage" :pageCount="parseInt(pageCount)" @prePage="prePage" @nextPage="nextPage" @jumpPage="jumpPage"></pagination>
   </div>
 </template>
 
@@ -54,12 +55,16 @@
           ],
             path:"/",
             carid:1,
+            currentPage:1,
+            pageCount:10,
+
           }
         },
         methods:{
           changeColor:function (event) {
             event.target.style.backgroundColor='white';
           },
+
         },
 
     }

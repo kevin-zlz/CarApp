@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <div class="top">
-      <RevertTop @getCarlist="getCars"></RevertTop>
+      <RevertTop @getCarlist="getCars" :condition="conditionlist"></RevertTop>
     </div>
     <div class="main">
       <div class="left">
-        <RevertLeft id="lefter" ></RevertLeft>
+        <RevertLeft id="lefter" @getConditionList="getCondition"></RevertLeft>
       </div>
       <div class="right">
-        <RevertRight :carlist="carlist"></RevertRight>
+        <RevertRight :carlist="carlist" ></RevertRight>
       </div>
     </div>
     <div class="bottom">
@@ -28,6 +28,7 @@
         data:function(){
           return {
             carlist:[],
+            conditionlist:{},
           }
         },
         methods:{
@@ -38,9 +39,41 @@
               $("#lefter").css({'marginTop':scrollTop-210+'px'})
             }
           },
-          getCars:function (e) {
+          getCars:function (e,e2) {
             this.carlist=e;
-            // console.log('12222222222222222222'+this.carlist)
+            // this.conditionlist
+            this.conditionlist['backcityname']=e2.backcityname
+            this.conditionlist.backstore=e2.backstore
+            this.conditionlist.backtime=e2.backtime
+            this.conditionlist.takecityname=e2.takecityname
+            this.conditionlist.takestore=e2.takestore
+            this.conditionlist.taketime=e2.taketime
+            // console.log(this.conditionlist);
+          },
+          getCondition:function (e) {
+            this.conditionlist=e;
+            // let vm=this
+            // console.log(this.conditionlist)
+            // axios.post("http://127.0.0.1:8000/car/querycarbyconditions/",
+            //   {
+            //     "condition":vm.conditionlist,
+            //   }, {
+            //     headers: {
+            //       'token': sessionStorage.getItem('token'),
+            //     }
+            //   })
+            //   .then(function (res) {
+            //     if (res.data) {
+            //       vm.carlist = res.data
+            //       // console.log(vm.articallist);
+            //     }
+            //   }.bind(this))
+            //   .catch(function (err) {
+            //     if (err.response) {
+            //       console.log(err.response)
+            //     }
+            //   }.bind(this))
+
           }
         },
       mounted:function () {

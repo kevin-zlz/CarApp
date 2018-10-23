@@ -507,7 +507,7 @@ export default {
     },
     changtitle:function (event) {
         // console.log(event.target.className)
-        console.log(event.target.parentElement.children);
+
         for(let i of event.target.parentElement.children){
           i.style.borderBottom='none'
         }
@@ -574,7 +574,7 @@ export default {
       },
     clicktext:function (event) {
       if(event.target.tagName=='A'||event.target.tagName=='SPAN'){
-        console.log(event.target.innerText);
+
         this.clock=event.target.innerText;
         this.iscityclick=false;
       }

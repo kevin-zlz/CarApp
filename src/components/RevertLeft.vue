@@ -5,7 +5,7 @@
       <!--<img src="../../static/images/qc.png" alt="">-->
       <div class="left1-all" >
        <div class="left1-all1" v-for="(c,index) in car" :data-id="c.id" @click="change" >
-         <img :src="src"  alt=""  :data-id="c.id" @click="cxtype" >
+         <img :src="src"  alt=""  :data-id="c.id" @click="cxtype($event)" >
          <span v-text="c.content" style='color: rgba(145,145,145,0.81);' :data-id="c.id" ref="c.id" ></span>
        </div>
       </div>
@@ -31,7 +31,7 @@
       <span>品牌</span>
       <div class="left3-all">
         <ul>
-          <li v-for="(c,index) in carType" :key="index" :data-id="index" v-text="c" @click="changeLiColor"></li>
+          <li v-for="(c,index) in carType" :key="index" :data-id="index" v-text="c" @click="changeLiColor($event)"></li>
         </ul>
       </div>
     </div>
@@ -58,9 +58,9 @@
             liBackgroundColor:'gray',
             //筛选条件:汽车类型，汽车价格，汽车品牌
             condition:{
-              carLeixing:'',
+              carLeixing:[],
               carJiage:'',
-              carPingpai:'',
+              carPingpai:[],
             }
           }
         },
@@ -72,18 +72,18 @@
         changePrice:function (event) {
           event.target.style.backgroundColor='#fabe00';
           this.condition.carJiage = event.target.parentNode.parentNode.querySelector(".ul2").children[event.target.dataset.id].innerText;
+          this.$emit('getConditionList',this.condition)
         },
         changeLiColor:function (event) {
           event.target.style.color='#fabe00';
-          this.condition.carPingpai = event.target.innerText;
-          console.log(this.condition);
+          this.condition.carPingpai.push(event.target.innerText)
+          this.$emit('getConditionList',this.condition)
         },
 
         cxtype:function (e) {
-          console.log(e);
           var img=e.target.parentNode.querySelector('span');
-          this.condition.carLeixing = img.innerHTML;
-
+          this.condition.carLeixing.push(img.innerHTML);
+          this.$emit('getConditionList',this.condition)
         },
       },
       mounted(){

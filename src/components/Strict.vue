@@ -51,9 +51,9 @@ export default {
   },
   watch:{
     area:function () {
-      console.log("子组件",this.area);
+
       for(var a  of this.area){
-        console.log("循环",a.stores);
+
         // console.log("循环",a.strictname);
       }
     },
