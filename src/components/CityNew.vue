@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="city-style">
-    <input type="text" @click="change()" class="s_city1" v-model="clock" placeholder="选择城市" >
+    <input type="text" @click="change()" class="s_city1" v-model="clock" placeholder="北京">
     <div  class="select-city" v-if="iscityclick">
       <ul class="popup_title" @click="changtitle($event)">
         <li class="title0" >热门城市</li>
@@ -493,7 +493,7 @@ export default {
   name: 'City',
   data () {
     return {
-      clock: '',
+      clock: '北京',
       nums: '',
 
       istitleclick: false,

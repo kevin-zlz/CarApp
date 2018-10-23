@@ -6,39 +6,39 @@
         <!--<div>-->
           <!--<input type="text" placeholder="选择城市" style="background-color: red">-->
         <!--</div>-->
-        <City style="height: 60px" v-on:spot="spot"></City>
+        <City class="topclass" v-on:spot="spot"></City>
         <!--<div><input type="text" placeholder="莫邪路店"></div>-->
-        <Strict :area = 'res' @getplace="gettakestrict"></Strict>
+        <Strict class="topclass" :area = 'res' @getplace="gettakestrict" ></Strict>
       </div>
       <div class="top-left2">
         <div class="top-left-span">取车时间</div>
         <!--<div>-->
           <!--<input type="text" placeholder="2018-09-15">-->
         <!--</div>-->
-        <Calenlar @getdate="getstarttime"></Calenlar>
-        <div>
 
-          <Time @getTime="gettaketime"></Time>
+        <Calenlar class="topclass"  @getdate="getstarttime"></Calenlar>
+        <div class="topclass">
+          <Time class="topclass" @getTime="gettaketime"></Time>
         </div>
       </div>
       <div class="top-left3">
         <div class="top-left-span">还车</div>
-        <div>
+        <div class="topclass">
           <!--<input type="text" placeholder="选择城市">-->
-          <City style="height: 60px" @spot="getendplace"></City>
+          <City  @spot="getendplace"></City>
         </div>
         <!--<div><input type="text" placeholder="莫邪路店"></div>-->
-        <Strict :area = 'returnres' @getplace="getbackplace"></Strict>
+        <Strict class="topclass" :area = 'returnres' @getplace="getbackplace"></Strict>
       </div>
       <div class="top-left4">
         <div class="top-left-span">还车时间</div>
-        <div>
+        <div class="topclass">
           <!--<input type="text" placeholder="2018-09-15">-->
-          <Calenlar @getdate="getendtime"></Calenlar>
+          <Calenlar  @getdate="getendtime"></Calenlar>
         </div>
-        <div>
+        <div class="topclass">
           <!--<input type="text" placeholder="8:00~10:00">-->
-          <Time @getTime="getbacktime"></Time>
+          <Time  @getTime="getbacktime"></Time>
         </div>
       </div>
     </div>
@@ -62,10 +62,12 @@
             takestrict:'',
             takeday:'',
             taketime:'',
+            takestoreid:'',
             backcity:'',
             backstrict:'',
             backday:'',
             backtime:'',
+            backstoreid:"",
             carlist:[],
             conditions:[],
           }
@@ -73,35 +75,57 @@
         methods:{
           gettaketime:function(e){
             this.taketime=e;
-
+            this.getallcondition()
           },
           getbacktime:function(e){
             this.backtime=e;
+            this.getallcondition()
           },
           getstarttime:function(e){
             this.takeday=e;
-
+            this.getallcondition()
           },
           getendtime:function(e){
             this.backday=e;
-
+            this.getallcondition()
           },
           getendplace:function(e,city){
             this.returnres = e;
             this.backcity=city;
+            this.getallcondition()
           },
-          getbackplace:function(e){
+          getbackplace:function(e,storeid){
             this.backstrict=e;
+            this.backstoreid=storeid
+            this.getallcondition()
           }
           ,
-          gettakestrict:function(e){
+          gettakestrict:function(e,storeid){
             this.takestrict=e;
-
+            this.takestoreid=storeid;
+            this.getallcondition()
           },
           spot:function(res,city){
             this.res = res;
             this.takecity=city;
+            this.getallcondition()
             // alert(this.takecity=city)
+          },
+          getallcondition:function(){
+            if(this.takecity&&this.takestrict&&this.backstrict&&this.backcity&&this.backday&&this.takeday&&this.backtime&&this.taketime){
+              let vm=this
+              vm.conditions={
+                "takecityname":vm.takecity,
+                "takestore":vm.takestrict,
+                "taketime":vm.takeday+' '+vm.taketime+':00',
+                "backcityname":vm.backcity,
+                "backstore":vm.backstrict,
+                'backtime':vm.backday+' '+vm.backtime+':00',
+                "takestoreid":vm.takestoreid,
+                "backstoreid":vm.backstoreid,
+              }
+              vm.$emit('getCars',vm.conditions)
+            }
           },
           queryCar:function () {
             let vm = this;
@@ -185,8 +209,13 @@
 </script>
 
 <style scoped>
+  .topclass{
+    border-left: solid gray 1px;
+    box-sizing: border-box;
+    margin-top: 3px;
+  }
   .top-left{
-    width: 75%;
+    width: 82%;
     height: 100%;
     /*background-color: rgba(228, 0, 0, 0.2);*/
     display: flex;

@@ -2,75 +2,29 @@
   <div>
     <div class="main">
       <div class="query">
-        <div class="tpt-bar">
-          <input type="radio" name="bar" id="tab-1" checked="">
-          <label for="tab-1">到店取还</label>
-          <div class="tpt-bar-con">
-            <div class="service_body">
-              <div class="city" id="city1">
-                <div class="take">取车</div>
-                <div id="city4" class="city-style">
-                  <input type="text" class="s_city1" placeholder="选择城市" >
-                </div>
-                <div id="store-modle1" class="store-modle">
-                  <input type="text" class="store-input">
-                </div>
-                <div class="taketime">取车时间</div>
-                <div class="time">
-                  <input id="mydatepicker4" type="text" class="s_city2" placeholder="请选择时间">
-                </div>
-                <div id="minute1" class="minute">
-                  <input class="minute-input" type="text">
-                </div>
-                <div class="taketime taketime2">还车时间</div>
-                <div class="time time2">
-                  <input id="mydatepicker5" type="text" class="s_city2" placeholder="请选择时间">
-                </div>
-                <div id="minute2" class="minute minute2">
-                  <input class="minute-input" type="text">
-                </div>
-                <div class="zuche">
-                  <span>立即租车</span>
-                </div>
-                <!--<div id="calendar" class="calendar"></div>-->
+        <!--<div class="search-head">-->
+          <!--<div class="search-div" :class="{'search-div-after':flag}"  @click="clickitem">短期自驾</div>-->
+          <!--<div class="search-div" :class="{'search-div-after':!flag}" @click="clickitem">长期租车</div>-->
+        <!--</div>-->
+        <div class="search-body">
+          <div class="short">
+              <div class="item">
+                <div class="lable">取车</div>
+                <div class="city"><City  v-on:spot="spot"></City></div>
+                <div class="strict"><Strict :area = 'res' @getplace="gettakestrict"></Strict></div>
+                <div class="calenlar"><Calenlar @getdate="getstarttime"></Calenlar></div>
+                <div class="time"> <Time @getTime="gettaketime"></Time></div>
               </div>
-              <div class="city" id="city2">
-                <div class="take">还车</div>
-                <div id="city5" class="city-style">
-                  <input type="text" class="s_city1" placeholder="选择城市" >
-                </div>
-                <div id="store-modle2" class="store-modle" >
-                  <input type="text" class="store-input">
-                </div>
+              <div class="item">
+                <div class="lable">还车</div>
+                <div class="city"><City  v-on:spot="spot"></City></div>
+                <div class="strict"><Strict :area = 'res' @getplace="gettakestrict"></Strict></div>
+                <div class="calenlar"><Calenlar @getdate="getstarttime"></Calenlar></div>
+                <div class="time"> <Time @getTime="gettaketime"></Time></div>
               </div>
-            </div>
           </div>
-          <input type="radio" name="bar" id="tab-2">
-          <label for="tab-2">长期租车</label>
-          <div class="tpt-bar-con">
-            <div class="longtime">
-              <div class="item-title">取车城市</div>
-              <div class="city" id="city">
-                <div id="city3" class="city-style">
-                  <input type="text" class="s_city3" placeholder="选择城市" >
-                </div>
-              </div>
-              <div class="store" id="store">
-                <div id="store-modle3" class="store-modle">
-                  <input type="text" class="s_city4">
-                </div>
-              </div>
-            </div>
-
-            <div class="longtime">
-              <div class="item-title">车&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp型</div>
-            </div>
-            <div class="longtime">
-              <div class="apply">
-                <a href="https://changzu.zuche.com/">去申请</a>
-              </div>
-            </div>
-          </div>
+          <div class="commit" @click="commit">立即租车</div>
+          <div class="long" v-show="false"></div>
         </div>
       </div>
     </div>
@@ -314,8 +268,69 @@ export default {
   name: 'Index',
   data () {
     return {
-      msg: '这是首页'
+      msg: '这是首页',
+      flag:true,
+      res:[],
+      returnres:[],
+      takecity:'',
+      takestrict:'',
+      takeday:'',
+      taketime:'',
+      takestoreid:'',
+      backcity:'',
+      backstrict:'',
+      backday:'',
+      backtime:'',
+      backstoreid:"",
     }
+  },
+  methods:{
+    commit:function(){
+      // condition={
+      //   "taketime":
+      // }
+      this.$router.push({path: '/revert', query: {}});
+    },
+    clickitem:function(){
+      this.flag=!this.flag
+    },
+    spot:function (res,city) {
+      this.res = res;
+      this.takecity=city;
+
+    },
+    gettaketime:function(e){
+      this.taketime=e;
+
+    },
+    getbacktime:function(e){
+      this.backtime=e;
+
+    },
+    getstarttime:function(e){
+      this.takeday=e;
+
+    },
+    getendtime:function(e){
+      this.backday=e;
+
+    },
+    getendplace:function(e,city){
+      this.returnres = e;
+      this.backcity=city;
+
+    },
+    getbackplace:function(e,storeid){
+      this.backstrict=e;
+      this.backstoreid=storeid
+
+    }
+    ,
+    gettakestrict:function(e,storeid){
+      this.takestrict=e;
+      this.takestoreid=storeid;
+
+    },
   }
 }
 </script>
@@ -382,19 +397,102 @@ export default {
   .main .query{
     width: 520px;
     height: 375px;
-    /*border: red solid 1px;*/
+    border: red solid 1px;
     margin: 65px 0 0 80px;
+    box-shadow: 3px 3px 3px #b0b0b0;
+  }
+
+  .search-head{
+    display: flex;
+    height: 50px;
+  }
+  .search-head .search-div{
+    height: 100%;
+    width: 50%;
+    background-color: #f0f1f3;
+    font-size: 16px;
+    color: #919191;
+    text-align: center;
+    line-height: 50px;
+  }
+  .search-head .search-div-after{
+    background-color: white;
+  }
+  .search-head .search-div:hover{
+    cursor: pointer;
+  }
+  .search-body{
+    padding:0px 27px;
+  }
+  .short{
+    display: flex;
+    height: 250px;
+    width: 100%;
+  }
+  .short .item{
+    width: 50%;
+    height: 100%;
+    /*border: solid 1px yellow;*/
+    position: relative;
+  }
+  .item .lable{
+    height: 40px;
+    font-size: 17px;
+    line-height:40px;
+  }
+  .item .city{
+    /*position: absolute;*/
+    display: inline-block;
+    top: 50px;
+    width: 200px;
+    height: 45px;
+    border: solid #8e8e8e 1px;
+    z-index:300;
+  }
+  .item .strict{
+    margin-top: 5px;
+    display: inline-block;
+    width: 200px;
+    height: 45px;
+    border: solid #8e8e8e 1px;
+    box-sizing: border-box;
+  }
+  .item .calenlar{
+    box-sizing: border-box;
+    /*margin-top: 5px;*/
+    display: inline-block;
+    width: 200px;
+    height: 42px;
+    border: solid #8e8e8e 1px;
+  }
+  .item .time{
+    box-sizing: border-box;
+    margin-top: 5px;
+    display: inline-block;
+    width: 200px;
+    height: 45px;
+    border: solid #8e8e8e 1px;
+  }
+  .commit{
+    margin-top: 0px;
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    background-color:#ffba00;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+  .commit:hover{
+    cursor: pointer;
+    background-color: #ff8650;
   }
   /*-----------------------------------------------*/
-  .tpt-bar {
-    display:flex;
-    border:1px solid  #e2e2e2;
-    border-radius:2px;
-    /*background: #f25f85;*/
-    background:#f2f2f2;
-    box-shadow:0 2px 5px 0 rgba(0,0,0,.1);
-    flex-wrap:wrap;
-  }
+
   .tpt-bar label {
     width: 50%;
     display:block;
@@ -405,19 +503,7 @@ export default {
     cursor:pointer;
     order:1;
   }
-  .tpt-bar .tpt-bar-con {
-    /*margin-top: 0px;*/
-    z-index:0;
-    display:none;
-    margin-top:-1px;
-    padding:10px;
-    width:100%;
-    min-height:120px;
-    border-top:1px solid #e2e2e2;
-    background:#fff;
-    order:99;
-    height: 315px;
-  }
+
   .tpt-bar input[type=radio] {
     position:absolute;
     opacity:0;
@@ -443,101 +529,15 @@ export default {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  .service_body .city .store-modle{
-    position: absolute;
-    top:10px;
-    left: 230px;
-  }
-  .service_body .city div.take{
-    display: inline-block;
-    box-sizing: border-box;
-    height: 40px;
-    text-align: center;
-    color: #1e1e1e;
-    width: 60px;
-    /*border: red solid 1px;*/
-    margin-top: 10px;
-  }
-  .service_body .city .minute{
-    position: absolute;
-    top: 135px;
-    left: 280px;
-  }
-  .service_body .city .minute2{
-    position: absolute;
-    top: 185px;
-    left: 280px;
-  }
-  .service_body .city div.taketime{
-    position: absolute;
-    top: 135px;
-    left: 13px;
-  }
-  .service_body .city div.time{
-    position: absolute;
-    top: 135px;
-    left: 103px;
-  }
-  .service_body .city div.taketime2{
-    position: absolute;
-    top: 185px;
-    left: 13px;
-  }
-  .service_body .city div.time2{
-    position: absolute;
-    top: 185px;
-    left: 103px;
-  }
 
-  .zuche{
-    position: absolute;
-    top: 250px;
-    left: 26px;
-    width: 450px;
-    height: 40px;
-    background-color: #ff9d00;
-    text-align: center;
-    line-height: 40px;
-  }
+
 
   /*--------------------longtime---------------------------*/
 
-  .longtime{
-    height: 60px;
-    /*line-height: 60px;*/
-    width: 100%;
-    position: relative;
-  }
+
   .longtime div{
 
     display: inline-block;
-  }
-  .longtime .item-title{
-    height: 30px;
-    margin-top: 20px;
-    box-sizing: border-box;
-  }
-
-
-  .longtime .apply{
-    height: 40px;
-    width: 450px;
-    /*border: red solid 1px;*/
-    background-color: #ff9d00;
-    margin:10px 20px;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 40px;
-  }
-  .longtime .store-modle{
-    /*display: inline-block;*/
-    /*margin-top: 0px;*/
-    position: absolute;
-    top:12px;
-    left: 228px;
-  }
-  .longtime .apply a{
-    text-decoration: none;
   }
 
   /*-------------------------------advantage---------------*/

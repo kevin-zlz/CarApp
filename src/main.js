@@ -35,6 +35,7 @@ import UpHead from './components/UpHead'
 import Questions from './components/Questions'
 import Article from './components/Article'
 import Pagination from './components/Pagination'
+import ConfirmOrder from './components/ConfirmOrder'
 
 Vue.config.productionTip = false;
 
@@ -71,6 +72,7 @@ Vue.component('UpHead',UpHead);
 Vue.component('Questions',Questions);
 Vue.component('Article',Article);
 Vue.component('Pagination',Pagination);
+Vue.component('ConfirmOrder',ConfirmOrder);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

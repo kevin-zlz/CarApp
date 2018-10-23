@@ -21,6 +21,7 @@ import Order from '@/components/Order'
 import Questions from '@/components/Questions'
 import Activity from '@/components/Activity'
 import MyActivity from '@/components/MyActivity'
+import ConfirmOrder from '@/components/ConfirmOrder'
 
 
 Vue.use(Router)
@@ -35,6 +36,11 @@ export default new Router({
       path: '/calenlar',
       name: Calenlar,
       component: Calenlar
+    },
+    {
+      path: '/order',
+      name:ConfirmOrder ,
+      component: ConfirmOrder,
     },
     {
       path: '/helloWorld',

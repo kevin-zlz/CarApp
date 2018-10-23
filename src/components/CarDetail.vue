@@ -290,6 +290,7 @@
         name: "CarDetail",
         data:function(){
           return{
+            carid:"",
             cid:this.$route.query.name,
             carname:'',
             brand:'',
@@ -313,12 +314,36 @@
             pailiang:'',
             oilnum:'',
             peizhikun:'',
+            condition:'',
           }
         },
         methods:{
-          yuding:function(e){
+          yuding:function(){
             if(sessionStorage.getItem('token')){
-              alert("已经有token")
+              this.condition.price=this.price;
+              this.condition.brand=this.brand;
+              this.condition.carname=this.carname;
+              this.condition.sitenum=this.sitenum;
+              this.condition.qudong=this.qudong;
+              this.condition.doornum=this.doornum;
+              this.condition.sitetype=this.sitetype;
+              this.condition.carwindow=this.carwindow;
+              this.condition.changespeed=this.changespeed;
+              this.condition.oiltype=this.oiltype;
+              this.condition.sitetype=this.sitetype;
+              this.condition.chexi=this.chexi;
+              this.condition.isdaocheleida=this.isdaocheleida;
+              this.condition.isdvd=this.isdvd;
+              this.condition.isgps=this.isgps;
+              this.condition.isqinang=this.isqinang;
+              this.condition.jinqixingshi=this.jinqixingshi;
+              this.condition.musicnum=this.musicnum;
+              this.condition.niandaikuan=this.niandaikuan;
+              this.condition.oilcaptiy=this.oilcaptiy;
+              this.condition.pailiang=this.pailiang;
+              this.condition.oilnum=this.oilnum;
+              this.condition.peizhikun=this.peizhikun;
+              this.$router.push({path: '/order', query: {carid: this.carid,condition:this.condition}});
             }else{
               this.$router.push('/Login')
             }
@@ -326,6 +351,9 @@
         },
         mounted:function () {
           var vm = this;
+          this.carid=vm.$route.query.carid;
+          console.log(this.carid);
+          this.condition=vm.$route.query.condition;
           axios.post("http://127.0.0.1:8000/car/querycarinfobyid/",
             {"id":vm.$route.query.carid,
             },{

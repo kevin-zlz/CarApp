@@ -90,12 +90,13 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    height: 48px;
+    height: 40px;
     border: none;
-    border-left: solid 1px gray ;
+    outline: none;
+    /*border-left: solid 1px gray ;*/
     width: 178.5px;
     padding-left: 8px;
-    border-left: solid 1px #ababab;
+    /*border-left: solid 1px #ababab;*/
     font-size: 16px;
   }
   .minute .minute-div{

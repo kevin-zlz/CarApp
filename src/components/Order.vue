@@ -15,10 +15,6 @@
     <div class="order-state">
       <div class="order-btn  short-btn">
         <div class="state">全部</div>
-        <div class="state">处理中</div>
-        <div class="state">等待付款</div>
-        <div class="state">预订成功</div>
-        <div class="state">租赁中</div>
         <div class="state">已完成</div>
         <div class="state">已取消</div>
       </div>

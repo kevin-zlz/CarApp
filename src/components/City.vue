@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="city-style">
-    <input type="text" @click="change()" class="s_city1" v-model="clock" placeholder="选择城市" >
+    <input type="text" @click="change()" class="s_city1" v-model="clock" placeholder="北京" >
     <div  class="select-city" v-if="iscityclick">
       <ul class="popup_title" @click="changtitle($event)">
         <li class="title0" >热门城市</li>
@@ -626,12 +626,13 @@
     margin-left: 0;
     display: inline;
     padding-left: 8px;
-    height: 48px;
+    height: 40px;
     width: 164px;
     border: none;
-    border-left: solid 1px #ababab;
+    /*border-left: solid 1px #ababab;*/
     font-size: 16px;
     color: #777;
+    outline: none;
   }
   .s_city2{
     display: inline;

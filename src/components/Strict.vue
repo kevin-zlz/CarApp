@@ -6,7 +6,7 @@
     <ul class="street" @click="strictclick($event.target)">
       <li v-for="(a,index) in area" v-text="a.strictname" v-bind:key="index" :id="index" @click="get"></li>
     </ul>
-    <ul class="store-name" @click="storeclick($event.target)">
+    <ul class="store-name" @click="storeclick($event.target)" >
       <!--<li><span class="store-strict">姑苏区</span></li>-->
       <!--<li><span class="store-strict">苏州工业园区</span></li>-->
       <!--<li><span class="store-strict">姑苏区</span></li>-->
@@ -22,14 +22,14 @@
       <!--<li><span class="store-strict">姑苏区</span></li>-->
       <!--<li><span clsss="store-strict">苏州工业园区</span></li>-->
       <li v-for="(s,index) in strict" :id="index" :key="index">
-        <span clsss="store-strict" v-text="s.storename"></span>
+        <span clsss="store-strict" v-text="s.storename" :id="s.id" @mouseover="storemouseon(s.storetel,s.detailaddress,s.storetime)"></span>
       </li>
     </ul>
 
     <div class="store-base">
-      <p>地址：<span>工业园区星湖街328号</span></p>
-      <p>营业时间：<span>9:00-18:00</span></p>
-      <p>门店电话：<span>18112556043</span></p>
+      <p>地址：<span v-text="storeDetail">工业园区星湖街328号</span></p>
+      <p>营业时间：<span v-text="storeTime">9:00-18:00</span></p>
+      <p>门店电话：<span v-text="storeTel">18112556043</span></p>
     </div>
 
   </div>
@@ -47,6 +47,9 @@ export default {
       inputtext:'',
       flag:false,
       strict:[],
+      storeDetail:'',
+      storeTel:'',
+      storeTime:'',
     }
   },
   watch:{
@@ -87,8 +90,13 @@ export default {
       if(event.tagName=='LI'){
         this.inputtext=event.children[0].innerText;
         this.flag=false;
-        this.$emit('getplace',this.inputtext)
+        this.$emit('getplace',this.inputtext,event.children[0].id)
       }
+    },
+    storemouseon:function (storetel,detailaddress,storetime) {
+      this.storeTel=storetel
+      this.storeDetail=detailaddress
+      this.storeTime=storetime
     }
   }
 }
@@ -109,13 +117,14 @@ export default {
     position: relative;
   }
   .store-modle .store-input{
+    font-size: 16px;
     position: absolute;
     left: 0;
-    height: 48px;
+    height: 40px;
     width: 178px;
     color: #757575;
     border: none;
-    border-left: solid 1px gray;
+    /*border-left: solid 1px gray;*/
     padding-left: 8px;
   }
   .store-modle .store-div{

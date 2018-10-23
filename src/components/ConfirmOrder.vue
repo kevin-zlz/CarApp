@@ -4,8 +4,8 @@
       <div class="ifl">
         <img src="https://fimg.zuchecdn.com/upload/web/modepic/848.jpg">
         <div class="lin">
-          <p class="lp1">雪佛兰新科鲁兹</p>
-          <p class="lp2">三厢/1.5自动 | 乘坐5人</p>
+          <p class="lp1">{{conditions.carname}}</p>
+          <p class="lp2">三厢/{{conditions.pailiang}}{{conditions.qudong}} | 乘坐{{conditions.sitenum}}人</p>
           <div class="base_btn">
             <a href="#" class="look-config" @click="showDetail">查看配置信息</a>
             <a href="#" class="look-change">修改订单</a>
@@ -20,11 +20,11 @@
           </p>
           <p class="line2">
             <i class="ifr-time"></i>
-            <span>2018-10-23 10:00</span>
+            <span v-text="conditions.taketime"></span>
           </p>
           <p class="line3">
             <i class="ifr-local"></i>
-            <span>苏州 莫邪路店</span>
+            <span>{{conditions.takecityname}} {{conditions.takestore}}</span>
           </p>
         </li>
         <li>
@@ -34,11 +34,11 @@
           </p>
           <p class="line2">
             <i class="ifr-time"></i>
-            <span>2018-10-25 10:00</span>
+            <span v-text="conditions.backtime">2018-10-25 10:00</span>
           </p>
           <p class="line3">
             <i class="ifr-local"></i>
-            <span>苏州&nbsp;莫邪路店</span>
+            <span>{{conditions.backcityname}}&nbsp;{{conditions.backstore}}</span>
           </p>
         </li>
       </ul>
@@ -55,7 +55,7 @@
         <ul class="infor">
           <li>
             <label><i>*</i>姓&emsp;&emsp;名</label>
-            <input name="xname" id="xname" type="text" placeholder="请输入您的姓名"  value="" maxlength="50" @blur.prevent="verifyName" @click="closeName">
+            <input name="xname" id="xname" type="text" placeholder="请输入您的姓名"  value="" maxlength="50" @blur.prevent="verifyName" @click="closeName" v-model="user.realname">
             <div class="verify" v-show="flagName">
               <span>◆</span>
               <span class="ts-warning"></span>
@@ -70,7 +70,7 @@
           </li>
           <li>
             <label><i>*</i>证件号码</label>
-            <input name="xcardnumber" id="xcardnumber" type="text" placeholder="请输入证件号码"  value="" maxlength="50" @blur.prevent="verifyNumber" @click="closeNumber">
+            <input name="xcardnumber" id="xcardnumber" type="text" placeholder="请输入证件号码"  v-model="user.idcard" maxlength="50" @blur.prevent="verifyNumber" @click="closeNumber">
             <div class="verify" v-show="flagNumber">
               <span>◆</span>
               <span class="ts-warning"></span>
@@ -81,7 +81,7 @@
           </li>
           <li>
             <label><i>*</i>邮&emsp;&emsp;箱</label>
-            <input name="xemail" id="xemail" type="text"  placeholder="请输入邮箱"   maxlength="50" @blur.prevent="verifyEmail" @click="closeEmail">
+            <input name="xemail" id="xemail" type="text"  placeholder="请输入邮箱"   maxlength="50" @blur.prevent="verifyEmail" @click="closeEmail" v-model="user.yonghu__email">
             <div class="verify" v-show="flagEmail">
               <span>◆</span>
               <span class="ts-warning"></span>
@@ -98,16 +98,16 @@
       <div class="submit_order">
         <div class="paydetail">
           <span class="ddzj">订单总价</span>
-          <span class="ddall"><i>¥</i><i class="total_price">278</i></span>
+          <span class="ddall"><i>¥</i><i class="total_price">{{conditions.price}}</i></span>
         </div>
-        <a href="#" class="order_btn">提交订单</a>
+        <a href="#" class="order_btn" @click.prevent="commitOrder">提交订单</a>
       </div>
     </div>
     <div class="bg" v-show="flagBg" ></div>
     <div class="car_detail" v-show="flagBg">
       <div class="de_title">
 		<span>
-		    大众斯柯达明锐配置信息
+		    {{ conditions.carname}}配置信息
         </span>
         <i class="de_close" @click="showDetail"></i>
       </div>
@@ -116,107 +116,108 @@
           <li>
             <b class="zws">&nbsp;</b>座 位 数：
             <span>
-						5
+						{{conditions.sitenum}}
 				</span>
           </li>
           <li>
             <b class="cms">&nbsp;</b>车 门 数：
             <span>
-						4
+						{{conditions.doornum}}
 				</span>
           </li>
           <li>
             <b class="rllx">&nbsp;</b>燃料类型：
             <span>
-						汽油
+						{{conditions.oiltype}}
 				</span>
           </li>
           <li>
             <b class="bsxlx">&nbsp;</b>变速箱类型：
             <span>
-						AT
+						{{conditions.changespeed}}
 				</span>
           </li>
           <li>
             <b class="pl">&nbsp;</b>排　　量：
-            <span>1598</span>
+            <span>{{conditions.pailiang}}</span>
           </li>
           <li>
             <b class="rybh">&nbsp;</b>燃油标号：
             <span>
-						92-93汽油
+						{{conditions.oilnum}}
 				</span>
           </li>
           <li>
             <b class="qdfs">&nbsp;</b>驱动方式：
             <span>
-						前驱
+						{{conditions.qudong}}
 				</span>
           </li>
           <li>
             <b class="fdjjqxs">&nbsp;</b>发动机进气形式：
             <span>
-						自然吸气
+						{{conditions.jinqixingshi}}
 				</span>
           </li>
           <li>
             <b class="tc">&nbsp;</b>天　　窗：
             <span>
-						无
+						{{conditions.carwindow}}
 				</span>
           </li>
           <li>
             <b class="yxrl">&nbsp;</b>油箱容量：
             <span>
-						55
+						{{conditions.oilcaptiy}}
 				</span>
           </li>
           <li>
             <b class="yx">&nbsp;</b>音　　箱：
             <span>
-						5
+						{{conditions.musicnum}}
 				</span>
           </li>
           <li>
             <b class="zy">&nbsp;</b>座　　椅：
             <span>
-						织物座椅
+						{{conditions.sitetype}}
 				</span>
           </li>
           <li>
             <b class="dcld">&nbsp;</b>倒车雷达：
             <span>
-						无
+						{{conditions.isdaocheleida}}
 				</span>
           </li>
           <li>
             <b class="qin">&nbsp;</b>气　　囊：
             <span>
-						2
+						{{conditions.isqinang}}
 				</span>
           </li>
           <li class="nonebd">
             <b class="dvd">&nbsp;</b>DVD / CD：
             <span>
-						CD
+						{{conditions.isdvd}}
 				</span>
           </li>
           <li class="nonebd">
             <b class="gps">&nbsp;</b>GPS导航：
             <span>
-						无
+						{{conditions.isgps}}
 				</span>
           </li>
         </ul>
       </div>
     </div>
-
+    <RevertBottom></RevertBottom>
   </div>
 </template>
 
 
 
 <script>
+  import axios from 'axios'
   import '../../static/jquery/jquery-1.8.3.min'
 export default {
   name: 'ConfirmOrder',
@@ -227,11 +228,64 @@ export default {
       flagNumber: false,
       flagEmail: false,
       flagBg:false,
-
+      carid:'',
+      conditions:'',
+      carname:'',
+      brand:'',
+      price:'',
+      sitenum:'',
+      doornum:'',
+      oiltype:'',
+      qudong:'',
+      sitetype:'',
+      carwindow:'',
+      changespeed:'',
+      chexi:'',
+      isdaocheleida:'',
+      isdvd:'',
+      isgps:'',
+      isqinang:'',
+      jinqixingshi:'',
+      musicnum:'',
+      niandaikuan:'',
+      oilcaptiy:'',
+      pailiang:'',
+      oilnum:'',
+      peizhikun:'',
+      user:'',
     }
   },
 
   methods:{
+    commitOrder:function(){
+      let vm=this
+      axios.post("http://127.0.0.1:8000/user/addorder/",
+        {
+          "carid":vm.carid,
+          "takestoreid":vm.conditions.backstoreid,
+          "backstoreid":vm.conditions.backstoreid,
+          "taketime":vm.conditions.taketime,
+          "backtime":vm.conditions.backtime,
+          "ordertype":1,
+          "orderstate":1,
+        },{
+          headers: {
+            'token':sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if(res.data){
+            alert('yes')
+            console.log(res.data)
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this));
+
+    },
     showDetail:function(){
       this.flagBg=!this.flagBg;
 
@@ -281,6 +335,34 @@ export default {
       }
     }
     },
+  mounted:function () {
+    let vm=this;
+    this.carid=vm.$route.query.carid;
+    this.conditions=vm.$route.query.condition;
+    console.log('------------------------')
+    console.log(this.conditions);
+    console.log(this.carid);
+    axios.post("http://127.0.0.1:8000/user/queryuserdetail/",
+      {
+      },{
+        headers: {
+          'token':sessionStorage.getItem('token'),
+        }
+      })
+      .then(function (res) {
+        if(res.data){
+          alert('yes')
+          vm.user=res.data[0]
+          console.log(res.data)
+        }
+      }.bind(this))
+      .catch(function (err) {
+        if (err.response) {
+          console.log(err.response)
+        }
+      }.bind(this));
+
+  }
 
 
 
@@ -297,6 +379,7 @@ export default {
   }
 
   .container{
+    width: 100%;
     background-color:  #F5F5F5;
   }
 
