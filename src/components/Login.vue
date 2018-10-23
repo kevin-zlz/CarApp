@@ -21,7 +21,6 @@
                       </form>
                       <span class="fff2" v-text="tiShi.tishi2"></span>
                     </li>
-                    <p class="eee">用户名或密码错误</p>
                     <br/>
                     <li class="li-3">
                       <input class="input3" type="checkbox" id="cb">
@@ -29,6 +28,7 @@
                       <router-link to="/retrieve" class="a1">忘记密码?</router-link>
                     </li>
                   </ul>
+                  <p class="eee" v-show=flag>用户名或密码错误</p>
                 </div>
                 <div class="login2"><input type="submit" class="input4" value="登录" @click="login1"></div>
                 <div class="login3">
@@ -165,6 +165,7 @@
     data() {
       return {
         clock: '',
+        flag:false,
         nums: 10,
         btn: '',
         tiShi:{
@@ -208,6 +209,9 @@
                   location.reload();
                 }
               })
+            }else {
+              this.flag=true;
+              console.log('登陆失败')
             }
           }.bind(this))
           .catch(function (err) {
@@ -725,11 +729,16 @@
   }
 
   .eee {
+    width: 100px;
+    height: 17px;
     font-size: 12px;
     color: red;
-    display: none;
-    position: relative;
-    left: 40px;
+    /*display: none;*/
+    position: absolute;
+    /*left: 40px;*/
+    top: 120px;
+    z-index: 5;
+    left: 50px;
   }
 
   .fff {
