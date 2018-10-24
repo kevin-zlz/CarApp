@@ -2,9 +2,13 @@
   <div class="container" >
     <div class="order-head">
       <div>长期租车订单</div>
-      <div class="date"><input id='mydatepicker1' type='text'/></div>
+      <div class="date11">
+        <Calenlar class="aa" @getdate="getday"></Calenlar>
+      </div>
       <div class="lines"></div>
-      <div class="date"><input id='mydatepicker2' type='text'/></div>
+      <div class="date11">
+        <Calenlar class="aa" @getdate="getendday"></Calenlar>
+      </div>
       <div class="btns" id="query">查询</div>
       <div class="btns">清除</div>
     </div>
@@ -539,7 +543,19 @@ export default {
   .calendar tr:first-child th:active { color: #22A7F0; }
   .calendar thead tr:nth-child(2) th { color: #555; padding: 8px 3px; }
 
-
+  .date11{
+    width: 170px;
+    height: 40px;
+    /*background: red;*/
+    border: solid 1px #c6c6c6;
+    position: relative;
+    top: 10px;
+    padding-top: 0px;
+  }
+  .date11 .aa{
+    position: relative;
+    top: -13px;
+  }
 
 
 

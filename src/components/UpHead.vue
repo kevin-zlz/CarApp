@@ -10,7 +10,7 @@
         <span class="aa11">当前头像</span>
         <form id="form1">
           <input type="file" class="aa2" name="usericon" id="upload_file1" @change="update2">
-          <div class="img-add"><img src="../assets/images/538031d8c9c1794a155d07b5847dc9b6.jpg" alt=""></div>
+          <div class="img-add"><img :src="ImgUrl" alt=""></div>
           <!--<input type="file" name="usericon" @change="update">-->
         </form>
         <div id="preview"></div>
@@ -20,9 +20,9 @@
       <li class="items" id="aaa1">
         <span class="aa1">历史头像</span>
         <div class="ee">
-          <div><img src="../assets/images/QQ图片20181019210630.jpg" alt=""></div>
-          <div><img src="../assets/images/QQ图片20181019210630.jpg" alt=""></div>
-          <div><img src="../assets/images/QQ图片20181019210630.jpg" alt=""></div>
+          <div><img src="../assets/images/历史头像.png" alt=""></div>
+          <div><img src="../assets/images/历史头像.png" alt=""></div>
+          <div><img src="../assets/images/历史头像.png" alt=""></div>
         </div>
       </li>
       <div class="bb2">
@@ -40,13 +40,18 @@
     name: 'UpHead',
     data() {
       return {
+        now:{
+          src:'"../assets/images/头像.png'
+        },
         btn: false,
         flag: 0,
         form1: '',
         form2: '',
         formData: [],
+        ImgUrl:'Defaultheadimage.png',
       }
     },
+
 
     methods: {
       update1() {
@@ -64,10 +69,10 @@
         })
           .then(response => {
             if (response.data.code === 0) {
-              vm.ImgUrl = response.data.data;
-              console.log(vm.ImgUrl);
+              vm.ImgUrl = 'http://127.0.0.1:8000/media/pic/'+response.data.name;
+              vm.$emit('getIcon',vm.ImgUrl)
             }
-            console.log(response.data)
+            console.log('2222222',response.data)
           });
       },
       update2(e) {  // 上传照片
@@ -95,7 +100,30 @@
           $('.img-add').empty().append($img);
         }
       },
+      getherd:function () {
 
+        let vm = this;
+        console.log(sessionStorage.getItem("token"));
+        // post方式必须带参数
+        axios.post('http://127.0.0.1:8000/user/gethead/',
+          {},
+          {
+            headers: {
+              'token':sessionStorage.getItem("token"),
+            }
+          })
+          .then(response => {
+            if (response.data.code === 0) {
+              vm.ImgUrl = 'http://127.0.0.1:8000/media/pic/'+response.data.url;
+              console.log(vm.ImgUrl);
+            }
+            console.log(response.data)
+          });
+      },
+
+    },
+    mounted:function () {
+      this.getherd()
     }
   }
 
@@ -195,7 +223,7 @@
     position: relative;
     width: 175px;
     height: 175px;
-    background: rgba(238, 184, 25, 0.2);
+    /*background: rgba(238, 184, 25, 0.2);*/
     color: #eeb819;
     top: -175px;
     left: 130px;

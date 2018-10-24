@@ -2,11 +2,11 @@
   <div class="container">
     <div class="order-head">
       <div class="first">自驾订单</div>
-      <div class="date">
+      <div class="date11">
         <Calenlar @getdate="getday"></Calenlar>
       </div>
       <div class="lines"></div>
-      <div class="date">
+      <div class="date11">
         <Calenlar @getdate="getendday"></Calenlar>
       </div>
       <div class="btns" id="query" @click="queryByCondition()">查询</div>
@@ -32,7 +32,7 @@
         <div id="short-content" class="table-content">
           <div class="table-data" v-for="order in orderlist">
             <div class="info-car">
-              <img src="images/87.jpg" alt="">
+              <!--<img src="../assets/images/87.jpg" alt="">-->
               <div class="car-info">
                 <p v-text="order.car__carname">雪佛兰科瑞兹</p>
                 <div>
@@ -158,7 +158,7 @@
         this.endtime=e
       },
       queryByCondition:function () {
-        let vm = this
+        let vm = this;
         axios.post("http://127.0.0.1:8000/user/queryOrder/",
           {
             "fromtime":vm.starttime,
@@ -476,7 +476,7 @@
     box-sizing: border-box;
   }
 
-  .container .order-head div.date {
+  .container .order-head div .date {
     margin-top: 0;
     width: 180px;
     font-size: 14px;
@@ -948,6 +948,14 @@
   .datepicker {
     background: transparent right no-repeat;
     background-size: contain;
+  }
+  .date11{
+    width: 170px;
+    height: 40px;
+    /*background: red;*/
+    border: solid 1px #c6c6c6;
+    position: relative;
+    top: 10px;
   }
 
 </style>

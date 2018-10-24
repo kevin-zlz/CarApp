@@ -2,17 +2,22 @@
   <div>
     <div class="head">
       <div class="head-content">
-        <City class="aaa"></City>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <!--<div class="date11">-->
+        <div class="qq"></div>
+          <City class="aaa"></City>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <!--</div>-->
+        <div class="qq1"></div>
         <Calenlar class="aaa"></Calenlar>&nbsp;&nbsp;&nbsp;
-        <div>  ➤   </div>&nbsp;&nbsp;&nbsp;
+        <div class="aaa1">  ➤   </div>&nbsp;&nbsp;&nbsp;
+        <div class="qq2"></div>
         <Calenlar class="aaa"></Calenlar>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button>搜素</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button>重置</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <div class="aa1"><img src="../assets/images/fav_icon_weibo.png" alt=""><span>+关注</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="aa1"><img  src="../assets/images/fav_icon_weibo.png" alt=""><span>+关注</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="aa1"><img src="../assets/images/fav_icon_weixin.png" alt=""><span>扫一扫</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="aa1"><img src="../assets/images/fav_icon_email.png" alt=""><span>邮件订阅</span></div>
+        <div class="aa1"><img  src="../assets/images/fav_icon_email.png" alt=""><span>邮件订阅</span></div>
       </div>
     </div>
     <div class="main">
@@ -84,7 +89,7 @@
     height: 100%;
     /*background: green;*/
     display: flex;
-    line-height:80px;
+    /*line-height:80px;*/
     /*vertical-align:middle;*/
     /*position: absolute;*/
   }
@@ -115,16 +120,17 @@
     height: 30px;
     border: solid 1px gray;
     margin: auto;
+    /*display: flex;*/
   }
   .head-content .aa1 img{
     position: relative;
-    top: -27px;
+
     left: 5px;
   }
   .head-content .aa1 span{
     position: relative;
-    top: -27px;
-    left: 5px;
+    top: 2px;
+    left: 10px;
   }
   .main-content ul .bb1 {
     /*padding-top:30px ;*/
@@ -193,4 +199,42 @@
     background: #fd966c;
     color: white;
   }
+  .qq{
+    width: 170px;
+    height: 42px;
+    /*background: rgba(255, 0, 0, 0.18);*/
+    position: absolute;
+    border: solid 1px #c3c3c3;
+    top: 77px;
+    left: 157px;
+
+  }
+  .qq1{
+    width: 170px;
+    height: 42px;
+    /*background: rgba(255, 0, 0, 0.18);*/
+    position: absolute;
+    border: solid 1px #c3c3c3;
+    top: 77px;
+    left: 340px;
+  }
+  .qq2{
+    width: 170px;
+    height: 42px;
+    /*background: rgba(255, 0, 0, 0.18);*/
+    position: absolute;
+    border: solid 1px #c3c3c3;
+    top: 77px;
+    left: 538px;
+  }
+  .aaa{
+    position: relative;
+    top: 20px;
+  }
+  .aaa1{
+    position: relative;
+    top: 30px;
+  }
+
+
 </style>

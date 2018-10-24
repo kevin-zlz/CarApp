@@ -626,12 +626,14 @@
     margin-left: 0;
     display: inline;
     padding-left: 8px;
-    height: 48px;
-    width: 164px;
+    height: 38px;
+    width: 163px;
     border: none;
-    border-left: solid 1px #ababab;
+    /*border-left: solid 1px #ababab;*/
     font-size: 16px;
     color: #777;
+    /* 点击无边框*/
+    outline: none;
   }
   .s_city2{
     display: inline;
