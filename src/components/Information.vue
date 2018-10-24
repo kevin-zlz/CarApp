@@ -62,6 +62,36 @@
 
       </ul>
     </div>
+    <div class="bg" v-show="flagBG"></div>
+    <div class="VerificationCode" v-show="flagBG">
+      <div class="VC_title">
+        <span>
+          手机动态码验证
+        </span>
+        <i class="de_close" @click="changeP"></i>
+      </div>
+      <div class="VC_main">
+        <ul>
+          <li>
+            <div class="verify" v-show="flagPhone">
+              <span>◆</span>
+              <span class="ts-warning"></span>
+              <span>手机号格式错误，请重新输入</span>
+              <span class="ts-close"></span>
+            </div>
+            <input type="text"  id="phone_id" placeholder="请输入原手机号" maxlength="18" ref="Vphone">
+          </li>
+          <li>
+            <input type="text"  id="phone_code" placeholder="请输入动态验证码" maxlength="18" >
+            <button class="get_code" @click="verifyPhone" v-show="!VerPhone">获取手机动态码</button>
+            <button class="tm_count" v-show="VerPhone">30秒后可重发</button>
+          </li>
+          <li>
+            <button class="confirm_c">确认修改</button>
+          </li>
+        </ul>
+      </div>
+    </div>
 
 
   </div>
@@ -75,6 +105,8 @@ export default {
     return {
       msg: '我是谁我在哪？？？？',
       flag:false,
+      flagBG:false,
+      flagPhone:false,
       name:"",
       ID:"",
       term:"",
@@ -86,6 +118,7 @@ export default {
       detailaddress:'',
       urgenttel:'',
       urgentname:'',
+      VerPhone:false
     }
 
   },
@@ -166,17 +199,20 @@ export default {
       this.address=province+' '+city;
     },
     changeP:function (event) {
+      this.flagBG=!this.flagBG
 
-      this.readonly_p = !this.readonly_p;
 
-      if (this.readonly_p){
 
-        event.target.innerText='修改';
-      }
-      else {
-        event.target.innerText='保存';
-
-      }
+      // this.readonly_p = !this.readonly_p;
+      //
+      // if (this.readonly_p){
+      //
+      //   event.target.innerText='修改';
+      // }
+      // else {
+      //   event.target.innerText='保存';
+      //
+      // }
 
     },
     changeE:function (event) {
@@ -243,8 +279,20 @@ export default {
           }
         }.bind(this))
 
+    },
+    verifyPhone:function () {
+      console.log(this.$refs.Vphone.value);
+      var reg1=/^1(3|4|5|7|8)\d{9}$/;
+      if(reg1.test(this.$refs.Vphone.value)){
+        this.flagPhone=false;
+        this.VerPhone=!this.VerPhone;
+      }
+      else {
+        this.flagPhone=true;
+      }
     }
   },
+
   mounted:function () {
     let vm = this
     axios.post("http://127.0.0.1:8000/user/queryuserdetail/",
@@ -464,6 +512,204 @@ export default {
   div.label-info{
     background-color: white !important;
   }
+  .bg{
+    background: #000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 800;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+  }
+  .VerificationCode{
+    display: block;
+    height: 350px;
+    width: 500px;
+    margin-top: -200px;
+    margin-left: -250px;
+    background: #fff;
+    float: left;
+    font-size: 1.2em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 888;
+  }
+  .VC_title{
+    position: relative;
+    height: 47px;
+    line-height: 47px;
+    background-color: #f3f4f6;
+    font-size: 16px;
+    color: #60606c;
+    border-bottom: 1px solid #e9ebee;
+  }
+
+  .VerificationCode span{
+    padding-left: 15px;
+  }
+
+  .VerificationCode i{
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    z-index: 1000;
+    top: 7px;
+    right: 7px;
+    width: 34px;
+    height: 34px;
+    background: url(https://image.zuchecdn.com/newversion/common/close.png) no-repeat;
+  }
+  .VC_main{
+    position: relative;
+    width: 360px;
+    height: 260px;
+    /*background-color: #ced1f0;*/
+    margin: auto;
+    margin-top: 30px;
+
+  }
+  .VC_main ul li{
+    top: 20px;
+    margin-bottom: 15px;
+    position: relative;
+    font-size: 14px;
+    color: #60606c;
+  }
+  .VC_main ul li label{
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    height: 27px;
+    padding-left: 12px;
+    padding-top: 8px;
+    background-color: #fff;
+    padding-right: 8px;
+  }
+  #phone_id{
+    display: block;
+    margin: auto;
+    width: 320px;
+    height: 38px;
+    border: 1px solid #E9EBEE;
+    color: #93939E;
+    vertical-align: middle;
+  }
+
+  #phone_id:focus{
+    border-color: #FABE00;
+  }
+  .verify{
+    position: absolute;
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #dadadf;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #fff;
+    z-index: 999;
+    top: -45px;
+    left: 28px;
+    box-shadow: 0 0 15px #B7B7B7;
+  }
+  .verify span:first-child{
+    width: 18px;
+    position: absolute;
+    left: 50%;
+    margin-top: 19px;
+    /*height: 25px;*/
+    color: white;
+    /*line-height: 38px;*/
+    font-size: 20px;
+    margin-left: -24px;
+
+  }
+  .ts-warning{
+    display: inline-block;
+    background: url(https://image.zuchecdn.com/newversion/news/common/icon.png) no-repeat;
+    width: 17px;
+    height: 17px;
+    background-position: -440px 0;
+    vertical-align: middle;
+    line-height: 38px;
+
+  }
+  .ts-close{
+    display: inline-block;
+    background: url(https://image.zuchecdn.com/newversion/news/common/icon.png) no-repeat;
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    background-position: -480px 0;
+  }
+
+  #phone_code{
+    display: inline-block;
+    margin-left: 20px;
+    width: 200px;
+    height: 38px;
+    border: 1px solid #E9EBEE;
+    color: #93939E;
+    vertical-align: middle;
+  }
+  #phone_code:focus{
+    border-color: #FABE00;
+
+  }
+  .get_code{
+    display: inline-block;
+    margin-left: 4px;
+    width: 112px;
+    height: 38px;
+    line-height: 38px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #ffde74;
+    color: #fabe00;
+    background-color: #fffaea;
+  }
+  .tm_count{
+    display: inline-block;
+    margin-left: 4px;
+    width: 112px;
+    height: 38px;
+    line-height: 38px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #e9ebee;
+    color: #93939e;
+    background-color: white;
+  }
+  .confirm_c{
+    margin: auto;
+    margin-top: 50px;
+
+    display: block;
+    outline: none;
+    border: none;
+    height: 50px;
+    line-height: 50px;
+    width: 320px;
+    background-color: #fabe00;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+
 
 
 
