@@ -29,14 +29,15 @@ export default {
   },
   methods:{
     test2:function (e) {
-      // console.log(e.target)
-    if (e.target.nodeName=="SPAN"){
-      // console.log(document.querySelector('.mydatepicker').value);e.target.parentElement.querySelector('.mydiv .mydatepicker').value
-      this.date=e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value
-      console.log(e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value)
-      this.$emit('getdate',this.date)
-      // $emit('enlarge-text', 0.1)
-    }
+        // console.log(e.target)
+      if (e.target.nodeName=="SPAN"){
+        // console.log(document.querySelector('.mydatepicker').value);e.target.parentElement.querySelector('.mydiv .mydatepicker').value
+        this.date=e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value
+        console.log("wq",e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value)
+        this.$emit('getdate',this.date);
+        console.log(this.date)
+        // $emit('enlarge-text', 0.1)
+      }
     }
   }
 }
