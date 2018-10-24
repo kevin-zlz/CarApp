@@ -29,14 +29,15 @@ export default {
   },
   methods:{
     test2:function (e) {
-      // console.log(e.target)
-    if (e.target.nodeName=="SPAN"){
-      // console.log(document.querySelector('.mydatepicker').value);e.target.parentElement.querySelector('.mydiv .mydatepicker').value
-      this.date=e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value
-      console.log(e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value)
-      this.$emit('getdate',this.date)
-      // $emit('enlarge-text', 0.1)
-    }
+        // console.log(e.target)
+      if (e.target.nodeName=="SPAN"){
+        // console.log(document.querySelector('.mydatepicker').value);e.target.parentElement.querySelector('.mydiv .mydatepicker').value
+        this.date=e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value
+        console.log("wq",e.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.value)
+        this.$emit('getdate',this.date);
+        console.log(this.date)
+        // $emit('enlarge-text', 0.1)
+      }
     }
   }
 }
@@ -51,8 +52,9 @@ export default {
     width: 163px;
     padding-left: 8px;
     height: 38px;
-
+    /*border: solid 1;*/
     font-size: 16px;
-    /*border-left: solid 1px gray;*/
+    /*margin-top:12px ;*/
+    /*border-lefmt: solid 1px gray;*/
   }
 </style>

@@ -4,7 +4,7 @@
         <div class="head-info">
           <div class="head-logo">我的长安</div>
           <div class="head-icon">
-            <div><img src="../../static/images/car.svg" alt=""></div>
+            <div><img :src="ImgUrl" alt=""></div>
             <div class="uname">
               <p>王**</p>
               <p id="example" data-container="body" data-toggle="popover" data-animation="true" data-placement="bottom" data-content="积分兑优惠券">个性签名：<span>我就是我，不一样的烟火</span></p>
@@ -50,7 +50,7 @@
           <Order v-show="'短期自驾'===flag"></Order>
           <Information v-show="'我的信息'===flag"></Information>
           <Dic v-show="'驾照认证'===flag"></Dic>
-          <UpHead v-show="'修改图像'===flag"></UpHead>
+          <UpHead @getIcon="getUserIcon" v-show="'修改图像'===flag"></UpHead>
           <Article v-show="'我的文章'===flag"></Article>
         </div>
       </div>
@@ -60,12 +60,14 @@
 
 
 <script>
+  import axios from 'axios';
     export default {
         name: "User",
         data(){
           return{
             index:0,
             flag:'短期自驾',
+            ImgUrl:'Defaultheadimage.png',
           }
 
         },
@@ -97,8 +99,37 @@
               // alert(event.target.innerHTML);
               this.flag = '我的文章';
             }
+          },
+          getUserIcon:function (e) {
+            console.log(e)
+            this.ImgUrl=e
+          },
+          getherd:function () {
+
+            let vm = this;
+            console.log(sessionStorage.getItem("token"));
+            // post方式必须带参数
+            axios.post('http://127.0.0.1:8000/user/gethead/',
+              {},
+              {
+                headers: {
+                  'token':sessionStorage.getItem("token"),
+                }
+              })
+              .then(response => {
+                if (response.data.code === 0) {
+                  vm.ImgUrl = 'http://127.0.0.1:8000/media/pic/' + response.data.url;
+                  console.log(vm.ImgUrl);
+                }
+                console.log(response.data)
+              });
+
           }
-        }
+        },
+      mounted:function () {
+        this.getherd()
+      }
+
     }
 </script>
 
@@ -153,9 +184,11 @@
   .head-icon img{
     width: 60px;
     height: 60px;
-    border-radius: 30px;
-    background-color: darkgray;
+    border-radius: 50%;
+    /*background-color: darkgray;*/
+    border: 1px #ffbb00 solid;
   }
+
   .head-icon div:nth-child(2){
     width: 300px;
     color: #93939e;

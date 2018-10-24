@@ -97,6 +97,7 @@ export default {
     padding-left: 8px;
     border-left: solid 1px #ababab;
     font-size: 16px;
+    outline: none;
   }
   .minute .minute-div{
     background-color: white;

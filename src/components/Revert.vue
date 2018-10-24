@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @click="xianshi">
     <div class="top">
       <RevertTop @getCarlist="getCars" :condition="conditionlist"></RevertTop>
     </div>

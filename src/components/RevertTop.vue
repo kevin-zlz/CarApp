@@ -6,7 +6,7 @@
         <!--<div>-->
           <!--<input type="text" placeholder="选择城市" style="background-color: red">-->
         <!--</div>-->
-        <City style="height: 60px" v-on:spot="spot"></City>
+        <City class="aa" style="height: 60px" v-on:spot="spot"></City>
         <!--<div><input type="text" placeholder="莫邪路店"></div>-->
         <Strict :area = 'res' @getplace="gettakestrict"></Strict>
       </div>
@@ -15,7 +15,7 @@
         <!--<div>-->
           <!--<input type="text" placeholder="2018-09-15">-->
         <!--</div>-->
-        <Calenlar @getdate="getstarttime"></Calenlar>
+        <Calenlar class="aa" @getdate="getstarttime"></Calenlar>
         <div>
 
           <Time @getTime="gettaketime"></Time>
@@ -25,7 +25,7 @@
         <div class="top-left-span">还车</div>
         <div>
           <!--<input type="text" placeholder="选择城市">-->
-          <City style="height: 60px" @spot="getendplace"></City>
+          <City class="aa" style="height: 60px" @spot="getendplace"></City>
         </div>
         <!--<div><input type="text" placeholder="莫邪路店"></div>-->
         <Strict :area = 'returnres' @getplace="getbackplace"></Strict>
@@ -34,7 +34,7 @@
         <div class="top-left-span">还车时间</div>
         <div>
           <!--<input type="text" placeholder="2018-09-15">-->
-          <Calenlar @getdate="getendtime"></Calenlar>
+          <Calenlar class="aa" @getdate="getendtime"></Calenlar>
         </div>
         <div>
           <!--<input type="text" placeholder="8:00~10:00">-->
@@ -256,5 +256,8 @@
 
   button:hover{
     background-color:#ff8732;
+  }
+  .aa{
+    margin-top: 5px;
   }
 </style>

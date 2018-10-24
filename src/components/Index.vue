@@ -74,6 +74,29 @@
         </div>
       </div>
     </div>
+
+    <!-------------------------------------------------------------->
+    <div class="main_footer">
+      <ul class="ul2">
+        <li class="li-5">
+          <div class="li-5-1"></div>
+          <p>100+车型</p>
+        </li>
+        <li class="li-6">
+          <div class="li-6-1"></div>
+          <p>1000+网点</p>
+        </li>
+        <li class="li-7">
+          <div class="li-7-1"></div>
+          <p>100%车险</p>
+        </li>
+        <li class="li-8">
+          <div class="li-8-1"></div>
+          <p>无限里程</p>
+        </li>
+      </ul>
+    </div>
+    <!---------------------------------------------------------->
     <div class="hot-car">
       <div class="describe"><p>热门车型</p><p>最火车型，您值得拥有</p></div>
       <div class="hot-city">
@@ -377,7 +400,7 @@ export default {
     background-position-x: -640px;
     background-repeat: no-repeat;
     object-fit: cover;
-    /*background-image: url("../images/guoqing.jpg");*/
+    background-image: url("../assets/images/guoqing.jpg");
   }
   .main .query{
     width: 520px;
@@ -573,6 +596,7 @@ export default {
     margin-top: 100px;
     padding: 80px;
     box-sizing: border-box;
+    background: gainsboro;
   }
   .hot-car .describe{
     width: 100%;
@@ -1024,5 +1048,69 @@ export default {
     position: absolute;
     top: 5px;
     left: 15px;
+  }
+
+
+
+
+
+  .ul2 {
+    width: 100%;
+    height: 100px;
+    /*background: blue;*/
+    position: absolute;
+    /*bottom: 0px;*/
+    display: flex;
+    justify-content: center;
+    left: 0px;
+    top: 560px;
+  }
+
+  .main_footer .ul2 > li {
+    width: 300px;
+    height: 100px;
+    border-left: 1px solid #e9ebee;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .li-8 {
+    border-right: 1px solid #e9ebee;
+  }
+
+  .main_footer .ul2 li > div {
+    width: 42px;
+    height: 34px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .li-5-1 {
+    background: url("../assets/images/icon_new.png") no-repeat;
+    background-position-x: -200px;
+  }
+
+  .li-6-1 {
+    background: url("../assets/images/icon_new.png") no-repeat;
+    background-position-x: -250px;
+  }
+
+  .li-7-1 {
+    background: url("../assets/images/icon_new.png") no-repeat;
+    background-position-x: -310px;
+  }
+
+  .li-8-1 {
+    background: url("../assets/images/icon_new.png") no-repeat;
+    background-position-x: -375px;
+  }
+
+  .main_footer .ul2 li > p {
+    position: relative;
+    top: 60px;
+    font-size: 16px;
+    color: #71767a;
   }
 </style>

@@ -2,14 +2,14 @@
   <div class="container" >
     <div class="order-head" >
       <div>我的文章</div>
-      <div class="date">
+      <div class="date11">
         <!--<input class='mydate' type='text'/>-->
-        <Calenlar @getdate="getday"></Calenlar>
+        <Calenlar class="aa" @getdate="getday"></Calenlar>
       </div>
       <div class="lines"></div>
-      <div class="date">
+      <div class="date11">
         <!--<input class='mydate' type='text'/>-->
-        <Calenlar @getdate="getday"></Calenlar>
+        <Calenlar class="aa" @getdate="getday"></Calenlar>
       </div>
       <div class="btns" id="query">查询</div>
       <div class="btns">清除</div>
@@ -951,5 +951,17 @@ export default {
     background:transparent right no-repeat;
     background-size: contain;
   }
-
+  .date11{
+    width: 170px;
+    height: 40px;
+    /*background: red;*/
+    border: solid 1px #c6c6c6;
+    position: relative;
+    top: 10px;
+    padding-top: 0px;
+  }
+  .date11 .aa{
+    position: relative;
+    top: -13px;
+  }
 </style>
