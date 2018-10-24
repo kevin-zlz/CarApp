@@ -124,7 +124,7 @@
                 "takestoreid":vm.takestoreid,
                 "backstoreid":vm.backstoreid,
               }
-              vm.$emit('getCars',vm.conditions)
+              vm.$emit('getCarlist',vm.conditions)
             }
           },
           queryCar:function () {
@@ -151,7 +151,7 @@
                 .then(function (res) {
                   if (res.data) {
                     vm.carlist = res.data
-                    vm.$emit('getCarlist',vm.carlist,vm.conditions)
+                    vm.$emit('getCars',vm.carlist,vm.conditions)
                   }
                 }.bind(this))
                 .catch(function (err) {

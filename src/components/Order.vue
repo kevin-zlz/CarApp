@@ -262,7 +262,7 @@
   }
 
   .date {
-    margin-top: 10px;
+    /*margin-top: 20px;*/
     display: inline-block;
     height: 50px;
     width: 150px;

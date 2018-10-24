@@ -9,7 +9,7 @@
         <!--<li>年租套餐(365天)</li>-->
       <!--</ul>-->
     <!--</div>-->
-    <div class="all_car" v-for="(car,index) in allCar" :data-id="index" v-bind:key="index">
+    <div class="all_car" v-for="(car,index) in carlist" :data-id="index" v-bind:key="index">
       <table class="aa">
         <tr>
           <td class="aa1"><img src="../assets/images/car1.jpg" alt="" ></td>
@@ -21,12 +21,12 @@
             <div>门店支付</div>
           </td>
           <td class="aa4">
-            <p v-text="car.carprice" style="font-size:30px;color:#fabe00;font-style: normal;"></p>
+            <p v-text="car.price" style="font-size:30px;color:#fabe00;font-style: normal;"></p>
             <p class="bb3">总价:￥138</p>
             <span>/日均</span>
           </td>
           <td class="aa5">
-            <button><span style="color: white;font-size: 20px"><router-link :to="{path:'/revert/car',query: {name: car.carid}}" class="revert">租车</router-link></span></button>
+            <button><span @click="clickDetail(car.id)" style="color: white;font-size: 20px">租车</span></button>
           </td>
         </tr>
       </table>
@@ -55,17 +55,18 @@
             event.target.style.backgroundColor='white';
           },
           clickDetail:function (e) {
-            // console.log(0)
-            this.$router.push({path: '/revert/car', query: {carid: e}});
+            console.log('--------------------------------')
+            console.log(this.condition)
+            this.$router.push({path: '/revert/car', query: {carid: e,condition:this.condition}});
           },
           prePage() {
             this.currentPage--;
-            this.getAllGifts();
+            this.getallcondition()
           },
           nextPage() {
             this.currentPage++;
             // 重新渲染数据
-            this.getAllGifts();
+            this.getallcondition()
           },
           jumpPage(pageIndex) {
             if (pageIndex > this.pageCount) {
@@ -75,7 +76,9 @@
               pageIndex = 1
             }
             this.currentPage = pageIndex;
-            this.getAllGifts();
+          },
+          getallcondition:function () {
+
           }
         },
 
@@ -143,7 +146,7 @@
     height: 180px;
   }
   .aa2{
-    width: 280px;
+    width: 200px;
     height: 200px;
     position: relative;
     left: 10px;
@@ -172,7 +175,7 @@
   }
   .aa4 span{
     position: relative;
-    left: 100px;
+    left: 50px;
     top: -65px;
     color: #93939e;
   }
@@ -181,7 +184,7 @@
   }
   .aa5{
     position: relative;
-    left: 100px;
+    left: 50px;
   }
   .aa5 button{
     width: 80px;

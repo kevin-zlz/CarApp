@@ -127,7 +127,8 @@ export default {
             text_count:"0",
             likes_count:77,
             liked:false,
-            disabled:true
+            disabled:true,
+            aritical:[],
                 }
           },
         methods:{
@@ -170,7 +171,89 @@ export default {
 
           }
 
-        }
+        },
+        mounted:function () {
+          let vm=this
+          axios.post("http://127.0.0.1:8000/boke/queryAriticalByaid/",
+            {
+              'aid':vm.$route.query.selected
+            },{
+              // headers: {
+              //   'Content-Type': 'application/json',
+              // }
+            })
+            .then(function (res) {
+              if(res.data){
+                console.log(res.data)
+                vm.aritical=res.data[0]
+                console.log(vm.aritical);
+                // vm.articallist=res.data
+                if(sessionStorage.getItem('token')) {
+                  vm.telephone = sessionStorage.getItem('telephone')
+                }
+              }
+            }.bind(this))
+            .catch(function (err) {
+              if (err.response) {
+                console.log(err.response)
+              }
+            }.bind(this))
+
+          axios.post("http://127.0.0.1:8000/boke/queryCommentbyaid/",
+            {
+              'aid':vm.$route.query.selected
+            },{
+              // headers: {
+              //   'Content-Type': 'application/json',
+              // }
+            })
+            .then(function (res) {
+              if(res.data){
+                console.log(res.data)
+                vm.commenlist=res.data
+                console.log(vm.commenlist);
+                // vm.articallist=res.data
+
+              }
+            }.bind(this))
+            .catch(function (err) {
+              if (err.response) {
+                console.log(err.response)
+              }
+            }.bind(this))
+
+          axios.post("http://127.0.0.1:8000/boke/queryLikebyaid/",
+            {
+              'aid':vm.$route.query.selected
+            },{
+              // headers: {
+              //   'Content-Type': 'application/json',
+              // }
+            })
+            .then(function (res) {
+              if(res.data){
+                vm.starlist=res.data
+
+                if(sessionStorage.getItem('telephone')){
+                  console.log(sessionStorage.getItem('telephone'))
+                  console.log(res.data)
+                  for(let i=0;i<vm.starlist.length;i++){
+                    console.log(vm.starlist[i])
+                    if(vm.starlist[i].liker__telephone==sessionStorage.getItem('telephone')){
+                      vm.isloved=true;
+                    }
+                  }
+                }
+
+              }
+            }.bind(this))
+            .catch(function (err) {
+              if (err.response) {
+                console.log(err.response)
+              }
+            }.bind(this))
+
+  },
 
 
     }

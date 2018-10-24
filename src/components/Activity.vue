@@ -10,29 +10,29 @@
         <button>重置</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <div class="aa1"><img src="../assets/images/fav_icon_weibo.png" alt=""><span>+关注</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="aa1"><img src="../assets/images/fav_icon_weixin.png" alt=""><span>扫一扫</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="aa1"><img src="../assets/images/fav_icon_email.png" alt=""><span>邮件订阅</span></div>
+        <!--<div class="aa1"><img src="../assets/images/fav_icon_weibo.png" alt=""><span>+关注</span></div>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--<div class="aa1"><img src="../assets/images/fav_icon_weixin.png" alt=""><span>扫一扫</span></div>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--<div class="aa1"><img src="../assets/images/fav_icon_email.png" alt=""><span>邮件订阅</span></div>-->
       </div>
     </div>
     <div class="main">
       <div class="main-content">
         <ul>
-          <li class="bb1">
+          <li class="bb1" v-for="activity in activitylist">
             <div class="aa2"><img src="../assets/images/寒山寺.jpg" alt=""></div>
 
             <div class="bb">
               <ul>
-                <li><h3 style="color: #eeb81a">寒山寺，一日游。</h3></li>
+                <li><h3 style="color: #eeb81a">{{activity.travelstartplace}}，一日游。</h3></li>
                 <li>
-                  <span>简介：寒山寺位于苏州市姑苏区，始建于南朝萧梁代天监年间（公元502～519年），初名“妙利普明塔院”。寒山寺占地面积约1.3万平方米，建筑面积三千四百余平方米。</span>
+                  <span v-text="activity.destribe">简介：寒山寺位于苏州市姑苏区，始建于南朝萧梁代天监年间（公元502～519年），初名“妙利普明塔院”。寒山寺占地面积约1.3万平方米，建筑面积三千四百余平方米。</span>
                 </li>
                 <li>
-                  <p>目标人数：10人</p>
+                  <p>目标人数：{{activity.menbers}}人</p>
                   <p>已参人数：5人</p>
-                  <p>日期：2018-11-11</p>
-                  <p>联系人：王文成</p>
-                  <p style="color: red">联系电话：15776540858</p>
+                  <p>日期：{{activity.travelstrattime.split('T')[0]}}</p>
+                  <p>联系人：{{activity.linkname}}</p>
+                  <p style="color: red">联系电话：{{activity.linknumber}}</p>
                 </li>
                 <li>
                   <input class="input" type="button" value="立即加入">
@@ -46,10 +46,6 @@
             </div>
 
           </li>
-          <br>
-          <li class="bb1">111111111</li>
-          <br>
-          <li class="bb1">11111111</li>
         </ul>
       </div>
     </div>
@@ -62,8 +58,32 @@
     name: "Activity",
     methods: {},
     data() {
-      return {}
+      return {
+        activitylist:[],
+      }
     },
+    mounted:function () {
+      let vm=this
+      axios.post("http://127.0.0.1:8000/traval/queryalltravel/",
+        {
+        },{
+          // headers: {
+          //   'Content-Type': 'application/json',
+          // }
+        })
+        .then(function (res) {
+          if(res.data){
+            console.log(res.data)
+            this.activitylist=res.data
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
+
+    }
   }
 
 </script>
@@ -128,6 +148,7 @@
   }
   .main-content ul .bb1 {
     /*padding-top:30px ;*/
+    margin-bottom: 20px;
     width: 100%;
     height: 320px;
     background: white;

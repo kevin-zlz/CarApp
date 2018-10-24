@@ -314,36 +314,73 @@
             pailiang:'',
             oilnum:'',
             peizhikun:'',
-            condition:'',
+            condition:{
+            }
           }
         },
         methods:{
           yuding:function(){
             if(sessionStorage.getItem('token')){
-              this.condition.price=this.price;
-              this.condition.brand=this.brand;
-              this.condition.carname=this.carname;
-              this.condition.sitenum=this.sitenum;
-              this.condition.qudong=this.qudong;
-              this.condition.doornum=this.doornum;
-              this.condition.sitetype=this.sitetype;
-              this.condition.carwindow=this.carwindow;
-              this.condition.changespeed=this.changespeed;
-              this.condition.oiltype=this.oiltype;
-              this.condition.sitetype=this.sitetype;
-              this.condition.chexi=this.chexi;
-              this.condition.isdaocheleida=this.isdaocheleida;
-              this.condition.isdvd=this.isdvd;
-              this.condition.isgps=this.isgps;
-              this.condition.isqinang=this.isqinang;
-              this.condition.jinqixingshi=this.jinqixingshi;
-              this.condition.musicnum=this.musicnum;
-              this.condition.niandaikuan=this.niandaikuan;
-              this.condition.oilcaptiy=this.oilcaptiy;
-              this.condition.pailiang=this.pailiang;
-              this.condition.oilnum=this.oilnum;
-              this.condition.peizhikun=this.peizhikun;
-              this.$router.push({path: '/order', query: {carid: this.carid,condition:this.condition}});
+              let condition1=this.$route.query.condition;
+              console.log('---------------')
+              console.log(condition1)
+              let condition={
+                price:"",
+                "brand":"",
+                "carname":"",
+                "sitenum":"",
+                "qudong":"",
+                "doornum":"",
+                "sitetype":"",
+                "carwindow":"",
+                "changespeed":"",
+                "oiltype":"",
+                "chexi":"",
+                "isdaocheleida":"",
+                "isdvd":"",
+                "isgps":"",
+                "isqinang":"",
+                "jinqixingshi":"",
+                "musicnum":"",
+                "niandaikuan":"",
+                "oilcaptiy":"",
+                "pailiang":"",
+                "oilnum":"",
+                "peizhikun":"",
+                "takecityname":condition1.takecityname,
+                "takestore":condition1.takestore,
+                "takestoreid":condition1.takestoreid,
+                "taketime":condition1.taketime,
+                "backcityname":condition1.backcityname,
+                "backstore":condition1.backstore,
+                "backstoreid":condition1.backstoreid,
+                "backtime":condition1.backtime,
+              }
+              condition.price=this.price;
+              console.log(condition.price)
+              condition.brand=this.brand;
+              condition.carname=this.carname;
+              condition.sitenum=this.sitenum;
+              condition.qudong=this.qudong;
+              condition.doornum=this.doornum;
+              condition.sitetype=this.sitetype;
+              condition.carwindow=this.carwindow;
+              condition.changespeed=this.changespeed;
+              condition.oiltype=this.oiltype;
+              condition.sitetype=this.sitetype;
+              condition.chexi=this.chexi;
+              condition.isdaocheleida=this.isdaocheleida;
+              condition.isdvd=this.isdvd;
+              condition.isgps=this.isgps;
+              condition.isqinang=this.isqinang;
+              condition.jinqixingshi=this.jinqixingshi;
+              condition.musicnum=this.musicnum;
+              condition.niandaikuan=this.niandaikuan;
+              condition.oilcaptiy=this.oilcaptiy;
+              condition.pailiang=this.pailiang;
+              condition.oilnum=this.oilnum;
+              condition.peizhikun=this.peizhikun;
+              this.$router.push({path: '/order', query: {carid: this.carid,condition:condition}});
             }else{
               this.$router.push('/Login')
             }

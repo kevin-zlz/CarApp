@@ -43,8 +43,8 @@
               $("#lefter").css({'marginTop':scrollTop-210+'px'})
             }
           },
-          getCars:function (e,e2) {
-            this.carlist=e;
+          getCars:function (e2) {
+            // this.carlist=e;
             // this.conditionlist
             this.conditionlist['backcityname']=e2.backcityname
             this.conditionlist.backstore=e2.backstore
@@ -52,15 +52,19 @@
             this.conditionlist.takecityname=e2.takecityname
             this.conditionlist.takestore=e2.takestore
             this.conditionlist.taketime=e2.taketime
+            this.basecondition=e2;
             console.log(this.conditionlist);
+            console.log(this.basecondition)
+            this.getAll()
           },
           getCondition:function (e) {
             this.conditionlist=e;
             this.currentPage=1;
             this.getAll()
           },
-          getAllcondition:function(e){
-            this.basecondition=e;
+          getAllcondition:function(e,e2){
+            this.carlist=e;
+            this.basecondition=e2;
             this.currentPage=1;
             this.getAll()
           },
@@ -89,7 +93,8 @@
                 .then(function (res) {
                   if (res.data) {
                     vm.carlist = res.data
-                    vm.$emit('getCarlist',vm.carlist,vm.conditions)
+                    // alert('yes')
+                    // vm.$emit('getCarlist',vm.carlist,vm.conditions)
                   }
                 }.bind(this))
                 .catch(function (err) {
@@ -118,7 +123,6 @@
 
                   if (res.data) {
                     // vm.orderlist = res.data
-
                     vm.carlist=res.data
                     vm.conditions={
                       "takecityname":vm.takecity,
@@ -129,7 +133,7 @@
                       'backtime':vm.backday+' '+vm.backtime+':00',
                     }
 
-                    vm.$emit('getCarlist',vm.carlist,vm.conditions)
+                    // vm.$emit('getCarlist',vm.carlist,vm.conditions)
                   }
                 }.bind(this))
                 .catch(function (err) {
