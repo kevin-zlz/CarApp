@@ -2,27 +2,27 @@
   <div class="container" >
     <div class="order-head">
       <div>我的活动</div>
-      <div class="date">
-        <!--<input class='mydate' type='text'/>-->
-        <Calenlar></Calenlar>
-      </div>
-      <div class="lines"></div>
-      <div class="date">
-        <!--<input class='mydate' type='text'/>-->
-        <Time></Time>
-      </div>
-      <div class="btns" id="query">查询</div>
-      <div class="btns">清除</div>
+      <!--<div class="date">-->
+        <!--&lt;!&ndash;<input class='mydate' type='text'/>&ndash;&gt;-->
+        <!--<Calenlar></Calenlar>-->
+      <!--</div>-->
+      <!--<div class="lines"></div>-->
+      <!--<div class="date">-->
+        <!--&lt;!&ndash;<input class='mydate' type='text'/>&ndash;&gt;-->
+        <!--<Time></Time>-->
+      <!--</div>-->
+      <!--<div class="btns" id="query">查询</div>-->
+      <!--<div class="btns">清除</div>-->
     </div>
     <div class="order-state">
       <div class="order-btn  short-btn">
         <div class="state" v-text="this.msg" v-show="">
 
         </div>
-        <div class="state" @click="show">全部活动</div>
+        <!--<div class="state" @click="show">全部活动</div>-->
         <div class="state" @click="show">我发起的活动</div>
         <div class="state" @click="show">我参与的活动</div>
-        <div class="state" @click="show">已结束的活动</div>
+        <!--<div class="state" @click="show">已结束的活动</div>-->
       </div>
       <div class="order-container">
         <div class="table-head">
@@ -58,17 +58,17 @@
         <div class="main1" v-show="'我发起的活动'===flag">
           <div class="main-content">
             <ul>
-              <li class="cc">
-                <div class="aa"><img src="../assets/images/寒山寺.jpg" alt=""></div>
+              <li class="cc" v-for="activity in activitylist">
+                <div class="aa"><img :src="'http://127.0.0.1:8000/media/pic/'+activity.cityicon" alt=""></div>
                 <div class="aa2">
                   <ul>
-                    <li><h4>寒山寺一日游</h4></li>
+                    <li><h4>{{activity.province}}一日游</h4></li>
                     <li>
-                      <p>目标人数：10人</p>
-                      <p>已参人数：5人</p>
-                      <p>日期：2018-11-11</p>
-                      <p>联系人：王文成</p>
-                      <p style="color: red">联系电话：15776540858</p>
+                      <p>旅游城市：{{activity.province}}人</p>
+                      <p>目标人数：{{activity.menbers}}人</p>
+                      <p>参加名单：<span v-for="i in activity.joiners">{{i}}、</span></p>
+                      <p>日期：{{activity.travelstrattime.split('T')[0]}}</p>
+                      <p>路线：<span v-for="i in activity.routelist">{{i}}、</span></p>
                     </li>
                     <div class="qq" v-show="'我参与的活动'===flag"><button>取消</button></div>
                     <div class="qq" v-show="'我发起的活动'===flag"><button>取消</button></div>
@@ -84,19 +84,21 @@
         <div v-show="'我参与的活动'===flag">
           <div class="main-content">
             <ul>
-              <li class="cc">
-                <div class="aa"><img src="../assets/images/寒山寺.jpg" alt=""></div>
+              <li class="cc" v-for="activity in myjoinlist">
+                <div class="aa"><img :src="'http://127.0.0.1:8000/media/pic/'+activity.cityicon" alt=""></div>
                 <div class="aa2">
                   <ul>
-                    <li><h4>寒山寺一日游</h4></li>
+                    <li><h4>{{activity.province}}一日游</h4></li>
                     <li>
-                      <p>目标人数：10人</p>
-                      <p>已参人数：5人</p>
-                      <p>日期：2018-11-11</p>
-                      <p>联系人：王文成</p>
-                      <p style="color: red">联系电话：15776540858</p>
+                      <p>旅游城市：{{activity.province}}人</p>
+                      <p>目标人数：{{activity.menbers}}人</p>
+                      <p>已参加人数：{{activity.joinnum}}</p>
+                      <p>日期：{{activity.travelstrattime.split('T')[0]}}</p>
+                      <p>路线：<span v-for="i in activity.routelist">{{i}}、</span></p>
+                      <p style="color: red">联系人：{{activity.linkname }}</p>
+                      <p style="color: red">联系电话：{{activity.linknumber }}</p>
                     </li>
-                    <div class="qq" v-show="'我参与的活动'===flag"><button>取消</button></div>
+                    <div class="qq" v-show="'我参与的活动'===flag"><button @click="clickmyjoin(activity.travelid)">取消</button></div>
                     <!--<li class="bb1"><button>查看详情</button></li>-->
                   </ul>
                 </div>
@@ -157,26 +159,94 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
   export default {
     name: 'Order',
-
+    inject:['reload'],
     data () {
       return {
-        msg: '全部活动',
-
-        flag:"全部活动",
+        msg: '我发起的活动',
+        activitylist:[],
+        myjoinlist:[],
+        flag:"我发起的活动",
       }
+    },
+    mounted:function () {
+      let vm=this
+      axios.post("http://127.0.0.1:8000/traval/queryInitatorTravel/",
+        {
+        },{
+          headers: {
+            'token':sessionStorage.getItem('token'),
+          }
+        })
+        .then(function (res) {
+          if(res.data){
+            this.activitylist=res.data
+            console.log(this.activitylist)
+          }
+        }.bind(this))
+        .catch(function (err) {
+          if (err.response) {
+            console.log(err.response)
+          }
+        }.bind(this))
+
+
+      this.getmyjoin()
     },
     methods:{
       show:function (e) {
-        alert(e.target.innerText)
+        // alert(e.target.innerText)
         this.flag = e.target.innerText;
       },
       getday:function (e) {
 
+      },
+      getmyjoin:function () {
+        let vm=this
+        axios.post("http://127.0.0.1:8000/traval/queryTravelByuid/",
+          {
+          },{
+            headers: {
+              'token':sessionStorage.getItem('token'),
+            }
+          })
+          .then(function (res) {
+            if(res.data){
+              this.myjoinlist=res.data
+              console.log(this.myjoinlist)
+            }
+          }.bind(this))
+          .catch(function (err) {
+            if (err.response) {
+              console.log(err.response)
+            }
+          }.bind(this))
+      },
+      clickmyjoin:function (e) {
+        let vm=this
+        axios.post("http://127.0.0.1:8000/traval/cancelNotJoinTravel/",
+          {
+            "joinTravel__id":e,
+          },{
+            headers: {
+              'token':sessionStorage.getItem('token'),
+            }
+          })
+          .then(function (res) {
+            if(res.data.statuscode=='201'){
+             vm.reload()
+            }
+          }.bind(this))
+          .catch(function (err) {
+            if (err.response) {
+              console.log(err.response)
+            }
+          }.bind(this))
       }
 
-    }
+    },
 
   }
 </script>

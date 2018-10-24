@@ -20,9 +20,9 @@
         </li>
         <li class="items">
           <div class="label-info">手机号码</div>
-          <div class="inputs"><input id="tel" type="text"   v-model="phone"   :readonly="readonly_p"></div>
+          <div class="inputs"><input id="tel" type="text"   v-model="phone" readonly ref="pi"></div>
           <!--<div id="tel-tip" class="tel-tip">手机格式不正确</div>-->
-          <div class="tip"><a id="changeTel" ref="phone_a"  @click="changeP" >修改</a></div>
+          <div class="tip"><a id="changeTel"   @click="changeP" >修改</a></div>
         </li>
         <li class="items">
           <div class="label-info">电子邮箱</div>
@@ -63,7 +63,7 @@
       </ul>
     </div>
     <div class="bg" v-show="flagBG"></div>
-    <div class="VerificationCode" v-show="flagBG">
+    <div class="VerificationCode" v-show="flagBG" ref="Vmodality">
       <div class="VC_title">
         <span>
           手机动态码验证
@@ -77,17 +77,25 @@
               <span>◆</span>
               <span class="ts-warning"></span>
               <span>手机号格式错误，请重新输入</span>
-              <span class="ts-close"></span>
+              <span class="ts-close" @click="flagPhone=false"></span>
             </div>
-            <input type="text"  id="phone_id" placeholder="请输入原手机号" maxlength="18" ref="Vphone">
+            <div id="p_before"><span></span></div>
+            <input type="text"  id="phone_id" placeholder="请输入新手机号" maxlength="18" ref="Vphone">
           </li>
           <li>
+            <div class="c_tip" v-show="flagtip">
+              <span>◆</span>
+              <span class="ts-warning"></span>
+              <span>验证码已发送到您的手机！</span>
+              <span class="ts-close" @click="flagtip=false"></span>
+            </div>
+            <div id="c_before"><span></span></div>
             <input type="text"  id="phone_code" placeholder="请输入动态验证码" maxlength="18" >
             <button class="get_code" @click="verifyPhone" v-show="!VerPhone">获取手机动态码</button>
-            <button class="tm_count" v-show="VerPhone">30秒后可重发</button>
+            <button class="tm_count" v-show="VerPhone" v-text="content_c"></button>
           </li>
           <li>
-            <button class="confirm_c">确认修改</button>
+            <button class="confirm_c"  @click="confirm_c">确认修改</button>
           </li>
         </ul>
       </div>
@@ -110,7 +118,6 @@ export default {
       name:"",
       ID:"",
       term:"",
-      readonly_p:true,
       readonly_e:false,
       phone:"",
       email:'',
@@ -118,7 +125,11 @@ export default {
       detailaddress:'',
       urgenttel:'',
       urgentname:'',
-      VerPhone:false
+      VerPhone:false,
+      flagtip:false,
+      content_c:'',
+      count_ti:60,
+
     }
 
   },
@@ -127,7 +138,7 @@ export default {
 
       // console.log(a)
       if (cc) {
-        var reg = /^[\u4e00-\u9fa5]+$/;
+        let reg = /^[\u4e00-\u9fa5]+$/;
         if (!reg.test(cc) || cc.length<=1||cc.length>=5) {
           this.$refs.real_name.innerText = '姓名格式不正确';
           this.$refs.real_name.style.color = 'red';
@@ -147,7 +158,7 @@ export default {
 
     },
     ID: function (id) {
-      var reg1 = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+      let reg1 = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
 
       if (!reg1.test(id)) {
         this.$refs.realID.innerText = '格式不正确';
@@ -160,22 +171,22 @@ export default {
 
       }
     },
-    phone: function (num) {
-      var reg2 = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
-      if (!reg2.test(num)) {
-        this.$refs.phone_a.innerText = '手机格式不正确';
-        this.$refs.phone_a.style.pointerEvents = "none";
-        this.$refs.phone_a.style.color = 'red'
-      }
-      else {
-        this.$refs.phone_a.innerText = '保存';
-
-        this.$refs.phone_a.style.pointerEvents = "auto";
-        this.$refs.phone_a.style.color = 'rgba(0, 0, 255, 0.57)'
-      }
-    },
+    // phone: function (num) {
+    //   let reg2 = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
+    //   if (!reg2.test(num)) {
+    //     this.$refs.phone_a.innerText = '手机格式不正确';
+    //     this.$refs.phone_a.style.pointerEvents = "none";
+    //     this.$refs.phone_a.style.color = 'red'
+    //   }
+    //   else {
+    //     this.$refs.phone_a.innerText = '保存';
+    //
+    //     this.$refs.phone_a.style.pointerEvents = "auto";
+    //     this.$refs.phone_a.style.color = 'rgba(0, 0, 255, 0.57)'
+    //   }
+    // },
     email: function (num) {
-      var reg3 = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+      let reg3 = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
       if (!reg3.test(num)) {
         this.$refs.email_a.innerText = '邮箱格式不正确';
         this.$refs.email_a.style.pointerEvents = "none";
@@ -192,27 +203,16 @@ export default {
 
   methods:{
     getendday:function(e){
-      alert(e)
+      alert(e);
       this.term=e;
     },
     getAddress:function(province,city){
       this.address=province+' '+city;
     },
     changeP:function (event) {
-      this.flagBG=!this.flagBG
-
-
-
-      // this.readonly_p = !this.readonly_p;
-      //
-      // if (this.readonly_p){
-      //
-      //   event.target.innerText='修改';
-      // }
-      // else {
-      //   event.target.innerText='保存';
-      //
-      // }
+      this.flagBG=!this.flagBG;
+      this.flagtip=false;
+      this.flagPhone=false;
 
     },
     changeE:function (event) {
@@ -244,7 +244,7 @@ export default {
         this.$refs.urgent_p.style.display='block'
       }
       else if(this.$refs.urgent_phone.value){
-        this.$refs.urgent_p.style.display='none'
+        this.$refs.urgent_p.style.display='none';
         this.$refs.urgent_n.style.display='block'
       }
       else {
@@ -280,21 +280,53 @@ export default {
         }.bind(this))
 
     },
+
     verifyPhone:function () {
-      console.log(this.$refs.Vphone.value);
-      var reg1=/^1(3|4|5|7|8)\d{9}$/;
-      if(reg1.test(this.$refs.Vphone.value)){
+      let reg=/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
+      if(reg.test(this.$refs.Vphone.value)){
         this.flagPhone=false;
         this.VerPhone=!this.VerPhone;
+        this.flagtip=true;
+        this.countDown();
+      }
+      else {
+        this.flagPhone=true;
+      }
+    },
+    countDown:function () {
+      this.content_c='60s后重新发送';
+      let clock=window.setInterval(()=>{
+        if(this.count_ti>1){
+          this.count_ti--;
+          this.content_c=this.count_ti+'s后重新发送';
+        }
+        else {
+          window.clearInterval(clock);
+          this.VerPhone=!this.VerPhone;
+          this.flagtip=false;
+          this.count_ti=60;
+
+
+        }
+        console.log(this.count_ti)
+      },1000)
+    },
+    confirm_c:function () {
+
+      let reg=/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
+      if(reg.test(this.$refs.Vphone.value)){
+        this.phone=this.$refs.Vphone.value;
+        this.flagBG=false;
       }
       else {
         this.flagPhone=true;
       }
     }
+
   },
 
   mounted:function () {
-    let vm = this
+    let vm = this;
     axios.post("http://127.0.0.1:8000/user/queryuserdetail/",
       {
         // "realname":vm.name,
@@ -587,6 +619,7 @@ export default {
     background-color: #fff;
     padding-right: 8px;
   }
+
   #phone_id{
     display: block;
     margin: auto;
@@ -595,6 +628,23 @@ export default {
     border: 1px solid #E9EBEE;
     color: #93939E;
     vertical-align: middle;
+    padding-left: 28px;
+  }
+  #p_before{
+    width: 30px;
+    height: 38px;
+    position: absolute;
+    left: 20px;
+    text-align: center;
+  }
+  #p_before span{
+    padding: 0;
+    margin-top: 8px;
+    display: inline-block;
+    width: 12px;
+    height: 20px;
+    background: url(https://image.zuchecdn.com/newStatic/newversion/common/icon_new.png) no-repeat;
+    background-position: -120px -50px;
   }
 
   #phone_id:focus{
@@ -647,6 +697,33 @@ export default {
     height: 12px;
     background-position: -480px 0;
   }
+  .c_tip{
+    position: absolute;
+    top: -45px;
+    left: 30px;
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #dadadf;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 0 15px #B7B7B7;
+  }
+  .c_tip span:first-child{
+    width: 18px;
+    position: absolute;
+    left: 50%;
+    margin-top: 19px;
+    /*height: 25px;*/
+    color: white;
+    /*line-height: 38px;*/
+    font-size: 20px;
+    margin-left: -24px;
+
+  }
+
 
   #phone_code{
     display: inline-block;
@@ -656,10 +733,27 @@ export default {
     border: 1px solid #E9EBEE;
     color: #93939E;
     vertical-align: middle;
+    padding-left: 28px;
   }
   #phone_code:focus{
     border-color: #FABE00;
 
+  }
+  #c_before{
+    width: 30px;
+    height: 38px;
+    position: absolute;
+    left: 20px;
+    text-align: center;
+  }
+  #c_before span{
+    padding: 0;
+    margin-top: 8px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(https://image.zuchecdn.com/newStatic/newversion/common/icon_new.png) no-repeat;
+    background-position: -158px -50px;
   }
   .get_code{
     display: inline-block;

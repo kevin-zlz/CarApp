@@ -4,7 +4,7 @@
       <div class="head-content">
         <City class="aaa" @mycity = 'mycity'></City>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <Calenlar class="aaa" @getdate="getstarttime1"></Calenlar>&nbsp;&nbsp;&nbsp;
-        <div>  ➤   </div>&nbsp;&nbsp;&nbsp;
+        <div class="arrow">➤</div>&nbsp;&nbsp;&nbsp;
         <Calenlar class="aaa" @getdate="getstarttime2"></Calenlar>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button @click="sousuo">搜素</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button>重置</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -52,6 +52,7 @@
       </div>
     </div>
     <!--<div style="display: none;position: relative"><img src="" alt=""></div>-->
+    <RevertBottom></RevertBottom>
   </div>
 </template>
 
@@ -131,14 +132,22 @@
     height: 100%;
     /*background: green;*/
     display: flex;
-    line-height:80px;
-    /*vertical-align:middle;*/
     /*position: absolute;*/
   }
+  .aaa{
+    margin: auto 0;
+  }
+  .arrow{
+    height: 80px;
+    line-height: 80px;
+  }
+
   .main{
     width: 100%;
     height: auto;
     background: rgba(211, 211, 211, 0.34);
+    padding-bottom: 60px;
+
   }
   .main-content{
     width: 1200px;

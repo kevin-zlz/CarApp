@@ -54,7 +54,7 @@
           <Article v-show="'我的文章'===flag"></Article>
         </div>
       </div>
-      <!--<RevertBottom></RevertBottom>-->
+      <RevertBottom></RevertBottom>
     </div>
 </template>
 
@@ -136,8 +136,10 @@
 <style scoped>
   .container{
     width: 100%;
-    height: auto;
-    background-color: rgba(0, 0, 0, 0.08);
+    /*background-color: rgba(0, 0, 0, 0.08);*/
+    background-color: #f2f3f5;
+    padding: 0;
+    margin: auto;
   }
   .head-item{
     width: 100%;
@@ -223,22 +225,20 @@
   .main-contain{
     position: relative;
     width: auto;
-    height: 803px;
+    height: auto;
+    /*height: 803px;*/
     /*background-color: rgba(0, 0, 0, 0.1);*/
-    margin: 0 80px;
+    margin: 0 140px;
     display: flex;
   }
 
   .main-contain .body-left{
+    height: 640px;
     background-color: white;
-    top: 20px;
-    position: absolute;
+    margin-top: 20px;
     width: 24%;
-    height: auto;
     border: #d4d5d8 solid 1px;
-    /*left: 80px;*/
     margin-bottom: 30px;
-    /*margin-right: 20px;*/
   }
   .body-left .nav{
     box-sizing: border-box;
@@ -269,9 +269,9 @@
   .body-right{
     width: 75%;
     height: auto;
-    margin-top: 2%;
-    position: absolute;
+    margin-top: 20px;
     left: 25%;
+    margin-left: 30px;
     /*background-color: rgba(0, 0, 255, 0.4);*/
   }
 </style>
