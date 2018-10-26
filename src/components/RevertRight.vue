@@ -9,7 +9,7 @@
         <!--<li>年租套餐(365天)</li>-->
       <!--</ul>-->
     <!--</div>-->
-    <div class="all_car" v-for="(car,index) in allCar" :data-id="index" v-bind:key="index">
+    <div class="all_car" v-for="(car,index) in carlist" :data-id="index" v-bind:key="index">
       <table class="aa">
         <tr>
           <td class="aa1"><img src="../assets/images/car1.jpg" alt="" ></td>
@@ -21,37 +21,27 @@
             <div>门店支付</div>
           </td>
           <td class="aa4">
-            <p v-text="car.carprice" style="font-size:30px;color:#fabe00;font-style: normal;"></p>
+            <p v-text="car.price" style="font-size:30px;color:#fabe00;font-style: normal;"></p>
             <p class="bb3">总价:￥138</p>
             <span>/日均</span>
           </td>
           <td class="aa5">
-            <button><span style="color: white;font-size: 20px"><router-link :to="{path:'/revert/car',query: {name: car.carid}}" class="revert">租车</router-link></span></button>
+            <button><span @click="clickDetail(car.id)" style="color: white;font-size: 20px">租车</span></button>
           </td>
         </tr>
       </table>
     </div>
-    <pagination :currentPage="currentPage" :pageCount="parseInt(pageCount)" @prePage="prePage" @nextPage="nextPage" @jumpPage="jumpPage"></pagination>
   </div>
 </template>
 
 <script>
     export default {
+        props:['carlist','condition'],
         name: "RevertRight",
         data:function () {
           return {
            allCar:[
               // {"carid":2,"carname":"雪佛兰科鲁", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥69元","carimg":"./images/car2.jpg"},
-          {"carid":2,"carname":"别克昂科拉", "cartype":"三厢|1.5自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car3.jpg"},
-          {"carid":3,"carname":"大众朗逸", "cartype":"两厢|1.3自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car1.jpg"},
-          {"carid":4,"carname":"宝马", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥89元","carimg":"./images/car4.jpg"},
-          {"carid":5,"carname":"上海大众", "cartype":"三厢|1.5自动|乘坐6人", "carprice":"￥69元","carimg":"./images/car5.jpg"},
-          {"carid":6,"carname":"奔驰", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car6.jpg"},
-          {"carid":7,"carname":"江铃", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥89元","carimg":"./images/car7.jpg"},
-          {"carid":8,"carname":"凯迪拉克", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥79元","carimg":"./images/car8.jpg"},
-          {"carid":9,"carname":"雪铁龙", "cartype":"三厢|1.6自动|乘坐5人", "carprice":"￥99元","carimg":"./images/car9.jpg"},
-          {"carid":10,"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
-          {"carid":11,"carname":"福特", "cartype":"7座|2.0T自动|乘坐7人", "carprice":"￥99元","carimg":"./images/car10.jpg"},
           ],
             path:"/",
             carid:1,
@@ -64,7 +54,32 @@
           changeColor:function (event) {
             event.target.style.backgroundColor='white';
           },
+          clickDetail:function (e) {
+            console.log('--------------------------------')
+            console.log(this.condition)
+            this.$router.push({path: '/revert/car', query: {carid: e,condition:this.condition}});
+          },
+          prePage() {
+            this.currentPage--;
+            this.getallcondition()
+          },
+          nextPage() {
+            this.currentPage++;
+            // 重新渲染数据
+            this.getallcondition()
+          },
+          jumpPage(pageIndex) {
+            if (pageIndex > this.pageCount) {
+              pageIndex = this.pageCount
+            }
+            if (!pageIndex || pageIndex < 1) {
+              pageIndex = 1
+            }
+            this.currentPage = pageIndex;
+          },
+          getallcondition:function () {
 
+          }
         },
 
     }
@@ -131,7 +146,7 @@
     height: 180px;
   }
   .aa2{
-    width: 280px;
+    width: 200px;
     height: 200px;
     position: relative;
     left: 10px;
@@ -160,7 +175,7 @@
   }
   .aa4 span{
     position: relative;
-    left: 100px;
+    left: 50px;
     top: -65px;
     color: #93939e;
   }
@@ -169,7 +184,7 @@
   }
   .aa5{
     position: relative;
-    left: 100px;
+    left: 50px;
   }
   .aa5 button{
     width: 80px;

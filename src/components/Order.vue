@@ -2,25 +2,20 @@
   <div class="container">
     <div class="order-head">
       <div class="first">自驾订单</div>
-      <div class="date11">
+      <div class="date">
         <Calenlar @getdate="getday"></Calenlar>
       </div>
       <div class="lines"></div>
-      <div class="date11">
+      <div class="date">
         <Calenlar @getdate="getendday"></Calenlar>
       </div>
       <div class="btns" id="query" @click="queryByCondition()">查询</div>
-      <div class="btns">清除</div>
     </div>
     <div class="order-state">
       <div class="order-btn  short-btn">
-        <div class="state">全部</div>
-        <div class="state">处理中</div>
-        <div class="state">等待付款</div>
-        <div class="state">预订成功</div>
-        <div class="state">租赁中</div>
-        <div class="state">已完成</div>
-        <div class="state">已取消</div>
+        <div class="state" @click="selected($event)">全部</div>
+        <div class="state" @click="selected($event)">已完成</div>
+        <div class="state" @click="selected($event)">已取消</div>
       </div>
       <div class="order-container">
         <div class="table-head">
@@ -32,7 +27,7 @@
         <div id="short-content" class="table-content">
           <div class="table-data" v-for="order in orderlist">
             <div class="info-car">
-              <!--<img src="../assets/images/87.jpg" alt="">-->
+              <img src="images/87.jpg" alt="">
               <div class="car-info">
                 <p v-text="order.car__carname">雪佛兰科瑞兹</p>
                 <div>
@@ -44,13 +39,14 @@
             <div class="split"></div>
             <div class="info-place"></div>
             <div class="info-all">
-              <p><span
+              <div>              <p><span
                 class="little">取</span><span>&nbsp;&nbsp;{{order.takecarplace__storeaddress__cityname}}</span>-<span>{{order.takecarplace__detailaddress}}</span>
               </p>
-              <p>{{order.takecartime}}</p>
-              <p><span class="little">还</span><span>&nbsp;&nbsp;{{order.returncarplace__returncar__storeaddress__cityname}}</span>-<span>{{order.returncarplace__returncar__detailaddress}}</span>
+                <p>{{order.takecartime}}</p></div>
+
+              <div><p><span class="little">还</span><span>&nbsp;&nbsp;{{order.returncarplace__returncar__storeaddress__cityname}}</span>-<span>{{order.returncarplace__returncar__detailaddress}}</span>
               </p>
-              <p>{{order.returncartime}}</p>
+                <p>{{order.returncartime}}</p></div>
             </div>
             <div class="split" style="left:620px;"></div>
             <div class="info-place">
@@ -62,30 +58,13 @@
               <p><a :id="order.id" href="#">查看订单</a></p>
             </div>
           </div>
-        </div>
 
-        <div class="page">
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+
+
         </div>
       </div>
+      <pagination :currentPage="currentPage" :pageCount="parseInt(pageCount)" @prePage="prePage" @nextPage="nextPage" @jumpPage="jumpPage"></pagination>
+
     </div>
     <div class="order-statement">
       <div>订单状态说明</div>
@@ -134,6 +113,7 @@
 
 <script>
   import axios from 'axios'
+  import $ from 'jquery'
 
   export default {
     name: 'Order',
@@ -145,6 +125,8 @@
         starttime:'',
         endtime:'',
         state:'',
+        currentPage:1,
+        pageCount:2,
       }
     },
     methods: {
@@ -153,19 +135,25 @@
       },
       getday: function (e) {
         this.starttime=e
+        if(this.starttime&&this.starttime){
+          this.queryByCondition()
+        }
       },
       getendday: function (e) {
         this.endtime=e
+        if(this.starttime&&this.starttime){
+          this.queryByCondition()
+        }
       },
       queryByCondition:function () {
-        let vm = this;
-        axios.post("http://127.0.0.1:8000/user/queryOrder/",
+        let vm = this
+        axios.post("http://127.0.0.1:8000/user/queryOrderByCondithion/",
           {
             "fromtime":vm.starttime,
             "endtime":vm.endtime,
             "statename":vm.state,
-            "pagecount":1,
-            "orderByAsc":true,
+            "currentPage":vm.currentPage,
+            "pageCount":vm.pageCount,
           }, {
             headers: {
               'token': sessionStorage.getItem('token'),
@@ -174,8 +162,6 @@
           .then(function (res) {
             if (res.data) {
               vm.orderlist = res.data
-
-              // console.log(vm.articallist);
             }
           }.bind(this))
           .catch(function (err) {
@@ -183,13 +169,57 @@
               console.log(err.response)
             }
           }.bind(this))
+      },
+      prePage() {
+        this.currentPage--;
+        this.queryByCondition()
+      },
+      nextPage() {
+        this.currentPage++;
+        // 重新渲染数据
+        this.queryByCondition()
+      },
+      jumpPage(pageIndex) {
+        if (pageIndex > this.pageCount) {
+          pageIndex = this.pageCount
+        }
+        if (!pageIndex || pageIndex < 1) {
+          pageIndex = 1
+        }
+        this.currentPage = pageIndex;
+        this.queryByCondition()
+      },
+      selected:function (e) {
+        if(e.target.innerText=='已完成'){
+          this.state='已完成';
+          $(".state").css({"color":"#333333","background-color":"white"});
+          e.currentTarget.style=" background-color:#fabe00 ;color: white";
+
+        }else if(e.target.innerText=='已取消'){
+          this.state='已取消'
+          $(".state").css({"color":"#333333","background-color":"white"});
+          e.currentTarget.style=" background-color:#fabe00 ;color: white";
+        }else if(e.target.innerText=='全部'){
+          this.state='';
+          $(".state").css({"color":"#333333","background-color":"white"});
+          e.currentTarget.style=" background-color:#fabe00 ;color: white";
+        }
+        this.this.currentPage=1;
+        this.queryByCondition()
       }
+
 
     },
     mounted: function () {
       let vm = this
-      axios.post("http://127.0.0.1:8000/user/queryOrder/",
-        {}, {
+      axios.post("http://127.0.0.1:8000/user/queryOrderByCondithion/",
+        {
+          "fromtime":vm.starttime,
+          "endtime":vm.endtime,
+          "statename":vm.state,
+          "currentPage":vm.currentPage,
+          "pageCount":vm.pageCount,
+        }, {
           headers: {
             'token': sessionStorage.getItem('token'),
           }
@@ -197,7 +227,7 @@
         .then(function (res) {
           if (res.data) {
             vm.orderlist = res.data
-            vm.state=res.data[0].ordertype__id
+            // vm.state=res.data[0].ordertype__typename
           }
         }.bind(this))
         .catch(function (err) {
@@ -266,14 +296,21 @@
   }
 
   .date {
-    margin-top: 10px;
-    display: inline-block;
-    height: 50px;
-    width: 150px;
-    border: gray solid 1px;
-    font-size: 15px !important;
+    /*margin-top: 20px;*/
+    /*display: inline-block;*/
+    /*height: 50px;*/
+    /*width: 150px;*/
+    /*border: gray solid 1px;*/
+    /*font-size: 15px !important;*/
+    /*top: 10px;*/
+    /*z-index: 100;*/
+    width: 170px;
+    height: 40px;
+    /* background: red; */
+    border: solid 1px #c6c6c6;
+    position: relative;
     top: 10px;
-    z-index: 100;
+    padding-top: 0px;
   }
 
   .mydate {
@@ -476,9 +513,8 @@
     box-sizing: border-box;
   }
 
-  .container .order-head div .date {
+  .container .order-head div.date {
     margin-top: 0;
-    width: 180px;
     font-size: 14px;
     color: #60606c;
   }
@@ -531,9 +567,12 @@
     background-color: white;
     border: #d4d5d8 solid 1px;
     width: 924px;
-    height: 566px;
+    min-height: 580px;
     padding: 20px;
     box-sizing: border-box;
+    position: relative;
+    padding-bottom: 100px;
+
   }
 
   .order-state .order-btn {
@@ -561,7 +600,16 @@
 
   .order-state .order-btn .state:hover {
     cursor: pointer;
-    background-color: #fabe00;
+    background-color: #fabe00 !important;
+    color: white!important;
+  }
+  #page-divide{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    bottom: 20px;
+    padding-top: 30px;
   }
 
   .order-statement {
@@ -764,8 +812,9 @@
 
   .table-data .info-all {
     position: absolute;
-    display: inline-block;
-    top: 30px;
+    display: flex;
+    flex-direction: column;
+    top: 10px;
     left: 350px;
     height: 160px;
     width: 250px;
@@ -780,11 +829,15 @@
     font-size: 14px;
   }
 
-  .info-all p {
+  .info-all div{
+    flex: 1;
+  }
+  .info-all p{
     padding-bottom: 5px;
     margin: 0px;
     font-size: 15px;
     color: #b4b4b4;
+    /*flex: 1;*/
 
   }
 
@@ -822,10 +875,10 @@
   }
 
   .page {
-    /*position: absolute;*/
-    /*top: 400px;*/
-    /*left: 300px;*/
+    width: 100%;
+    position: absolute;
     text-align: center;
+
   }
 
   .footer {
@@ -948,14 +1001,6 @@
   .datepicker {
     background: transparent right no-repeat;
     background-size: contain;
-  }
-  .date11{
-    width: 170px;
-    height: 40px;
-    /*background: red;*/
-    border: solid 1px #c6c6c6;
-    position: relative;
-    top: 10px;
   }
 
 </style>

@@ -22,6 +22,7 @@
         <!--<div class="state" @click="show">全部活动</div>-->
         <div class="state" @click="show">我发起的活动</div>
         <div class="state" @click="show">我参与的活动</div>
+
         <!--<div class="state" @click="show">已结束的活动</div>-->
       </div>
       <div class="order-container">
@@ -51,7 +52,6 @@
                   </ul>
                 </div>
               </li>
-              <li class="cc">11</li>
             </ul>
           </div>
         </div>
@@ -127,41 +127,42 @@
                   </ul>
                 </div>
               </li>
-              <li class="cc">11</li>
+
             </ul>
           </div>
         </div>
 
 
-        <div class="page">
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
       </div>
+      <div class="page">
+        <nav aria-label="Page navigation" >
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
     </div>
   </div>
 </template>
 <script>
   import axios from 'axios'
   export default {
-    name: 'Order',
+    name: 'MyActivity',
     inject:['reload'],
     data () {
       return {
@@ -199,6 +200,14 @@
       show:function (e) {
         // alert(e.target.innerText)
         this.flag = e.target.innerText;
+        if(e.target.innerText=='我发起的活动'){
+          $(".state").css({"color":"#333333","background-color":"white"});
+          e.currentTarget.style=" background-color:#fabe00 ;color: white";
+        }
+        else if(e.target.innerText=='我参与的活动'){
+          $(".state").css({"color":"#333333","background-color":"white"});
+          e.currentTarget.style=" background-color:#fabe00 ;color: white";
+        }
       },
       getday:function (e) {
 
@@ -361,7 +370,7 @@
     display: flex;
     border: #d4d5d8 solid 1px;
     width: 924px;
-    height: 80px;
+    height: 60px;
     padding-left: 20px;
     box-sizing: border-box;
     background-color: white;
@@ -424,9 +433,10 @@
     background-color: white;
     border: #d4d5d8 solid 1px;
     width: 924px;
-    height: 566px;
     padding: 20px;
     box-sizing: border-box;
+    min-height: 580px;
+    padding-bottom: 100px;
   }
   .order-state .order-btn{
     width: 100%;
@@ -436,7 +446,7 @@
   }
   .order-state .order-btn .state{
     height: 40px;
-    width: 100%;
+    width: 20%;
     border: #d4d4d6 solid 1px;
     border-right: none;
     margin-left: 0;
@@ -450,7 +460,8 @@
   }
   .order-state .order-btn .state:hover{
     cursor: pointer;
-    background-color: #fabe00;
+    background-color: #fabe00 !important;
+    color: white!important;
   }
   .order-statement{
     background-color: white;
@@ -577,10 +588,12 @@
     text-align: center;
   }
   .page{
-    /*position: absolute;*/
-    /*top: 400px;*/
-    /*left: 300px;*/
+    width: 100%;
+    position: absolute;
     text-align: center;
+    left: 0;
+    bottom: 20px;
+    padding-top: 30px;
   }
 
   .calendar th,
@@ -656,11 +669,22 @@
  .main-content ul li .aa2{
     width: 412px;
     height: 100%;
+   position: relative;
     /*background: yellow;*/
   }
   .aa2 ul li{
-    margin-left: 100px;
-    margin-top: 20px;
+    margin-left: 25px;
+    margin-top: 5px;
+  }
+  .aa2 ul li p:nth-last-child(2){
+    position: absolute;
+    top:70px;
+    right: 20px;
+  }
+  .aa2 ul li p:nth-last-child(1){
+    position: absolute;
+    top:40px;
+    right: 20px;
   }
   .qq button{
     width: 100px;
@@ -668,9 +692,9 @@
     background: rgb(238, 184, 25);
     border: solid 1px #eeb819;
     color: white;
-    position: relative;
-    left: 250px;
-    top: -130px;
+    position: absolute;
+    left: 300px;
+    top: 140px;
   }
 
 

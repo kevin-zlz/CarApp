@@ -58,7 +58,7 @@
         let vm=this
         if(sessionStorage.getItem('token')){
           // sessionStorage.setItem('frompagepath','/det')
-          this.$router.push({path: '/wen', query: {selected: e}});
+          this.$router.push({path: '/answer/question', query: {selected: e}});
         }else{
           this.$router.push({path: '/login', query: {selected: e}});
         }

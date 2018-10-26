@@ -23,8 +23,15 @@
                 <span class="fff" v-text="tiShi.tishi2"></span>
               </li>
               <br/>
-              <li class="li-2"><img class="img2" src="../assets/images/信封.svg" alt="">
-                <input class="input5" type="text" placeholder="请输入动态码">
+              <div class="c_tip" v-show="Tips==1">
+                <span>◆</span>
+                <span class="ts-warning"></span>
+                <span>验证码过期或已失效</span>
+                <span class="ts-close" @click="Tips=0"></span>
+              </div>
+              <li class="li-2">
+                <img class="img2" src="../assets/images/信封.svg" alt="">
+                <input class="input5" type="text" placeholder="请输入动态码" v-model="code">
                 <input class="message" type="button" value="点击发送验证码" v-on:click="sendCode($event.target)"/>
                 <!--<p class="message"><a href="#" class="a3">获取验证码</a></p>-->
               </li>
@@ -144,13 +151,16 @@
     name: 'Regist',
     data () {
       return {
-        nums: 10,
+        nums: 120,
+        Tips:0,
+        code:'',
         tiShi:{
           tishi1:'',
           tishi2:'',
           tishi3:'',
           tishi4:'',
           tishi5:'',
+
         },
         userInfo:{
           name:'',
@@ -163,38 +173,65 @@
     },
     methods:{
       reg:function () {
-        sessionStorage.setItem("url","regist");
-        // alert(this.userInfo.name);
-        // alert(this.userInfo.telephone);
-        // alert(this.userInfo.password);
-        // alert(this.userInfo.email);
-        var vm = this;
-        axios.post("http://127.0.0.1:8000/user/regist/",
-          {"uname":vm.userInfo.name,"telephone":vm.userInfo.telephone,
-            "password":vm.userInfo.password,"email":vm.userInfo.email
-          },{
-            // headers: {
-            //   'Content-Type': 'application/json',
-            // }
-          })
-          .then(function (res) {
-            if(res.data.code==='808'){
-              sessionStorage.setItem('telephone',vm.userInfo.telephone)
-              this.$router.push('Login');
+        axios.post('http://127.0.0.1:8000/user/verification/',
+          {
+            "telephone":this.userInfo.telephone,
+            "code":this.code,
+          },
+        )
+          .then(response => {
+            if (response.data.code === 0) {
+              sessionStorage.setItem("url","regist");
+              // alert(this.userInfo.name);
+              // alert(this.userInfo.telephone);
+              // alert(this.userInfo.password);
+              // alert(this.userInfo.email);
+              var vm = this;
+              axios.post("http://127.0.0.1:8000/user/regist/",
+                {"uname":vm.userInfo.name,"telephone":vm.userInfo.telephone,
+                  "password":vm.userInfo.password,"email":vm.userInfo.email
+                },{
+                  // headers: {
+                  //   'Content-Type': 'application/json',
+                  // }
+                })
+                .then(function (res) {
+                  if(res.data.code==='808'){
+                    sessionStorage.setItem('telephone',vm.userInfo.telephone)
+                    this.$router.push('Login');
+                  }
+                }.bind(this))
+                .catch(function (err) {
+                  if (err.response) {
+                    console.log(err.response)
+                  }
+                }.bind(this))
+
+            }else {
+              this.Tips = 1;
+              console.log(response.data)
             }
-          }.bind(this))
-          .catch(function (err) {
-            if (err.response) {
-              console.log(err.response)
-            }
-          }.bind(this))
+          });
+
       },
       sendCode:function (thisBtn) {
         this.btn = thisBtn;
-        console.log(this.btn)
+        console.log(this.btn);
         this.btn.disabled = true; //将按钮置为不可点击
         this.btn.value = this.nums + '秒后可重新获取';
         this.clock = setInterval(this.doLoop, 1000); //一秒执行一次
+        axios.post('http://127.0.0.1:8000/user/sendcode/',
+          {
+            "telephone":this.userInfo.telephone,
+          },
+        )
+          .then(response => {
+            // if (response.data.code === 0) {
+            //   vm.ImgUrl = 'http://127.0.0.1:8000/media/pic/'+response.data.url;
+            //   console.log(vm.ImgUrl);
+            // }
+            console.log(response.data)
+          });
       },
       doLoop:function () {
         this.nums--;
@@ -204,7 +241,7 @@
           clearInterval(this.clock); //清除js定时器
           this.btn.disabled = false;
           this.btn.value = '点击发送验证码';
-          this.nums = 10; //重置时间
+          this.nums = 120; //重置时间
         }
       },
       // 真实姓名
@@ -281,14 +318,6 @@
     width: 100%;
     /*background: grey;*/
   }
-  .header{
-    width: 100%;
-    height: 60px;
-    border-top: solid 2px #eeb81a;
-    background: #1b2b3b;
-    display: flex;
-    justify-content: center;
-  }
   .main{
     width: 100%;
     /*height: 900px;*/
@@ -303,23 +332,7 @@
     display: flex;
 
   }
-  .header_font{
-    font-size: 24px;
-    color: #eeb81a;
-    line-height: 58px;
-  }
-  .tel{
-    position: absolute;
-    left: 1000px;
-    top: 15px;
-  }
-  .tel_num{
-    position: absolute;
-    left:1032px ;
-    top: 15px;
-    color: #7f807b;
-    font-size: 20px;
-  }
+
   .main .main_background{
     width: 100%;
     height: 790px;
@@ -393,7 +406,7 @@
     border:2px solid #eeb81a;
   }
   .message{
-    width: 120px;
+    width: 140px;
     height: 36px;
     background: #fffaea;
     margin-left: 200px;
@@ -620,4 +633,63 @@
     color: red;
     font-size: 12px;
   }
+  .c_tip{
+    position: absolute;
+    /*top: -45px;*/
+    /*left: 30px;*/
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #dadadf;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 0 15px #B7B7B7;
+    top:240px;
+    left:10px;
+    text-align: center;
+  }
+  .c_tip span:first-child{
+    width: 18px;
+    position: absolute;
+    left: 50%;
+    margin-top: 19px;
+    /*height: 25px;*/
+    color: white;
+    /*line-height: 38px;*/
+    font-size: 20px;
+    margin-left: -24px;
+
+  }
+  .c_tip span:nth-child(3){
+
+  }
+  /*移❗*/
+  .ts-warning{
+    display: inline-block;
+    background: url(https://image.zuchecdn.com/newversion/news/common/icon.png) no-repeat;
+    width: 17px;
+    height: 17px;
+    background-position: -440px 0;
+    vertical-align: middle;
+    line-height: 38px;
+    position: absolute;
+    left: 10px;
+    top:10px
+
+  }
+  /*移×*/
+  .ts-close{
+    display: inline-block;
+    background: url(https://image.zuchecdn.com/newversion/news/common/icon.png) no-repeat;
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    background-position: -480px 0;
+  }
+  /*-------------------------------------------------------------------------------------*/
 </style>

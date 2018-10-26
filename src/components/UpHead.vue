@@ -5,7 +5,6 @@
         <h3 class="aa">修改头像</h3>
         <span class="aa3">明明可以靠颜值，车与颜值并存，快来设置头像吧！</span>
       </li>
-
       <li class="items" id="aaa">
         <span class="aa11">当前头像</span>
         <form id="form1">
@@ -28,6 +27,7 @@
       <div class="bb2">
         <input class="bb1" id="input1" type="button" value="保存" @click="update1">
       </div>
+
     </ul>
   </div>
 </template>
@@ -146,7 +146,7 @@
   }
   .info{
     width: 924px;
-    height:940px;
+    min-height:640px;
     border: #e9ebee solid 1px;
     padding: 0px 20px ;
     background-color: white;

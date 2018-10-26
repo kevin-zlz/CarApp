@@ -30,7 +30,7 @@
                   </ul>
                   <p class="eee" v-show=flag>用户名或密码错误</p>
                 </div>
-                <div class="login2"><input type="submit" class="input4" value="登录" @click="login1"></div>
+                <div class="login2"><input id="aaa" type="submit" class="input4" value="登录" @click="login1"></div>
                 <div class="login3">
                   <span class="sp">还不是会员？</span>
                   <router-link to="/regist" class="a2">立即注册?</router-link>
@@ -47,7 +47,7 @@
                     </li>
                     <br/>
                     <li class="li-4"><img class="img2" src="../assets/images/信封.svg" alt="">
-                      <input class="input5" type="text" placeholder="请输入验证码">
+                      <input class="input5" type="text" placeholder="请输入验证码" v-model="code">
                       <input class="message" type="button" value="点击发送验证码"  v-on:click="sendCode($event.target)"/>
                       <!--<p class="message"><a href="#" class="a3" onclick="sendCode(this)">获取验证码</a></p>-->
                     </li>
@@ -61,7 +61,7 @@
                     </li>
                   </ul>
                 </div>
-                <div class="login2"><input type="button" class="input4" value="登录"></div>
+                <div class="login2"><input id="aaa1" type="submit" class="input4"  value="登录" @click="login2"></div>
                 <div class="login3">
                   <span class="sp">还不是会员？</span>
                   <router-link to="/regist" class="a2">立即注册?</router-link>
@@ -159,15 +159,15 @@
 
 <script>
   import axios from 'axios'
-
   export default {
     name: 'Login',
     data() {
       return {
         clock: '',
         flag:false,
-        nums: 10,
+        nums: 120,
         btn: '',
+        code:"",
         tiShi:{
           tishi1:'',
           tishi2:'',
@@ -185,15 +185,52 @@
 
       login1:function(){
         var vm = this;
+        alert('1111111111')
         axios.post("http://127.0.0.1:8000/user/login/",
           {"telphone":vm.userInfo.telephone,"password":vm.userInfo.password
+          })
+          .then(function (res) {
+            if(res.data.code==='808'){
+              // console.log(res.data);
+              sessionStorage.setItem("token",res.headers.token);
+              sessionStorage.setItem("telephone",vm.userInfo.telephone);
+              if(sessionStorage.getItem("url")){
+                this.$router.push('/');
+                sessionStorage.removeItem("url");
+              }else{
+                window.history.go(-1);
+              }
+              $(document).ready(function () {
+                if(location.href.indexOf("#reloaded")===-1){
+                  location.href=location.href+"#reloaded";
+                  location.reload();
+                }
+              })
+            }else {
+              this.flag=true;
+              console.log('登陆失败')
+            }
+          }.bind(this))
+          .catch(function (err) {
+            if (err.response) {
+              console.log(err.response)
+            }
+          }.bind(this))
+      },
+      login2(){
+
+        var vm = this;
+        axios.post("http://127.0.0.1:8000/user/information/",
+          {
+            "telephone":vm.userInfo.telephone1,
+            "code":vm.code,
           },{
             // headers: {
             //   'Content-Type': 'application/json',
             // }
           })
           .then(function (res) {
-            if(res.data.code==='808'){
+            if(res.data.code===0){
               // console.log(res.data);
               sessionStorage.setItem("token",res.headers.token);
               sessionStorage.setItem("telephone",vm.userInfo.telephone);
@@ -226,6 +263,18 @@
           this.btn.disabled = true; //将按钮置为不可点击
           this.btn.value = this.nums + '秒后可重新获取';
           this.clock = setInterval(this.doLoop, 1000); //一秒执行一次
+        axios.post('http://127.0.0.1:8000/user/sendcode/',
+          {
+            "telephone":this.userInfo.telephone1,
+          },
+        )
+          .then(response => {
+            // if (response.data.code === 0) {
+            //   vm.ImgUrl = 'http://127.0.0.1:8000/media/pic/'+response.data.url;
+            //   console.log(vm.ImgUrl);
+            // }
+            console.log(response.data)
+          });
       },
       doLoop:function () {
         this.nums--;
@@ -235,7 +284,7 @@
             clearInterval(this.clock); //清除js定时器
             this.btn.disabled = false;
             this.btn.value = '点击发送验证码';
-            this.nums = 10; //重置时间
+            this.nums = 120; //重置时间
           }
       },
         // 用户名
@@ -394,10 +443,10 @@
 
   .input1, .input2 {
     position: absolute;
-    width: 290px;
-    height: 33px;
+    width: 292px;
+    height: 100%;
     left: 40px;
-    top: 1px;
+    /*top: 1px;*/
     /*去掉input边框*/
     border: none;
     /*去掉点击时input的边框*/
@@ -405,16 +454,18 @@
   }
 
   .li-1, .li-2 {
-    border: 1px solid rgb(233, 235, 238);
+    border: 1px solid rgb(234, 236, 239);
     box-sizing: border-box;
   }
-
+  /*.li-1:focus{*/
+    /*border: 1px solid #fabe00!important;*/
+  /*}*/
   .input1:focus {
-    border: 2px solid #eeb81a;
+    border: 1px solid #fabe00;
   }
 
   .input2:focus {
-    border: 2px solid #eeb81a;
+    border: 1px solid #fabe00;
   }
 
   .input3 {
@@ -488,9 +539,9 @@
   .input5 {
     position: absolute;
     width: 128px;
-    height: 33px;
+    height: 100%;
     left: 40px;
-    top: 1px;
+    /*top: 1px;*/
     /*去掉input边框*/
     border: none;
     /*去掉点击时input的边框*/
@@ -507,11 +558,11 @@
   }
 
   .input5:focus {
-    border: 2px solid #eeb81a;
+    border: 1px solid #fabe00;
   }
 
   .message {
-    width: 100px;
+    width: 130px;
     height: 40px;
     background: #fffaea;
     margin-left: 200px;

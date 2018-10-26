@@ -14,13 +14,13 @@
     </div>
     <div class="order-state">
       <div class="order-btn long-order">
-        <div class="state">全部</div>
-        <div class="state">处理中</div>
-        <div class="state">等待付款</div>
-        <div class="state">预订成功</div>
-        <div class="state">租赁中</div>
-        <div class="state">已完成</div>
-        <div class="state">已取消</div>
+        <div class="state" @click="selected($event)">全部</div>
+        <div class="state" @click="selected($event)">处理中</div>
+        <div class="state" @click="selected($event)">等待付款</div>
+        <div class="state" @click="selected($event)">预订成功</div>
+        <div class="state" @click="selected($event)">租赁中</div>
+        <div class="state" @click="selected($event)">已完成</div>
+        <div class="state" @click="selected($event)">已取消</div>
       </div>
       <div class="order-container">
         <div class="table-head">
@@ -58,28 +58,27 @@
             <!--<p><a href="#">查看订单</a></p>-->
             <!--</div>-->
         </div></div>
-
-        <div class="page">
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+      </div>
+      <div class="page">
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
     <div class="order-statement">
@@ -129,6 +128,7 @@
 
 
 <script>
+  import $ from 'jquery'
 export default {
   name: 'LongHire',
 
@@ -143,11 +143,41 @@ export default {
     show:function () {
 
     },
+    selected:function(e){
+      if(e.target.innerText=='全部'){
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
+      }
+      if(e.target.innerText=='处理中'){
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
+      }
+      if(e.target.innerText=='等待付款'){
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
+      }
+      if(e.target.innerText=='预定成功'){
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
+      }
+      if(e.target.innerText=='租赁中'){
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
+      }
+      if(e.target.innerText=='已完成'){
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
+      }
+      if(e.target.innerText=='已取消'){
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
+      }
+    },
     getday:function (e) {
 
       }
 
-    }
+    },
 }
 
 </script>
@@ -313,9 +343,11 @@ export default {
     background-color: white;
     border: #d4d5d8 solid 1px;
     width: 924px;
-    height: 566px;
+    min-height: 580px;
     padding: 20px;
     box-sizing: border-box;
+    position: relative;
+    padding-bottom: 100px;
   }
   .order-state .order-btn{
     width: 100%;
@@ -339,7 +371,8 @@ export default {
   }
   .order-state .order-btn .state:hover{
     cursor: pointer;
-    background-color: #fabe00;
+    background-color: #fabe00!important;
+    color: white!important;
   }
   .order-statement{
     background-color: white;
@@ -469,7 +502,7 @@ export default {
   .order-container .table-data{
     border-bottom: #d6d6d6 solid 1px;
     border-top: #d6d6d6 solid 1px;
-    height: 160px;
+    min-height: 160px;
     width: 100%;
     position: relative;
   }
@@ -510,10 +543,12 @@ export default {
     text-align: center;
   }
   .page{
-    /*position: absolute;*/
-    /*top: 400px;*/
-    /*left: 300px;*/
+    width: 100%;
+    position: absolute;
     text-align: center;
+    left: 0;
+    bottom: 20px;
+    padding-top: 30px;
   }
 
   .calendar th,

@@ -20,7 +20,8 @@
         </li>
         <li class="items">
           <div class="label-info">手机号码</div>
-          <div class="inputs"><input id="tel" type="text"   v-model="phone" readonly ref="pi"></div>
+          <!--v-model="phone"-->
+          <div class="inputs"><input id="tel" type="text"  :value="telephone11"  readonly ref="pi"></div>
           <!--<div id="tel-tip" class="tel-tip">手机格式不正确</div>-->
           <div class="tip"><a id="changeTel"   @click="changeP" >修改</a></div>
         </li>
@@ -80,7 +81,7 @@
               <span class="ts-close" @click="flagPhone=false"></span>
             </div>
             <div id="p_before"><span></span></div>
-            <input type="text"  id="phone_id" placeholder="请输入新手机号" maxlength="18" ref="Vphone">
+            <input type="text"  id="phone_id" placeholder="请输入新手机号" v-model="telephone" maxlength="18" ref="Vphone">
           </li>
           <li>
             <div class="c_tip" v-show="flagtip">
@@ -90,7 +91,13 @@
               <span class="ts-close" @click="flagtip=false"></span>
             </div>
             <div id="c_before"><span></span></div>
-            <input type="text"  id="phone_code" placeholder="请输入动态验证码" maxlength="18" >
+            <div class="c_tip1" v-show="flagtip1==1">
+              <span>◆</span>
+              <span class="ts-warning"></span>
+              <span>验证码错误或已过期！</span>
+              <span class="ts-close" @click="flagtip1=0"></span>
+            </div>
+            <input type="text"  id="phone_code" placeholder="请输入动态验证码" v-model="code" maxlength="18" >
             <button class="get_code" @click="verifyPhone" v-show="!VerPhone">获取手机动态码</button>
             <button class="tm_count" v-show="VerPhone" v-text="content_c"></button>
           </li>
@@ -111,7 +118,10 @@ export default {
   name: 'SearchMain',
   data () {
     return {
-      msg: '我是谁我在哪？？？？',
+      flagtip1:0,
+      telephone11:'',
+      code:'',
+      telephone:'',
       flag:false,
       flagBG:false,
       flagPhone:false,
@@ -128,7 +138,7 @@ export default {
       VerPhone:false,
       flagtip:false,
       content_c:'',
-      count_ti:60,
+      count_ti:120,
 
     }
 
@@ -294,7 +304,7 @@ export default {
       }
     },
     countDown:function () {
-      this.content_c='60s后重新发送';
+      this.content_c='120s后重新发送';
       let clock=window.setInterval(()=>{
         if(this.count_ti>1){
           this.count_ti--;
@@ -304,19 +314,46 @@ export default {
           window.clearInterval(clock);
           this.VerPhone=!this.VerPhone;
           this.flagtip=false;
-          this.count_ti=60;
-
-
+          this.count_ti=120;
         }
         console.log(this.count_ti)
       },1000)
+      //  --------------------------------------------------
+      axios.post('http://127.0.0.1:8000/user/sendcode/',
+        {
+          "telephone":this.telephone,
+        },
+      )
+        .then(response => {
+          // if (response.data.code === 0) {
+          //   vm.ImgUrl = 'http://127.0.0.1:8000/media/pic/'+response.data.url;
+          //   console.log(vm.ImgUrl);
+          // }
+          console.log(response.data)
+        });
     },
     confirm_c:function () {
-
       let reg=/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
       if(reg.test(this.$refs.Vphone.value)){
         this.phone=this.$refs.Vphone.value;
-        this.flagBG=false;
+        // this.flagBG=false;
+        axios.post('http://127.0.0.1:8000/user/uptel/', {"telephone":this.telephone,"code":this.code}, {
+          headers: {
+            'Content-Type': 'application/json',
+            token:sessionStorage.getItem("token")
+          }
+        })
+          .then(response => {
+            if (response.data.code === 0) {
+              this.flagBG=false;
+              this.telephone11=this.telephone
+              alert('ok')
+            }else {
+              this.flagtip1=1;
+              console.log(response.data)
+            }
+
+          })
       }
       else {
         this.flagPhone=true;
@@ -723,12 +760,37 @@ export default {
     margin-left: -24px;
 
   }
+  .c_tip1{
+    position: absolute;
+    top: -45px;
+    left: 30px;
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #dadadf;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 0 15px #B7B7B7;
+  }
+  .c_tip1 span:first-child{
+    width: 18px;
+    position: absolute;
+    left: 50%;
+    margin-top: 19px;
+    /*height: 25px;*/
+    color: white;
+    /*line-height: 38px;*/
+    font-size: 20px;
+    margin-left: -24px;
 
+  }
 
   #phone_code{
     display: inline-block;
     margin-left: 20px;
-    width: 200px;
+    width: 182px;
     height: 38px;
     border: 1px solid #E9EBEE;
     color: #93939E;
@@ -758,7 +820,7 @@ export default {
   .get_code{
     display: inline-block;
     margin-left: 4px;
-    width: 112px;
+    width: 130px;
     height: 38px;
     line-height: 38px;
     vertical-align: middle;
@@ -773,7 +835,7 @@ export default {
   .tm_count{
     display: inline-block;
     margin-left: 4px;
-    width: 112px;
+    width: 130px;
     height: 38px;
     line-height: 38px;
     vertical-align: middle;

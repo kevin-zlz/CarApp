@@ -1,78 +1,79 @@
 <template>
   <div>
     <div class="main">
-      <div class="query">
-        <div class="tpt-bar">
-          <input type="radio" name="bar" id="tab-1" checked="">
-          <label for="tab-1">到店取还</label>
-          <div class="tpt-bar-con">
-            <div class="service_body">
-              <div class="city" id="city1">
-                <div class="take">取车</div>
-                <div id="city4" class="city-style">
-                  <input type="text" class="s_city1" placeholder="选择城市" >
-                </div>
-                <div id="store-modle1" class="store-modle">
-                  <input type="text" class="store-input">
-                </div>
-                <div class="taketime">取车时间</div>
-                <div class="time">
-                  <input id="mydatepicker4" type="text" class="s_city2" placeholder="请选择时间">
-                </div>
-                <div id="minute1" class="minute">
-                  <input class="minute-input" type="text">
-                </div>
-                <div class="taketime taketime2">还车时间</div>
-                <div class="time time2">
-                  <input id="mydatepicker5" type="text" class="s_city2" placeholder="请选择时间">
-                </div>
-                <div id="minute2" class="minute minute2">
-                  <input class="minute-input" type="text">
-                </div>
-                <div class="zuche">
-                  <span>立即租车</span>
-                </div>
-                <!--<div id="calendar" class="calendar"></div>-->
-              </div>
-              <div class="city" id="city2">
-                <div class="take">还车</div>
-                <div id="city5" class="city-style">
-                  <input type="text" class="s_city1" placeholder="选择城市" >
-                </div>
-                <div id="store-modle2" class="store-modle" >
-                  <input type="text" class="store-input">
-                </div>
-              </div>
-            </div>
-          </div>
-          <input type="radio" name="bar" id="tab-2">
-          <label for="tab-2">长期租车</label>
-          <div class="tpt-bar-con">
-            <div class="longtime">
-              <div class="item-title">取车城市</div>
-              <div class="city" id="city">
-                <div id="city3" class="city-style">
-                  <input type="text" class="s_city3" placeholder="选择城市" >
-                </div>
-              </div>
-              <div class="store" id="store">
-                <div id="store-modle3" class="store-modle">
-                  <input type="text" class="s_city4">
-                </div>
-              </div>
-            </div>
 
-            <div class="longtime">
-              <div class="item-title">车&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp型</div>
-            </div>
-            <div class="longtime">
-              <div class="apply">
-                <a href="https://changzu.zuche.com/">去申请</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <SowingMap></SowingMap>
     </div>
 
     <!-------------------------------------------------------------->
@@ -400,7 +401,7 @@ export default {
     background-position-x: -640px;
     background-repeat: no-repeat;
     object-fit: cover;
-    background-image: url("../assets/images/guoqing.jpg");
+    /*background-image: url("../assets/images/guoqing.jpg");*/
   }
   .main .query{
     width: 520px;

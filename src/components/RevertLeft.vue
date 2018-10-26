@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="left-all">
     <div class="left1">
       <span>车型</span>
       <!--<img src="../../static/images/qc.png" alt="">-->
@@ -66,23 +66,75 @@
         },
       methods:{
         change:function (event) {
-          event.target.src = '../../static/images/cx_new.png';
+          if(event.target.src == 'http://localhost:8080/static/images/cx_new.png'){
+            event.target.src = '../../static/images/suv.png';
+          }else{
+            event.target.src = '../../static/images/cx_new.png';
+          }
+          if(event.target.nextElementSibling.innerText=='不限型'){
+            this.src='../../static/images/suv.png';
+            let brothers=$(event.target).parent().siblings();
+            for(let i=0;i<brothers.length;i++){
+
+              brothers[i].firstElementChild.src= '../../static/images/suv.png';
+            }
+          }else{
+            let brother=$(event.target).parent().siblings()[0];
+            brother.firstElementChild.src= '../../static/images/suv.png';
+          }
           // alert(event.target.id)
         },
         changePrice:function (event) {
+          let brothers=$(event.target).siblings()
+          for(let i=0;i<brothers.length;i++){
+            brothers[i].style.backgroundColor='gray';
+          }
           event.target.style.backgroundColor='#fabe00';
-          this.condition.carJiage = event.target.parentNode.parentNode.querySelector(".ul2").children[event.target.dataset.id].innerText;
+          if(event.target.parentNode.parentNode.querySelector(".ul2").children[event.target.dataset.id].innerText=='不限')
+          {
+            this.condition.carJiage=''
+          }else{
+            this.condition.carJiage = event.target.parentNode.parentNode.querySelector(".ul2").children[event.target.dataset.id].innerText;
+          }
           this.$emit('getConditionList',this.condition)
         },
         changeLiColor:function (event) {
-          event.target.style.color='#fabe00';
-          this.condition.carPingpai.push(event.target.innerText)
+          // alert(event.target.style.color)
+          if(event.target.style.color == 'rgb(250, 190, 0)'){
+            event.target.style.color='gray'
+          }else{
+            event.target.style.color='#fabe00'
+          }
+          if(this.condition.carPingpai.indexOf(event.target.innerText)==-1){
+            this.condition.carPingpai.push(event.target.innerText)
+          }else{
+            this.condition.carPingpai.splice(this.condition.carPingpai.indexOf(event.target.innerText), 1);
+          }
+          if(event.target.innerText=='不限'){
+            let brothers=$(event.target).siblings();
+            for(let i=0;i<brothers.length;i++){
+              brothers[i].style.color='gray'
+            }
+            this.condition.carPingpai=[]
+          }else{
+            let brother=$(event.target).siblings()[0];
+            brother.style.color='gray'
+          }
+          // event.target.style.color='#fabe00';
+          // this.condition.carPingpai.push(event.target.innerText)
           this.$emit('getConditionList',this.condition)
         },
-
         cxtype:function (e) {
           var img=e.target.parentNode.querySelector('span');
-          this.condition.carLeixing.push(img.innerHTML);
+          if(this.condition.carLeixing.indexOf(img.innerHTML)==-1){
+            this.condition.carLeixing.push(img.innerHTML);
+          }else{
+            this.condition.carLeixing.splice(this.condition.carLeixing.indexOf(img.innerHTML), 1);
+          }
+          if(img.innerHTML=='不限型'){
+            this.condition.carLeixing=[]
+          }
+          console.log(this.condition)
           this.$emit('getConditionList',this.condition)
         },
       },
@@ -94,7 +146,9 @@
 </script>
 
 <style scoped>
-
+  /*.left-all{*/
+    /*margin-top: 0;*/
+  /*}*/
   .left1{
     width: 100%;
     height: 250px;
@@ -163,7 +217,6 @@
     width: 100%;
     height: 460px;
     background-color: white;
-    margin-bottom: 5px;
   }
 
   .left3-all ul{

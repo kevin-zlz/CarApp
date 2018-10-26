@@ -36,7 +36,7 @@
             <div id="info_detail" class="nav-content" @click="show">我的信息</div>
             <div id="login-psw"  class="nav-content" @click="show">修改密码</div>
             <div class="nav-content" @click="show">驾照认证</div>
-            <div class="nav-content" @click="show">修改图像</div>
+            <div class="nav-content" @click="show">修改头像</div>
           </div>
           <div class="nav">
             <div class="nav-title">我的相关</div>
@@ -50,8 +50,9 @@
           <Order v-show="'短期自驾'===flag"></Order>
           <Information v-show="'我的信息'===flag"></Information>
           <Dic v-show="'驾照认证'===flag"></Dic>
-          <UpHead @getIcon="getUserIcon" v-show="'修改图像'===flag"></UpHead>
+          <UpHead @getIcon="getUserIcon" v-show="'修改头像'===flag"></UpHead>
           <Article v-show="'我的文章'===flag"></Article>
+          <MyActivity v-show="'我的活动'===flag"></MyActivity>
         </div>
       </div>
       <RevertBottom></RevertBottom>
@@ -61,6 +62,7 @@
 
 <script>
   import axios from 'axios';
+  import $ from 'jquery';
     export default {
         name: "User",
         data(){
@@ -75,31 +77,54 @@
           show:function (event) {
             if(event.target.innerHTML==='修改密码'){
               this.flag = '修改密码';
+              $(".nav-content").css({"color":"#a9a9b9","background-color":"white"});
+              event.currentTarget.style="background-color: #fff8e8;color: #fabe00";
+
             }
             if(event.target.innerHTML==='长期租车'){
               this.flag = '长期租车';
+              $(".nav-content").css({"color":"#a9a9b9","background-color":"white"});
+              event.currentTarget.style="background-color: #fff8e8;color: #fabe00";
             }
             if(event.target.innerHTML==='短期自驾'){
               // alert(event.target.innerHTML);
               this.flag = '短期自驾';
+              $(".nav-content").css({"color":"#a9a9b9","background-color":"white"});
+              event.currentTarget.style="background-color: #fff8e8;color: #fabe00";
+
             }
             if(event.target.innerHTML==='我的信息'){
               // alert(event.target.innerHTML);
               this.flag = '我的信息';
+              $(".nav-content").css({"color":"#a9a9b9","background-color":"white"});
+              event.currentTarget.style="background-color: #fff8e8;color: #fabe00";
             }
             if(event.target.innerHTML==='驾照认证'){
               // alert(event.target.innerHTML);
               this.flag = '驾照认证';
+              $(".nav-content").css({"color":"#a9a9b9","background-color":"white"});
+              event.currentTarget.style="background-color: #fff8e8;color: #fabe00";
             }
-            if(event.target.innerHTML==='修改图像'){
+            if(event.target.innerHTML==='修改头像'){
               // alert(event.target.innerHTML);
-              this.flag = '修改图像';
+              this.flag = '修改头像';
+              $(".nav-content").css({"color":"#a9a9b9","background-color":"white"});
+              event.currentTarget.style="background-color: #fff8e8;color: #fabe00";
             }
             if(event.target.innerHTML==='我的文章'){
               // alert(event.target.innerHTML);
               this.flag = '我的文章';
+              $(".nav-content").css({"color":"#a9a9b9","background-color":"white"});
+              event.currentTarget.style="background-color: #fff8e8;color: #fabe00";
+            }
+            if(event.target.innerHTML==='我的活动'){
+              // alert(event.target.innerHTML);
+              this.flag = '我的活动';
+              $(".nav-content").css({"color":"#a9a9b9","background-color":"white"});
+              event.currentTarget.style="background-color: #fff8e8;color: #fabe00";
             }
           },
+
           getUserIcon:function (e) {
             console.log(e)
             this.ImgUrl=e
@@ -263,8 +288,8 @@
   }
   .body-left .nav .nav-content:hover{
     cursor: pointer;
-    background-color: #fff8e8;
-    color: #fabe00;
+    background-color: #fff8e8!important;
+    color: #fabe00!important;
   }
   .body-right{
     width: 75%;

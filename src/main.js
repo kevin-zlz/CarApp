@@ -35,6 +35,8 @@ import UpHead from './components/UpHead'
 import Questions from './components/Questions'
 import Article from './components/Article'
 import Pagination from './components/Pagination'
+import MyActivity from './components/MyActivity'
+import SowingMap from './components/SowingMap'
 
 Vue.config.productionTip = false;
 
@@ -71,6 +73,8 @@ Vue.component('UpHead',UpHead);
 Vue.component('Questions',Questions);
 Vue.component('Article',Article);
 Vue.component('Pagination',Pagination);
+Vue.component('MyActivity',MyActivity);
+Vue.component('SowingMap',SowingMap);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

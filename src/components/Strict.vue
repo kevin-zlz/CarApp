@@ -1,98 +1,93 @@
 <template>
-<div>
-  <div class="store-modle">
-  <input type="text" class="store-input" v-model="inputtext" @click="change()" placeholder="请选择区">
-  <div class="store-div" v-if="flag">
-    <ul class="street" @click="strictclick($event.target)">
-      <li v-for="(a,index) in area" v-text="a.strictname" v-bind:key="index" :id="index" @click="get"></li>
-    </ul>
-    <ul class="store-name" @click="storeclick($event.target)">
-      <!--<li><span class="store-strict">姑苏区</span></li>-->
-      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
-      <!--<li><span class="store-strict">姑苏区</span></li>-->
-      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
-      <!--<li><span class="store-strict">姑苏区</span></li>-->
-      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
-      <!--<li><span class="store-strict">姑苏区</span></li>-->
-      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
-      <!--<li><span class="store-strict">姑苏区</span></li>-->
-      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
-      <!--<li><span class="store-strict">姑苏区</span></li>-->
-      <!--<li><span class="store-strict">苏州工业园区</span></li>-->
-      <!--<li><span class="store-strict">姑苏区</span></li>-->
-      <!--<li><span clsss="store-strict">苏州工业园区</span></li>-->
-      <li v-for="(s,index) in strict" :id="index" :key="index">
-        <span clsss="store-strict" v-text="s.storename"></span>
-      </li>
-    </ul>
+  <div>
+    <div class="store-modle">
+      <input type="text" class="store-input" v-model="inputtext" @click="change()" placeholder="请选择区">
+      <div class="store-div" v-if="flag">
+        <ul class="street" @click="strictclick($event.target)">
+          <li v-for="(a,index) in area" v-text="a.strictname" v-bind:key="index" :id="index" @click="get"></li>
+        </ul>
+        <ul class="store-name" @click="storeclick($event.target)" >
 
-    <div class="store-base">
-      <p>地址：<span>工业园区星湖街328号</span></p>
-      <p>营业时间：<span>9:00-18:00</span></p>
-      <p>门店电话：<span>18112556043</span></p>
+          <li v-for="(s,index) in strict" :id="index" :key="index">
+            <span clsss="store-strict" v-text="s.storename" :id="s.id" @mouseover="storemouseon(s.storetel,s.detailaddress,s.storetime)"></span>
+          </li>
+        </ul>
+
+        <div class="store-base">
+          <p>地址：<span v-text="storeDetail">工业园区星湖街328号</span></p>
+          <p>营业时间：<span v-text="storeTime">9:00-18:00</span></p>
+          <p>门店电话：<span v-text="storeTel">18112556043</span></p>
+        </div>
+
+      </div>
     </div>
-
   </div>
-</div>
-</div>
 
 </template>
 
 <script>
-export default {
-  props:['area'],
-  name: 'Strict',
-  data () {
-    return {
-      inputtext:'',
-      flag:false,
-      strict:[],
-    }
-  },
-  watch:{
-    area:function () {
-
-      for(var a  of this.area){
-
-        // console.log("循环",a.strictname);
+  export default {
+    props:['area'],
+    name: 'Strict',
+    data () {
+      return {
+        inputtext:'',
+        flag:false,
+        strict:[],
+        storeDetail:'',
+        storeTel:'',
+        storeTime:'',
       }
     },
-  },
-  methods:{
-    get:function(event){
-      for(var a  of this.area){
-        if(a.strictname == event.target.innerText){
+    watch:{
+      area:function (newval,oldval) {
+        // for(var a  of this.area){
+        //
+        //   // console.log("循环",a.strictname);
+        // }
+        this.inputtext=newval[0].stores[0].storename
+        this.$emit('getplace',this.inputtext,newval[0].stores[0].id)
+      },
+    },
+    methods:{
+      get:function(event){
+        for(var a  of this.area){
+          if(a.strictname == event.target.innerText){
             this.strict = a.stores;
-
             break;
+          }
         }
-      }
-      // this.strict = event.target.innerText
-    },
-    change:function(){
-      this.flag=!this.flag;
-
-    },
-    strictclick:function(event){
-      if(event.tagName=='LI'){
-        for(let i of event.parentElement.children){
-          i.style.backgroundColor='#f5f5f9';
-          i.style.color='#adadad';
+        // this.strict = event.target.innerText
+      },
+      change:function(){
+        this.flag=!this.flag;
+      },
+      strictclick:function(event){
+        if(event.tagName=='LI'){
+          for(let i of event.parentElement.children){
+            i.style.backgroundColor='#f5f5f9';
+            i.style.color='#adadad';
+          }
+          event.style.backgroundColor=' rgb(255, 210, 8)';
+          event.style.color='white';
         }
-        event.style.backgroundColor=' rgb(255, 210, 8)';
-        event.style.color='white';
-      }
-    },
-    storeclick:function (event) {
-      if(event.tagName=='LI'){
-        this.inputtext=event.children[0].innerText;
-        this.flag=false;
-        this.$emit('getplace',this.inputtext)
+      },
+      storeclick:function (event) {
+        if(event.tagName=='LI'){
+          this.inputtext=event.children[0].innerText;
+          this.flag=false;
+          this.$emit('getplace',this.inputtext,event.children[0].id)
+        }
+      },
+      storemouseon:function (storetel,detailaddress,storetime) {
+        this.storeTel=storetel
+        this.storeDetail=detailaddress
+        this.storeTime=storetime
       }
     }
   }
-}
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -111,12 +106,13 @@ export default {
   .store-modle .store-input{
     position: absolute;
     left: 0;
-    height: 48px;
+    height: 38px;
     width: 178px;
     color: #757575;
     border: none;
-    border-left: solid 1px gray;
     padding-left: 8px;
+    /*border-left: solid 1px gray;*/
+    /*padding-left: 8px;*/
   }
   .store-modle .store-div{
     z-index: 3;

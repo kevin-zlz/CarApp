@@ -26,14 +26,28 @@
       </ul>
       <div class="zc-findpro">
         <div class="zc-findpro1" v-show="flag==0">
-          <input class="zc-ipt t_val" type="text" id="userinput" placeholder="通过手机号或邮箱找回密码 " maxlength="33" style="border: 1px solid rgb(233, 235, 238); color: rgb(147, 147, 158);">
+          <div class="c_tip" v-show="Tips==1">
+            <span>◆</span>
+            <span class="ts-warning"></span>
+            <span v-text="tiShi.tishi1"></span>
+            <span class="ts-close" @click="Tips=0"></span>
+          </div>
+          <input class="zc-ipt t_val img1" type="text" id="userinput" v-model="telephone" placeholder="请输入手机号密码"  v-on:blur="f" maxlength="33" style="border: 1px solid rgb(233, 235, 238); color: rgb(147, 147, 158);">
           <p><a class="zc-btn btn-findpsw" id="findbackBt" @click="a">找回</a></p>
         </div>
         <div class="zc-findpro2" v-show="flag==1">
-          <p id="phoneConfirm">请确认您的手机号为：<span id="user-tel">1234325355</span> <a href="/member/loginandregist/getpassword.do">修改</a></p>
-          <p id="sendSuccess" style="display:none;">我们已经向您的手机发送了验证码，请注意查收！(如果10分钟后仍未收到短信，请重新发送)</p>
-          <p><input id="mobileVrf" class="zc-ipt t_val" type="text" placeholder="请输入动态验证码"  maxlength="6">
-            <span class=" btn-getdtm">获取手机动态码</span>
+          <p id="phoneConfirm">请确认您的手机号为：<span id="user-tel" v-text="telephone"></span><router-link to="/retrieve" class="aaa">修改</router-link></p>
+          <p id="sendSuccess" style="display:none;">我们已经向您的手机发送了验证码，请注意查收！(如果2分钟后仍未收到短信，请重新发送)</p>
+          <div class="c_tip2" v-show="flag1==5">
+            <span>◆</span>
+            <span class="ts-warning"></span>
+            <span>验证码过期或已失效</span>
+            <span class="ts-close" @click="flag1=0"></span>
+          </div>
+          <p>
+            <input id="mobileVrf" class="zc-ipt t_val img2" type="text" placeholder="请输入动态验证码"  maxlength="6" v-model="code">
+            <input class="message" type="button" value="点击发送验证码" v-on:click="sendCode($event.target)"/>
+            <!--<span class=" btn-getdtm">获取手机动态码</span>-->
           </p>
           <a class="zc-btn btn-findsubmit" id="phoneSbmBt" @click="b">提交</a>
         </div>
@@ -48,12 +62,27 @@
         <!--</div>-->
         <div class="zc-findpro4"  v-show="flag==2">
           <div class="zc-safepsw" id="pwdLevel" >
-            <span class="safe_1">弱</span>
-            <span class="safe_2">中</span>
-            <span class="safe_3">强</span>
+            <span class="safe_1" v-show="flag2!==1" :id="flag2">弱</span>
+            <span class="safe_1 ccc" v-show="flag2==1">弱</span>
+            <span class="safe_2" v-show="flag2!==2">中</span>
+            <span class="safe_2 ccc2" v-show="flag2==2">中</span>
+            <span class="safe_3" v-show="flag2!==3">强</span>
+            <span class="safe_3 ccc3" v-show="flag2==3">强</span>
           </div>
-          <p><input class="zc-ipt ipt-passwordS" type="text" id="pswd1S" value="建议6-18位数字、字母、符号的组合密码"></p>
-          <p><input class="zc-ipt ipt-passwordS" type="text" id="pswd2S" value="再次输入密码"></p>
+          <div class="c_tip3" v-show="Tips==2">
+            <span>◆</span>
+            <span class="ts-warning"></span>
+            <span v-text="tiShi.tishi2"></span>
+            <span class="ts-close" @click="Tips=0"></span>
+          </div>
+          <p><input class="zc-ipt ipt-passwordS img3" type="text" id="pswd1S" placeholder="请输入新密码" v-model="userInfo.password2" v-on:blur="d"></p>
+          <div class="c_tip4" v-show="Tips==3">
+            <span>◆</span>
+            <span class="ts-warning"></span>
+            <span v-text="tiShi.tishi3"></span>
+            <span class="ts-close" @click="Tips=0"></span>
+          </div>
+          <p><input class="zc-ipt ipt-passwordS img4" type="text" id="pswd2S" placeholder="再次输入密码" v-model="userInfo.password3" v-on:blur="e"></p>
           <a class="zc-btn btn-findsave" id="saveNewpwdBt" @click="c">保存</a>
         </div>
         <div class="zc-findresult" v-show="flag==3">
@@ -160,30 +189,170 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Retrieve',
   data () {
     return {
+      nums: 120,
+      btn: '',
+      clock: '',
       flag:0,
+      flag1:0,
+      flag2:0,
+      Tips:0,
       isPassed0:true,
       isPassed1:false,
       isPassed2:false,
       isPassed3:false,
+      telephone:"",
+      code:"",
+      userInfo:{
+        password1:'',
+        password2:'',
+        password3:'',
+      },
+      tiShi:{
+        tishi1:'',
+        tishi2:'',
+        tishi3:'11111',
+      },
     }
   },
   methods:{
+    sendCode:function (thisBtn) {
+      //--------------------倒计时---------------------------
+      this.btn = thisBtn;
+      console.log(this.btn);
+      this.btn.disabled = true; //将按钮置为不可点击
+      this.btn.value = this.nums + '秒后可重新获取';
+      this.clock = setInterval(this.doLoop, 1000); //一秒执行一次
+    //  --------------------------------------------------
+      axios.post('http://127.0.0.1:8000/user/sendcode/',
+        {
+          "telephone":this.telephone,
+        },
+        )
+        .then(response => {
+          // if (response.data.code === 0) {
+          //   vm.ImgUrl = 'http://127.0.0.1:8000/media/pic/'+response.data.url;
+          //   console.log(vm.ImgUrl);
+          // }
+          console.log(response.data)
+        });
+    },
+    doLoop:function () {
+      this.nums--;
+      if (this.nums > 0) {
+        this.btn.value = this.nums + '秒后可重新获取';
+      } else {
+        clearInterval(this.clock); //清除js定时器
+        this.btn.disabled = false;
+        this.btn.value = '点击发送验证码';
+        this.nums = 120; //重置时间
+      }
+    },
+    f(){
+      this.Tips=0;
+      this.tiShi.tishi1= '';
+      var p=/^1[34578]\d{9}$/;
+      if (!this.telephone) {
+        this.Tips=1;
+        this.tiShi.tishi1='用户名不能为空';
+        console.log( this.tiShi.tishi1)
+      }
+      else if(!p.test(this.telephone)){
+        this.Tips=1;
+        this.tiShi.tishi1="请输入11位手机号"
+      }
+    },
+
     a:function(){
       this.flag=1;
       this.isPassed1=true
     },
     b:function () {
-      this.flag=2;
-      this.isPassed2=true
+      // this.flag=2;
+      // this.isPassed2=true
+      axios.post('http://127.0.0.1:8000/user/verification/',
+        {
+          "telephone":this.telephone,
+          "code":this.code,
+        },
+      )
+        .then(response => {
+          if (response.data.code === 0) {
+            this.flag=2;
+            this.isPassed2=true
+
+          }else {
+            this.flag1 = 5;
+            console.log(response.data)
+          }
+        });
+
     },
     c:function () {
-      this.flag=3;
-      this.isPassed3=true
-    }
+      axios.post('http://127.0.0.1:8000/user/updatapwd/',
+        {
+          "telephone":this.telephone,
+          "password3":this.userInfo.password3,
+        },
+      )
+        .then(response => {
+          if (response.data.code === 0) {
+            this.flag=3;
+            this.isPassed3=true
+          }
+          console.log(response.data)
+        });
+
+    },
+    d(){
+      this.Tips=0;
+      this.tiShi.tishi2= '';
+      var p=/[a-zA-Z]\w[z0-9]/;
+      // this.flag=0;
+      // console.log(this.userInfo.password1)
+      // console.log(this.userInfo.password2)
+      if (!this.userInfo.password2){
+        this.Tips=2;
+        this.tiShi.tishi2='密码不能为空';
+      }
+      else if(!p.test(this.userInfo.password2)){
+        this.Tips=2;
+        this.tiShi.tishi2="字母开头+数字组成"
+      }
+      if (this.userInfo.password2.length>0&&this.userInfo.password2.length<6){
+        this.flag2=1;
+      }
+      else if (this.userInfo.password2.length>=6&&this.userInfo.password2.length<10){
+        this.flag2=2;
+      }
+      //注意比较大小写法
+      else if (this.userInfo.password2.length>=10&&this.userInfo.password2.length<15){
+        this.flag2=3;
+      }
+    },
+    e(){
+      this.Tips=0;
+      this.tiShi.tishi3= '';
+      var p=/[a-zA-Z]\w[z0-9]/;
+      // console.log(this.userInfo.password1)
+      // console.log(this.userInfo.password2)
+      if (this.userInfo.password2 !== this.userInfo.password3){
+        this.Tips=3;
+        this.tiShi.tishi3='两次密码不一致';
+      }
+      else if(!this.userInfo.password3) {
+        this.Tips=3;
+        this.tiShi.tishi3='密码不能为空';
+      }
+      else if(!p.test(this.userInfo.password3)){
+        this.Tips=3;
+        this.tiShi.tishi3="字母开头+数字组成"
+      }
+    },
   }
 }
 </script>
@@ -200,24 +369,11 @@ export default {
   input{
     outline: none;
   }
-  .head{
-    display: flex;
-    width: 100%;
-    height: 55px;
-    line-height: 55px;
-    box-sizing: border-box;
-    background-color: #1E1E1E;
-  }
+
   body{
     background-color: #f2f3f5;
   }
-  .head .logo-img{
-    flex:1;
-    display: inline;
-    height: 100%;
-    background-color: #ffa337;
-    max-width:300px ;
-  }
+
   .head ul{
     flex:3;
     display: flex;
@@ -252,31 +408,9 @@ export default {
     color: #fabe00;
   }
   /*-------------------------head--------------------*/
-  .main{
-    width: 100%;
-    height: 500px;
-    border-top: black solid 1px;
-    background-position-x: -640px;
-    background-repeat: no-repeat;
-    object-fit: cover;
-    /*background-image: url("../images/guoqing.jpg");*/
-  }
-  .main .query{
-    width: 520px;
-    height: 375px;
-    /*border: red solid 1px;*/
-    margin: 65px 0 0 80px;
-  }
+
   /*-----------------------------------------------*/
-  .tpt-bar {
-    display:flex;
-    border:1px solid  #e2e2e2;
-    border-radius:2px;
-    /*background: #f25f85;*/
-    background:#f2f2f2;
-    box-shadow:0 2px 5px 0 rgba(0,0,0,.1);
-    flex-wrap:wrap;
-  }
+
   .tpt-bar label {
     width: 42%;
     display:block;
@@ -325,147 +459,23 @@ export default {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  .service_body .city .store-modle{
-    position: absolute;
-    top:10px;
-    left: 230px;
-  }
-  .service_body .city div.take{
-    display: inline-block;
-    box-sizing: border-box;
-    height: 40px;
-    text-align: center;
-    color: #1e1e1e;
-    width: 60px;
-    /*border: red solid 1px;*/
-    margin-top: 10px;
-  }
-  .service_body .city .minute{
-    position: absolute;
-    top: 135px;
-    left: 280px;
-  }
-  .service_body .city .minute2{
-    position: absolute;
-    top: 185px;
-    left: 280px;
-  }
-  .service_body .city div.taketime{
-    position: absolute;
-    top: 135px;
-    left: 13px;
-  }
-  .service_body .city div.time{
-    position: absolute;
-    top: 135px;
-    left: 103px;
-  }
-  .service_body .city div.taketime2{
-    position: absolute;
-    top: 185px;
-    left: 13px;
-  }
-  .service_body .city div.time2{
-    position: absolute;
-    top: 185px;
-    left: 103px;
-  }
-
-  .zuche{
-    position: absolute;
-    top: 250px;
-    left: 26px;
-    width: 450px;
-    height: 40px;
-    background-color: #ff9d00;
-    text-align: center;
-    line-height: 40px;
-  }
 
   /*--------------------longtime---------------------------*/
 
-  .longtime{
-    height: 60px;
-    /*line-height: 60px;*/
-    width: 100%;
-    position: relative;
-  }
+
   .longtime div{
 
     display: inline-block;
   }
-  .longtime .item-title{
-    height: 30px;
-    margin-top: 20px;
-    box-sizing: border-box;
-  }
-  .longtime .lease{
-    position: relative;
-    width: 150px;
-  }
-  .longtime .carModel{
-    position: relative;
-  }
-  .longtime .apply{
-    height: 40px;
-    width: 450px;
-    /*border: red solid 1px;*/
-    background-color: #ff9d00;
-    margin:10px 20px;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 40px;
-  }
-  .longtime .store-modle{
-    /*display: inline-block;*/
-    /*margin-top: 0px;*/
-    position: absolute;
-    top:12px;
-    left: 228px;
-  }
+
   .longtime .apply a{
     text-decoration: none;
   }
 
   /*-----------------------------------------------*/
-  .main .point{
-    z-index: 3;
-    width: 100%;
-    height: 50px;
-    /*border: #ff0000 solid 1px;*/
-    /*background-color: red;*/
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-  }
-  .main .point .circle{
-    width: 10px;
-    height: 10px;
-    margin-left: 10px;
-    background-color: white;
-    border-radius: 50%;
-  }
+
   /*-------------------------------advantage---------------*/
-  .main-foot{
-    background-color: white;
-  }
-  .main-foot .advantage{
-    width: 100%;
-    height: 100px;
-    /*border: red solid 1px;*/
-    display: flex;
-    justify-content: center;
-  }
-  .main-foot .advantage .adv{
-    width:22%;
-    height: 100%;
-    border-left:#e9ebee solid 1px;
-    box-sizing: border-box;
-    text-align: center;
-    background-repeat: no-repeat;
-    background-position: 130px 25px;
-  }
+
   .main-foot .advantage div:nth-child(4){
     border-right: #e9ebee solid 1px;
     background-image: url("../assets/images/mile.svg");
@@ -489,19 +499,7 @@ export default {
 
 
   /*--------------------hot-car---------*/
-  .hot-car{
-    width: 100%;
-    height: 900px;
-    background-color: white;
-    margin-top: 100px;
-    padding: 80px;
-    box-sizing: border-box;
-  }
-  .hot-car .describe{
-    width: 100%;
-    height: 150px;
-    /*border: red solid 1px;*/
-  }
+
   .hot-car .describe p{
     text-align: center;
   }
@@ -514,11 +512,7 @@ export default {
     font-size: 1.2em;
     color: #93939e;
   }
-  .hot-city{
-    width: 100%;
-    height: 30px;
-    display: flex;
-  }
+
   .hot-city>div{
     flex: 1;
     font-size: 1.1em;
@@ -538,98 +532,19 @@ export default {
     text-decoration: none;
     color: #a7adb1;
   }
-  .hot-car .show-car{
-    margin-top: 20px;
-    width: 100%;
-    height: 550px;
-    display: flex;
-    /*border: red solid 1px;*/
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .show-car .car{
-    text-decoration: none;
-    width: 385px;
-    height: 260px;
-    /*border: red solid 1px;*/
-    object-fit: fill;
-    background-position: center;
-    background-size:contain ;
-    background-image: url("https://fimg.zuchecdn.com/upload/web/modepic/4.jpg");
 
-  }
-  .show-car .car:hover{
-    background-position-x: -10px;
-    /*box-shadow: 2px 3px 5px #e2e2e2;*/
-  }
   .show-car .car p{
     margin-top: 0;
     /*border: red solid 1px;*/
     height: 10px;
     line-height: 10px;
   }
-  .show-car .car p.car-name{
-    color: #60606c;
-    font-size: 16px;
-  }
-  .show-car .car p.car-type{
-    color: #60606c;
-    font-size: 14px;
-  }
-  /*------------------------------main-adv---------*/
-  .main-adv{
-    width: 100%;
-    height: 700px;
-    background-color: white;
-    margin-top: 100px;
-    padding: 80px;
-    box-sizing: border-box;
 
-  }
-  .main-adv .relex{
-    width: 100%;
-    height: 150px;
-    /*border: red solid 1px;*/
-    text-align: center;
-    line-height: 150px;
-    font-size: 2em;
-  }
-  .main-adv .display{
-    display: flex;
-    justify-content: space-between;
-    height: 350px;
-    /*border: red solid 1px;*/
-    box-sizing: border-box;
-  }
-  .display .content{
-    /*flex: 1;*/
-    border: #e2e2e2 solid 1px;
-    width: 345px;
-    height: 350px;
-    box-sizing: border-box;
-  }
-  .display .content:hover{
-    box-shadow: 5px 5px 5px #e2e2e2;
-    transition: box-shadow 1s;
-  }
-  .display .content .img{
-    /*border: red solid 1px;*/
-    padding: 30px 0px 0px 30px;
-    width: 100%;
-    height: 220px;
-    box-sizing: border-box;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-image: url("//static.wkzuche.com/www/images/index/img_1.png");
-  }
-  .content .img .line{
-    width: 15px;
-    height: 15px;
-    border-left: 2px solid white;
-    border-top: 2px solid white;
-    box-sizing: border-box;
-  }
+  /*------------------------------main-adv---------*/
+
+
+
+
   .content .img p{
     /*border: red solid 1px;*/
     margin: 0px 0 10px 0;
@@ -641,25 +556,7 @@ export default {
   .content .img p:nth-child(2){
     font-size: 1.5em;
   }
-  .content .icon{
-    display: flex;
-    width: 100%;
-    height: 130px;
-    align-items: center;
-    box-sizing: border-box;
-  }
-  .content .icon .split-line{
-    width: 0;
-    height: 40px;
-    border: #e4e6e9 solid 1px;
-    box-sizing: border-box;
-  }
-  .content .icon .left,.right{
-    width: 170px;
-    height: 130px;
-    text-align: center;
-    box-sizing: border-box;
-  }
+
   .content .icon a{
     text-decoration: none;
     color: #000;
@@ -671,24 +568,6 @@ export default {
     background-repeat: no-repeat;
     background-position: center 30px;
     line-height: 180px;
-  }
-  .display .content .icon a.a5{
-    background-image: url("../assets/images/duanzu.png");
-  }
-  .display .content .icon a.a6{
-    background-image: url("../assets/images/weizhi.png");
-  }
-  .display .content .icon a.a1{
-    background-image: url("../assets/images/zhinan.png");
-  }
-  .display .content .icon a.a2{
-    background-image: url("../assets/images/yuding.png");
-  }
-  .display .content .icon a.a3{
-    background-image: url("../assets/images/kefu.png");
-  }
-  .display .content .icon a.a4{
-    background-image: url("../assets/images/zuche.png");
   }
   .content .icon a:hover{
     color: #f77d7a;
@@ -704,25 +583,7 @@ export default {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  .leg{
-    /*width: 1200px;*/
-    width: 100%;
-    height: 170px;
-    margin: auto;
-    position: relative;
-    top: 45px;
-    display: flex;
-    padding-bottom: 60px;
-    padding-left: 80px;
-    box-sizing: border-box;
-  }
-  .leg .explain {
-    width: 158px;
-    height: 108px;
-    margin: auto;
-    padding-right: 80px;
-    flex: 1;
-  }
+
   .leg .explain dt{
     font-size: 16px;
     color: #60606c;
@@ -995,14 +856,26 @@ export default {
     box-sizing: border-box;
     color: #9e9e9e;
     font-size: 14px;
-    background-image: url("../assets/images/用户.svg");
+    /*background-image: url("../assets/images/用户.svg");*/
     background-repeat:no-repeat;
     background-position-y:5px;
     background-position-x:10px ;
 
   }
+  input.img1{
+    background-image: url("../assets/images/手机.svg");
+  }
+  input.img2{
+    background-image: url("../assets/images/手机.svg");
+  }
+  input.img3{
+    background-image: url("../assets/images/密码.svg");
+  }
+  input.img4{
+    background-image: url("../assets/images/密码.svg");
+  }
   .zc-findpro .zc-btn{
-    margin-top: 20px;
+    margin-top: 5px;
     display: inline-block;
     line-height: 50px;
     width: 320px;
@@ -1074,4 +947,176 @@ export default {
   .zc-findbox .passed .e-place{
     border-color:#5ab0ff;
   }
+  .message{
+    width: 120px;
+    height: 40px;
+    background: #fabe00;
+    /*margin-left: 200px;*/
+    border: 1px solid #ffde74;
+    font-size: 12px;
+    color: white;
+  }
+  .tiShi{
+    position: absolute;
+    /*top: px;*/
+    color: red;
+    font-size: 12px;
+    box-sizing: border-box;
+  }
+  .ccc{
+    /*color: green!important;*/
+    background: #fabe00 !important;
+    color: white!important;
+  }
+  .ccc2{
+    /*color: yellow!important;*/
+    background: #fabe00!important;
+    color: white!important;
+  }
+  .ccc3{
+    /*color: red!important;*/
+    background: #fabe00 !important;
+    color: white!important;
+  }
+  /*-------------------------------------------------------------------*/
+  .c_tip{
+    position: absolute;
+    /*top: -45px;*/
+    /*left: 30px;*/
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #dadadf;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 0 15px #B7B7B7;
+    top:250px;
+    left:610px;
+  }
+  .c_tip2{
+    position: absolute;
+    /*top: -45px;*/
+    /*left: 30px;*/
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #dadadf;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 0 15px #B7B7B7;
+    top:308px;
+    left:543px;
+  }
+  .c_tip2 span:first-child{
+    width: 18px;
+    position: absolute;
+    left: 50%;
+    margin-top: 19px;
+    /*height: 25px;*/
+    color: white;
+    /*line-height: 38px;*/
+    font-size: 20px;
+    margin-left: -24px;
+
+  }
+  .c_tip3{
+    position: absolute;
+    /*top: -45px;*/
+    /*left: 30px;*/
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #dadadf;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 0 15px #B7B7B7;
+    top: -41px;
+    left:240px;
+  }
+  .c_tip3 span:first-child{
+    width: 18px;
+    position: absolute;
+    left: 50%;
+    margin-top: 19px;
+    /*height: 25px;*/
+    color: white;
+    /*line-height: 38px;*/
+    font-size: 20px;
+    margin-left: -24px;
+
+  }
+  .c_tip4{
+    position: absolute;
+    /*top: -45px;*/
+    /*left: 30px;*/
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #dadadf;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 0 15px #B7B7B7;
+    top: 6px;
+    left:240px;
+  }
+  .c_tip4 span:first-child{
+    width: 18px;
+    position: absolute;
+    left: 50%;
+    margin-top: 19px;
+    /*height: 25px;*/
+    color: white;
+    /*line-height: 38px;*/
+    font-size: 20px;
+    margin-left: -24px;
+
+  }
+  .c_tip span:first-child{
+    width: 18px;
+    position: absolute;
+    left: 50%;
+    margin-top: 19px;
+    /*height: 25px;*/
+    color: white;
+    /*line-height: 38px;*/
+    font-size: 20px;
+    margin-left: -24px;
+
+  }
+  /*移❗*/
+  .ts-warning{
+    display: inline-block;
+    background: url(https://image.zuchecdn.com/newversion/news/common/icon.png) no-repeat;
+    width: 17px;
+    height: 17px;
+    background-position: -440px 0;
+    vertical-align: middle;
+    line-height: 38px;
+    position: absolute;
+    left: 10px;
+    top:10px
+
+  }
+  /*移×*/
+  .ts-close{
+    display: inline-block;
+    background: url(https://image.zuchecdn.com/newversion/news/common/icon.png) no-repeat;
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    background-position: -480px 0;
+  }
+/*-------------------------------------------------------------------------------------*/
+
 </style>

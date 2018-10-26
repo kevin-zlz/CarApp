@@ -17,39 +17,34 @@
     <div class="order-state">
       <div class="order-btn  short-btn">
         <div class="state" v-text="this.msg" v-show="">
-
         </div>
-        <div class="state" @click="show">全部文章</div>
-        <div class="state" @click="show">我评论的文章</div>
         <div class="state" @click="show">我发表的文章</div>
+        <div class="state" @click="show">我评论的文章</div>
         <div class="state" @click="show">我点赞的文章</div>
       </div>
       <div class="order-container">
-        <div class="table-head">
-          <div class="order-info">全部文章</div>
-        </div>
-        <div v-show="'全部文章'===flag">
-          <div id="short-content" class="table-content">
-            <div class="articalHead">
-              <div class="">内容</div>
-              <div class="">主题</div>
-              <div class="">发表时间</div>
-              <div class="">评论数</div>
-              <div class="">点赞数</div>
-              <div class="">操作</div>
-            </div>
-            <div class="articalHead items" v-for="artical in articallist">
-              <div class="">{{artical.content.substring(0,10)}}...</div>
-              <div class="" v-text="artical.type__typename">主题</div>
-              <div class="" v-text="artical.pubtime">发表时间</div>
-              <div class="" v-text="artical.commennum">评论数</div>
-              <div class="" v-text="artical.starnum">点赞数</div>
-              <div class="lastitem">
-                <div @click="deletArtical(artical.id)">删除</div>
-                <div @click="seemore(artical.id)">查看详情</div>
-              </div>
+        <div  v-show="'我发表的文章'===flag" >
+            <div  class="table-content">
+          <div class="articalHead">
+            <div class="">内容</div>
+            <div class="">主题</div>
+            <div class="">发表时间</div>
+            <div class="">评论数</div>
+            <div class="">点赞数</div>
+            <div class="">操作</div>
+          </div>
+          <div class="articalHead items" v-for="artical in articallist">
+            <div class="">{{artical.content.substring(0,10)}}...</div>
+            <div class="" v-text="artical.type__typename">主题</div>
+            <div class="" v-text="artical.pubtime">发表时间</div>
+            <div class="" v-text="artical.commennum">评论数</div>
+            <div class="" v-text="artical.starnum">点赞数</div>
+            <div class="lastitem">
+              <div @click="deletArtical(artical.id)">删除</div>
+              <div @click="seemore(artical.id)">查看详情</div>
             </div>
           </div>
+        </div>
         </div>
         <div  v-show="'我评论的文章'===flag" >
           <div  class="table-content">
@@ -71,30 +66,7 @@
             </div>
           </div>
         </div>
-        <div  v-show="'我发表的文章'===flag" >
-          <div  class="table-content">
-            <div class="articalHead">
-              <div class="">内容</div>
-              <div class="">主题</div>
-              <div class="">发表时间</div>
-              <div class="">评论数</div>
-              <div class="">点赞数</div>
-              <div class="">操作</div>
-            </div>
-            <div class="articalHead items" v-for="artical in articallist">
-              <div class="">{{artical.content.substring(0,10)}}...</div>
-              <div class="" v-text="artical.type__typename">主题</div>
-              <div class="" v-text="artical.pubtime">发表时间</div>
-              <div class="" v-text="artical.commennum">评论数</div>
-              <div class="" v-text="artical.starnum">点赞数</div>
-              <div class="lastitem">
-                <div @click="deletArtical(artical.id)">删除</div>
-                <div @click="seemore(artical.id)">查看详情</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div  v-show="'我点赞的文章'===flag">
+        <div  v-show="'我点赞的文章'===flag" >
           <div  class="table-content">
             <div class="articalHead getlikewidth">
               <div class="">帖主</div>
@@ -110,33 +82,34 @@
             </div>
           </div>
         </div>
-        <div class="page">
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+      </div>
+      <div class="page">
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
 </template>
 <script>
   import axios from 'axios'
+  import $ from 'jquery'
 export default {
   name: 'Order',
 
@@ -146,18 +119,44 @@ export default {
       articallist:[],
       commentlist:[],
       likelist:[],
-      flag:"全部文章",
+      flag:"我发表的文章",
     }
   },
   methods:{
     show:function (e) {
 
       this.flag = e.target.innerText;
+      if(e.target.innerText=='我发表的文章'){
+        let vm = this
+        axios.post("http://127.0.0.1:8000/boke/queryWritebyuid/",
+          {}, {
+            headers: {
+              'token': sessionStorage.getItem('token'),
+            }
+          })
+          .then(function (res) {
+            if (res.data) {
+              vm.articallist = res.data
+              console.log(vm.articallist)
+            }
+          }.bind(this))
+          .catch(function (err) {
+            if (err.response) {
+              console.log(err.response)
+            }
+          }.bind(this))
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
+      }
       if(e.target.innerText=='我评论的文章'){
-        this.commentArt()
+        this.commentArt();
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
       }
       if(e.target.innerText=='我点赞的文章'){
-        this.likeArt()
+        this.likeArt();
+        $(".state").css({"color":"#333333","background-color":"white"});
+        e.currentTarget.style=" background-color:#fabe00 ;color: white";
       }
     },
     getday:function (e) {
@@ -562,7 +561,7 @@ export default {
     display: flex;
     border: #d4d5d8 solid 1px;
     width: 924px;
-    height: 80px;
+    height: 60px;
     padding-left: 20px;
     box-sizing: border-box;
     background-color: white;
@@ -625,9 +624,11 @@ export default {
     background-color: white;
     border: #d4d5d8 solid 1px;
     width: 924px;
-    height: 566px;
+    min-height: 580px;
     padding: 20px;
     box-sizing: border-box;
+    padding-bottom: 100px;
+
   }
   .order-state .order-btn{
     width: 100%;
@@ -637,7 +638,7 @@ export default {
   }
   .order-state .order-btn .state{
     height: 40px;
-    width: 100%;
+    width: 20%;
     border: #d4d4d6 solid 1px;
     border-right: none;
     margin-left: 0;
@@ -651,7 +652,8 @@ export default {
   }
   .order-state .order-btn .state:hover{
     cursor: pointer;
-    background-color: #fabe00;
+    background-color: #fabe00 !important;
+    color: white!important;
   }
   .order-statement{
     background-color: white;
@@ -875,10 +877,14 @@ export default {
     text-align: center;
   }
   .page{
-    /*position: absolute;*/
-    /*top: 400px;*/
-    /*left: 300px;*/
+
+    width: 100%;
+    position: absolute;
     text-align: center;
+    left: 0;
+    bottom: 20px;
+    padding-top: 30px;
+
   }
   .footer{
     margin-top: 1150px;

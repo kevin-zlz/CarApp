@@ -491,10 +491,11 @@
 <script>
   import axios from 'axios'
   export default {
+    props:['mycity'],
     name: 'City',
     data () {
       return {
-        clock: '选择城市',
+        clock: this.mycity,
         nums: '',
 
         istitleclick: false,
@@ -503,82 +504,80 @@
     },
     methods:{
       change:function () {
-          this.iscityclick=!this.iscityclick;
-
+        this.iscityclick=!this.iscityclick;
       },
       changtitle:function (event) {
-          // console.log(event.target.className)
+        // console.log(event.target.className)
 
-          for(let i of event.target.parentElement.children){
-            i.style.borderBottom='none'
-          }
-          // for(let i of event.target.parentElement.nextElementSibling.children){
-          //   i.style.display='none'
-          // }
-          if(event.target.className=='title0'){
-            event.target.style.borderBottom='#fabe00 solid 2px'
-            for(let i of event.target.parentElement.nextElementSibling.children){
-              i.style.display='none'
-              if(i.className=='cur'){
-                i.style.display='inline-block'
-              }
-            }
-          }else if(event.target.className=='title1'){
-            event.target.style.borderBottom='#fabe00 solid 2px'
-            for(let i of event.target.parentElement.nextElementSibling.children){
-              i.style.display='none'
-              if(i.className=='play'){
-                i.style.display='inline-block'
-              }
-            }
-          }else if(event.target.className=='title2'){
-            event.target.style.borderBottom='#fabe00 solid 2px'
-            for(let i of event.target.parentElement.nextElementSibling.children){
-              i.style.display='none'
-              if(i.className=='city-ABCD'){
-                i.style.display='inline-block'
-              }
-            }
-          }else if(event.target.className=='title3'){
-            event.target.style.borderBottom='#fabe00 solid 2px'
-            for(let i of event.target.parentElement.nextElementSibling.children){
-              i.style.display='none'
-              if(i.className=='city-EFGHJ'){
-                i.style.display='inline-block'
-              }
-            }
-          }else if(event.target.className=='title4'){
-            event.target.style.borderBottom='#fabe00 solid 2px'
-            for(let i of event.target.parentElement.nextElementSibling.children){
-              i.style.display='none'
-              if(i.className=='city-KLMNPQ'){
-                i.style.display='inline-block'
-              }
-            }
-          }else if(event.target.className=='title5'){
-            event.target.style.borderBottom='#fabe00 solid 2px'
-            for(let i of event.target.parentElement.nextElementSibling.children){
-              i.style.display='none'
-              if(i.className=='city-RSTW'){
-                i.style.display='inline-block'
-              }
-            }
-          }else if(event.target.className=='title6'){
-            event.target.style.borderBottom='#fabe00 solid 2px'
-            for(let i of event.target.parentElement.nextElementSibling.children){
-              i.style.display='none'
-              if(i.className=='city-XYZ'){
-                i.style.display='inline-block'
-              }
+        for(let i of event.target.parentElement.children){
+          i.style.borderBottom='none'
+        }
+        // for(let i of event.target.parentElement.nextElementSibling.children){
+        //   i.style.display='none'
+        // }
+        if(event.target.className=='title0'){
+          event.target.style.borderBottom='#fabe00 solid 2px'
+          for(let i of event.target.parentElement.nextElementSibling.children){
+            i.style.display='none'
+            if(i.className=='cur'){
+              i.style.display='inline-block'
             }
           }
-        },
+        }else if(event.target.className=='title1'){
+          event.target.style.borderBottom='#fabe00 solid 2px'
+          for(let i of event.target.parentElement.nextElementSibling.children){
+            i.style.display='none'
+            if(i.className=='play'){
+              i.style.display='inline-block'
+            }
+          }
+        }else if(event.target.className=='title2'){
+          event.target.style.borderBottom='#fabe00 solid 2px'
+          for(let i of event.target.parentElement.nextElementSibling.children){
+            i.style.display='none'
+            if(i.className=='city-ABCD'){
+              i.style.display='inline-block'
+            }
+          }
+        }else if(event.target.className=='title3'){
+          event.target.style.borderBottom='#fabe00 solid 2px'
+          for(let i of event.target.parentElement.nextElementSibling.children){
+            i.style.display='none'
+            if(i.className=='city-EFGHJ'){
+              i.style.display='inline-block'
+            }
+          }
+        }else if(event.target.className=='title4'){
+          event.target.style.borderBottom='#fabe00 solid 2px'
+          for(let i of event.target.parentElement.nextElementSibling.children){
+            i.style.display='none'
+            if(i.className=='city-KLMNPQ'){
+              i.style.display='inline-block'
+            }
+          }
+        }else if(event.target.className=='title5'){
+          event.target.style.borderBottom='#fabe00 solid 2px'
+          for(let i of event.target.parentElement.nextElementSibling.children){
+            i.style.display='none'
+            if(i.className=='city-RSTW'){
+              i.style.display='inline-block'
+            }
+          }
+        }else if(event.target.className=='title6'){
+          event.target.style.borderBottom='#fabe00 solid 2px'
+          for(let i of event.target.parentElement.nextElementSibling.children){
+            i.style.display='none'
+            if(i.className=='city-XYZ'){
+              i.style.display='inline-block'
+            }
+          }
+        }
+      },
       clicktext:function (event) {
         if(event.target.tagName=='A'||event.target.tagName=='SPAN'){
 
           this.clock=event.target.innerText;
           this.iscityclick=false;
-          this.$emit("mycity",event.target.innerHTML);
         }
       }
     },
@@ -596,13 +595,6 @@
           })
           .then(function (res) {
             vm.$emit("spot",res.data,vm.clock)
-            // console.log(typeof res.data)
-            // console.log(res.data[0].stores);
-            // console.log(res.data[0].strictname);
-            // vm.$emit("spot",JSON.stringify(res));
-            // console.log(res)
-            // console.log(JSON.stringify(res.data));
-            // console.log(JSON.stringify(res.data));
           }.bind(this))
           .catch(function (err) {
             if (err.response) {
@@ -611,10 +603,15 @@
             }
             //bind(this)可以不用
           }.bind(this))
+      },
+      mycity:function (newval,oldval) {
+        this.clock=newval
+        // alert(this.clock)
       }
     }
   }
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -623,15 +620,15 @@
     display: inline-block;
   }
   .s_city1{
-    margin-top: 0px;
+    margin-top: 0;
     margin-left: 0;
     display: inline;
     padding-left: 8px;
     height: 38px;
-    width: 163px;
+    width: 155px;
     border: none;
     /*border-left: solid 1px #ababab;*/
-    font-size: 16px;
+    font-size: 14px;
     color: #777;
     /* 点击无边框*/
     outline: none;

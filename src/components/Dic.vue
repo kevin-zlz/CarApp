@@ -29,6 +29,8 @@
       <div class="bb2">
         <input class="bb1" type="button" value="提交" @click="update1">
       </div>
+
+
     </ul>
   </div>
 </template>
@@ -178,7 +180,7 @@ export default {
   }
   .info{
     width: 924px;
-    height:940px;
+    min-height:640px;
     border: #e9ebee solid 1px;
     padding: 0px 20px ;
     background-color: white;
